@@ -1,39 +1,42 @@
-name: GeoPuls Daily AI Update
+name: Daily GeoPuls Update
 
 on:
   schedule:
-    - cron: '0 4 * * *'  # Täglich 04:00 UTC
-  workflow_dispatch:     # Manuell auslösbar
+    # Täglich um 04:00 Uhr UTC ausführen
+    - cron: '0 4 * * *'
+  workflow_dispatch: # Erlaubt manuelles Auslösen über den Button in GitHub Actions
 
 jobs:
-  run-ai:
+  update-dashboard:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # Wichtig: Erlaubt GitHub Actions das Pushen von data.json und history.json
 
     steps:
-      - name: Code auschecken
-        uses: actions/checkout@v5
+      - name: Repository auschecken
+        uses: actions/checkout@v4
 
-      - name: Python einrichten
-        uses: actions/setup-python@v6
+      - name: Python 3.11 einrichten
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Groq-SDK und Feedparser installieren
+      - name: Abhängigkeiten installieren
         run: |
-          pip install groq feedparser
+          python -m pip install --upgrade pip
+          pip install groq feedparser requests yfinance
 
-      - name: KI Analyse ausführen
+      - name: GeoPuls Skript ausführen
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           python update_dashboard.py
 
-      - name: data.json committen und pushen
+      - name: Aktualisierte Daten committen und pushen
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add data.json
-          git commit -m "GeoPuls: Tägliches KI-Update [skip ci]" || exit 0
-          git push
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json history.json || true
+          git diff --staged --quiet || (git commit -m "Automatisches GeoPuls Update [skip ci]" && git push)
