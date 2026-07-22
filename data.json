@@ -1,70 +1,118 @@
 {
+  "defcon_status": {
+    "level": 3,
+    "label": "DEFCON 3 - Erhöhte Einsatzbereitschaft",
+    "nuclear_risk_percent": 18,
+    "primary_driver": "Nukleare Doktrin-Anpassungen, Manöver der Strategischen Bomber & Rhetorik sowie eskalierende Konflikte im Nahen Osten und in der Ukraine"
+  },
   "conflict_hotspots": [
     {
-      "region": "Naher Osten",
-      "actors": "USA, Iran, Israel, Saudi-Arabien",
+      "region": "Naher Osten / Iran & Israel",
+      "actors": "USA / Israel vs. Iran / Achse des Widerstands",
       "escalation_level": "KRITISCH",
-      "catalyst": "Drohungen und Angriffe im Persischen Golf",
-      "impact": "Ölpreise, Seewege und globale Versorgungsketten"
+      "catalyst": "Aktuelle Drohungen und Angriffe auf Schiffe sowie Rhetorik-Eskalation",
+      "impact": "Brent-Öl und Seewege"
     },
     {
-      "region": "Ukraine/Russland",
-      "actors": "Russland, Ukraine, USA, EU",
+      "region": "Ukraine / NATO-Ostflanke",
+      "actors": "Russland vs. Ukraine / NATO-Unterstützer",
       "escalation_level": "HOCH",
-      "catalyst": "Angriffe und Gegenangriffe entlang der Frontlinie",
-      "impact": "Energieversorgung Europas, globale Getreidepreise"
+      "catalyst": "Frontverlauf und Rüstungsentscheidungen",
+      "impact": "Energiemärkte und europäische Stabilität"
+    },
+    {
+      "region": "Taiwan-Straße & Indopazifik",
+      "actors": "China vs. Taiwan / USA & Japan",
+      "escalation_level": "MITTEL-HOCH",
+      "catalyst": "Militärmanöver und Sanktionen",
+      "impact": "Halbleiter-Lieferketten"
+    },
+    {
+      "region": "Rotes Meer / Bab al-Mandab",
+      "actors": "Houthi vs. Marine-Allianz",
+      "escalation_level": "HOCH",
+      "catalyst": "Schiffsangriffe",
+      "impact": "Frachtraten & Supply Chains"
     }
   ],
   "systemic_risks": [
     {
-      "topic": "Dedollarisierung und CBDC-Entwicklung",
-      "category": "Finanzarchitektur",
-      "risk_level": "MITTEL-HOCH",
-      "status": "Fortgeschrittene Tests und Einführungspläne",
-      "impact": "Globale Währungshierarchie, Dollar-Dominanz"
+      "topic": "Moldawien & Transnistrien",
+      "category": "Geopolitische Region",
+      "risk_level": "HOCH",
+      "status": "Diplomatische Spannungen & Hybride Einwirkung",
+      "impact": "Gefahr einer zweiten Front im Schwarzmeerraum"
     },
     {
-      "topic": "AsymmetrischeCyberangriffe und digitale Überwachung",
-      "category": "Geostrategie",
+      "topic": "EU-Chatkontrolle & Verschlüsselungsverbot",
+      "category": "Digitale Kontrolle",
       "risk_level": "HOCH",
-      "status": "Erhöhte Bedrohungen und Vorfälle",
-      "impact": "Datensicherheit, kritische Infrastruktur"
+      "status": "Gesetzgebungsverfahren in Brüssel",
+      "impact": "Aufweichung der Ende-zu-Ende-Verschlüsselung"
+    },
+    {
+      "topic": "Seltene Erden Monopol & Rohstoff-Hebel",
+      "category": "Strategischer Hebel",
+      "risk_level": "MITTEL-HOCH",
+      "status": "Exportkontrollen & Rivalität",
+      "impact": "Lieferengpässe bei High-Tech und Rüstung"
     }
   ],
-  "timestamp": "22.07.2026 - 22:38 UTC",
+  "timestamp": "22.07.2026 - 22:52 UTC",
   "global_risk_score": 82,
-  "market_regime": "Volatil mit Tendenz zu Defensivwerten",
-  "top_overweight": "Defensive Sektoren wie Gesundheitswesen und Konsumgüter",
-  "top_risk": "Geopolitische Spannungen und Währungsunsicherheit",
-  "daily_executive_summary": "Die globale Lage ist durch erhöhte geopolitische Spannungen und wachsende Unsicherheit in den Finanzmärkten gekennzeichnet. Die Bedrohung durch Cyberangriffe und digitale Überwachung steigt, während die Dedollarisierung und die Entwicklung von Zentralbankdigitalwährungen (CBDC) die globale Finanzarchitektur verändern könnten. Investoren sollten defensiv positioniert sein und auf Anzeichen einer weiteren Eskalation achten.",
+  "market_regime": "Multipolare Stagflation & Zins-Unsicherheit",
+  "top_overweight": "Gold, Energie, Rohstoffe & Verteidigung",
+  "top_risk": "Versorgungsschock / Geopolitische Blockbildung",
+  "daily_executive_summary": "Tagesaktuelle Synthese: Die globalen Spannungen bleiben hoch, insbesondere im Nahen Osten und in der Ukraine. Nukleare Risiken steigen aufgrund der Rhetorik und Militärmanöver. Es ist wichtig, die Entwicklungen in diesen Regionen sowie die Reaktionen der globalen Akteure genau zu beobachten.",
   "assets": [
     {
       "name": "Gold & Silber",
       "signal": "GREEN",
       "signal_text": "Sehr Attraktiv",
       "trend": "Stark Steigend",
-      "driver": "Sicherheitsbedürfnis und Inflationsschutz"
+      "driver": "Haupttreiber"
+    },
+    {
+      "name": "KI & Halbleiter",
+      "signal": "GREEN",
+      "signal_text": "Attraktiv",
+      "trend": "Steigend",
+      "driver": "Haupttreiber"
     },
     {
       "name": "Uran & Energie",
       "signal": "GREEN",
       "signal_text": "Attraktiv",
-      "trend": "Steigend",
-      "driver": "Energieunsicherheit und Nachhaltigkeitstrends"
+      "trend": "Stark Steigend",
+      "driver": "Haupttreiber"
     },
     {
       "name": "S&P 500 / Nasdaq",
       "signal": "AMBER",
       "signal_text": "Neutral",
       "trend": "Volatil",
-      "driver": "Unternehmensgewinne und Zinssatzentwicklungen"
+      "driver": "Haupttreiber"
+    },
+    {
+      "name": "Bitcoin & Krypto",
+      "signal": "AMBER",
+      "signal_text": "Neutral",
+      "trend": "Volatil",
+      "driver": "Haupttreiber"
     },
     {
       "name": "High-Yield Bonds",
       "signal": "RED",
       "signal_text": "Unattraktiv",
       "trend": "Fallend",
-      "driver": "Zinserhöhungen und Kreditrisiken"
+      "driver": "Haupttreiber"
+    },
+    {
+      "name": "Gewerbeimmobilien",
+      "signal": "RED",
+      "signal_text": "Meiden",
+      "trend": "Stark Fallend",
+      "driver": "Haupttreiber"
     }
   ],
   "regions": [
@@ -72,16 +120,28 @@
       "name": "USA",
       "signal": "GREEN",
       "signal_text": "Grün",
-      "summary": "Stabile Wirtschaft, aber geopolitische Risiken"
+      "summary": "Stabile Wirtschaft und politische Stabilität"
     },
     {
       "name": "BRICS & Globaler Süden",
       "signal": "GREEN",
       "signal_text": "Grün",
-      "summary": "Wachsende wirtschaftliche Bedeutung und zunehmende Kooperation"
+      "summary": "Wachsende wirtschaftliche und politische Macht"
+    },
+    {
+      "name": "Japan & Indien / ASEAN",
+      "signal": "GREEN",
+      "signal_text": "Grün",
+      "summary": "Wachsende wirtschaftliche Zusammenarbeit und Stabilität"
     },
     {
       "name": "Kern-Europa (DE/FR/CH)",
+      "signal": "RED",
+      "signal_text": "Rot",
+      "summary": "Hohe Unsicherheit und Instabilität"
+    },
+    {
+      "name": "China (Binnenmarkt)",
       "signal": "RED",
       "signal_text": "Rot",
       "summary": "Wirtschaftliche und politische Unsicherheit"
@@ -89,20 +149,20 @@
   ],
   "scenarios": [
     {
-      "title": "Szenario 1: Geopolitische Deeskalation und Wirtschaftswachstum",
-      "prob": 20
+      "title": "Ausweitung Nahost-Konflikt (Ölschock >100$)",
+      "prob": 45
     },
     {
-      "title": "Szenario 2: Fortgesetzte Spannungen und Rezession",
-      "prob": 40
-    },
-    {
-      "title": "Szenario 3: Überraschende geopolitische Lösungen und Marktrally",
-      "prob": 10
-    },
-    {
-      "title": "Szenario 4: Globale Finanzkrise und Systemwechsel",
+      "title": "Zweite Inflationswelle / Multipolare Stagflation",
       "prob": 30
+    },
+    {
+      "title": "Direkte NATO-Eskalation / Militärischer Zwischenfall",
+      "prob": 12
+    },
+    {
+      "title": "BRICS-Handelswährung / Beschleunigte Dedollarisierung",
+      "prob": 13
     }
   ]
 }
