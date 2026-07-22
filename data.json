@@ -2,90 +2,62 @@
   "conflict_hotspots": [
     {
       "region": "Naher Osten",
-      "actors": "USA, Iran, Saudi-Arabien",
+      "actors": "USA, Iran, Israel, Saudi-Arabien",
       "escalation_level": "KRITISCH",
       "catalyst": "Drohungen und Angriffe im Persischen Golf",
-      "impact": "Auswirkungen auf Ölpreise und globale Versorgung"
+      "impact": "Ölpreise, Seewege und globale Versorgungsketten"
     },
     {
       "region": "Ukraine/Russland",
-      "actors": "Ukraine, Russland, USA, EU",
+      "actors": "Russland, Ukraine, USA, EU",
       "escalation_level": "HOCH",
-      "catalyst": "Fortgesetzte Kämpfe und Sanktionen",
-      "impact": "Auswirkungen auf europäische Energieversorgung und globale Politik"
-    },
-    {
-      "region": "Asien-Pazifik",
-      "actors": "China, USA, Japan, Indien",
-      "escalation_level": "MITTEL",
-      "catalyst": "Territoriale Streitigkeiten und Handelskonflikte",
-      "impact": "Auswirkungen auf globale Handel und politische Allianzen"
-    },
-    {
-      "region": "Israel/Palästina",
-      "actors": "Israel, Palästinenser, USA",
-      "escalation_level": "KRITISCH",
-      "catalyst": "Fortgesetzte Gewalt und Siedlungsbau",
-      "impact": "Auswirkungen auf regionale Stabilität und internationale Beziehungen"
+      "catalyst": "Angriffe und Gegenangriffe entlang der Frontlinie",
+      "impact": "Energieversorgung Europas, globale Getreidepreise"
     }
   ],
   "systemic_risks": [
     {
-      "topic": "Globaler Währungskrieg",
-      "category": "Geomonetär",
-      "risk_level": "HOCH",
-      "status": "Escalation durch protektionistische Maßnahmen",
-      "impact": "Destabilisierung globaler Finanzmärkte und Handelsbeziehungen"
-    },
-    {
-      "topic": "Klimawandel und Umweltzerstörung",
-      "category": "Ressourcen",
+      "topic": "Dedollarisierung und CBDC-Entwicklung",
+      "category": "Finanzarchitektur",
       "risk_level": "MITTEL-HOCH",
-      "status": "Fortgesetzte Erwärmung und Umweltkatastrophen",
-      "impact": "Langfristige Auswirkungen auf globale Ökosysteme und Wirtschaft"
+      "status": "Fortgeschrittene Tests und Einführungspläne",
+      "impact": "Globale Währungshierarchie, Dollar-Dominanz"
     },
     {
-      "topic": "Cybersicherheitsbedrohungen",
-      "category": "Digitalrechte",
+      "topic": "AsymmetrischeCyberangriffe und digitale Überwachung",
+      "category": "Geostrategie",
       "risk_level": "HOCH",
-      "status": "Erhöhte Angriffe und Datendiebstähle",
-      "impact": "Verlust von Vertrauen in digitale Systeme und Bedrohung der nationalen Sicherheit"
+      "status": "Erhöhte Bedrohungen und Vorfälle",
+      "impact": "Datensicherheit, kritische Infrastruktur"
     }
   ],
-  "timestamp": "22.07.2026 - 22:25 UTC",
-  "global_risk_score": 85,
-  "market_regime": "Hohe Volatilität und Unsicherheit",
-  "top_overweight": "Verteidigungsindustrie, Edelmetalle, erneuerbare Energien",
-  "top_risk": "Globaler Währungskrieg und Zerfall internationaler Beziehungen",
-  "daily_executive_summary": "Die Welt steht vor zahlreichen Krisenherden und systemischen Risiken. Die Lage im Nahen Ostenescalation und die ukrainisch-russischen Konflikte dominieren die politische Landschaft. Zudem bedrohen Klimawandel, Cybersicherheitsbedrohungen und protektionistische Maßnahmen die globale Stabilität.",
+  "timestamp": "22.07.2026 - 22:38 UTC",
+  "global_risk_score": 82,
+  "market_regime": "Volatil mit Tendenz zu Defensivwerten",
+  "top_overweight": "Defensive Sektoren wie Gesundheitswesen und Konsumgüter",
+  "top_risk": "Geopolitische Spannungen und Währungsunsicherheit",
+  "daily_executive_summary": "Die globale Lage ist durch erhöhte geopolitische Spannungen und wachsende Unsicherheit in den Finanzmärkten gekennzeichnet. Die Bedrohung durch Cyberangriffe und digitale Überwachung steigt, während die Dedollarisierung und die Entwicklung von Zentralbankdigitalwährungen (CBDC) die globale Finanzarchitektur verändern könnten. Investoren sollten defensiv positioniert sein und auf Anzeichen einer weiteren Eskalation achten.",
   "assets": [
     {
       "name": "Gold & Silber",
       "signal": "GREEN",
       "signal_text": "Sehr Attraktiv",
       "trend": "Stark Steigend",
-      "driver": "Flucht in Wertbeständige Assets"
-    },
-    {
-      "name": "Verteidigungsindustrie",
-      "signal": "GREEN",
-      "signal_text": "Attraktiv",
-      "trend": "Steigend",
-      "driver": "Militärische Aufrüstung und Konflikte"
+      "driver": "Sicherheitsbedürfnis und Inflationsschutz"
     },
     {
       "name": "Uran & Energie",
       "signal": "GREEN",
       "signal_text": "Attraktiv",
-      "trend": "Stark Steigend",
-      "driver": "Energiekrise und nuclearerneuerbare Energien"
+      "trend": "Steigend",
+      "driver": "Energieunsicherheit und Nachhaltigkeitstrends"
     },
     {
       "name": "S&P 500 / Nasdaq",
       "signal": "AMBER",
       "signal_text": "Neutral",
       "trend": "Volatil",
-      "driver": "Unsicherheit und Marktschwankungen"
+      "driver": "Unternehmensgewinne und Zinssatzentwicklungen"
     },
     {
       "name": "High-Yield Bonds",
@@ -100,37 +72,37 @@
       "name": "USA",
       "signal": "GREEN",
       "signal_text": "Grün",
-      "summary": "Wirtschaftliche Stärke und geopolitische Macht"
+      "summary": "Stabile Wirtschaft, aber geopolitische Risiken"
     },
     {
-      "name": "Asien-Pazifik",
+      "name": "BRICS & Globaler Süden",
       "signal": "GREEN",
       "signal_text": "Grün",
-      "summary": "Wirtschaftswachstum und strategische Bedeutung"
+      "summary": "Wachsende wirtschaftliche Bedeutung und zunehmende Kooperation"
     },
     {
-      "name": "Europa",
+      "name": "Kern-Europa (DE/FR/CH)",
       "signal": "RED",
       "signal_text": "Rot",
-      "summary": "Wirtschaftliche Herausforderungen und politische Instabilität"
+      "summary": "Wirtschaftliche und politische Unsicherheit"
     }
   ],
   "scenarios": [
     {
-      "title": "Szenario 1: Globale Rezession",
+      "title": "Szenario 1: Geopolitische Deeskalation und Wirtschaftswachstum",
+      "prob": 20
+    },
+    {
+      "title": "Szenario 2: Fortgesetzte Spannungen und Rezession",
       "prob": 40
     },
     {
-      "title": "Szenario 2: Eskalation im Nahen Osten",
+      "title": "Szenario 3: Überraschende geopolitische Lösungen und Marktrally",
+      "prob": 10
+    },
+    {
+      "title": "Szenario 4: Globale Finanzkrise und Systemwechsel",
       "prob": 30
-    },
-    {
-      "title": "Szenario 3: Klimakatastrophe",
-      "prob": 15
-    },
-    {
-      "title": "Szenario 4: Wiederherstellung globaler Stabilität",
-      "prob": 15
     }
   ]
 }
