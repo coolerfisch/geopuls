@@ -1,118 +1,118 @@
 {
   "defcon_status": {
-    "level": 3,
-    "label": "DEFCON 3 - Erhöhte Einsatzbereitschaft",
-    "nuclear_risk_percent": 18,
-    "primary_driver": "Nukleare Doktrin-Anpassungen, Manöver der Strategischen Bomber & Rhetorik sowie eskalierende Konflikte im Nahen Osten und in der Ukraine"
+    "level": 4,
+    "label": "DEFCON 4 - Erhöhte Wachsamkeit",
+    "nuclear_risk_percent": 20,
+    "primary_driver": "Nukleardoktrin-Anpassungen, Militärmanöver und Spannungen im Nahen Osten"
+  },
+  "narrative_divergence": {
+    "topic": "Nahost-Konflikt und seine Auswirkungen",
+    "mainstream_view": "Fokus auf Terrorismus und Staatssicherheit, Betonung der Rolle der USA und westlicher Verbündeter",
+    "brics_view": "Betonung der Rolle externer Akteure bei der Eskalation des Konflikts, Fokus auf wirtschaftliche und politische Interessen",
+    "alternative_view": "Kritik an westlichen Interventionen, Fokus auf die Rolle von Öl und strategischen Ressourcen im Konflikt"
   },
   "conflict_hotspots": [
     {
       "region": "Naher Osten / Iran & Israel",
-      "actors": "USA / Israel vs. Iran / Achse des Widerstands",
+      "actors": "USA / Israel vs. Iran / Achse",
       "escalation_level": "KRITISCH",
-      "catalyst": "Aktuelle Drohungen und Angriffe auf Schiffe sowie Rhetorik-Eskalation",
-      "impact": "Brent-Öl und Seewege"
+      "catalyst": "Militärische Schläge oder Angriffe auf Seewege",
+      "impact": "Brent-Öl und Frachtrouten",
+      "lat": 31.5,
+      "lng": 34.75
     },
     {
       "region": "Ukraine / NATO-Ostflanke",
-      "actors": "Russland vs. Ukraine / NATO-Unterstützer",
+      "actors": "Russland vs. Ukraine / NATO",
       "escalation_level": "HOCH",
-      "catalyst": "Frontverlauf und Rüstungsentscheidungen",
-      "impact": "Energiemärkte und europäische Stabilität"
+      "catalyst": "Frontverlauf und Rüstung",
+      "impact": "Europäische Energiemärkte",
+      "lat": 48.37,
+      "lng": 31.16
     },
     {
       "region": "Taiwan-Straße & Indopazifik",
-      "actors": "China vs. Taiwan / USA & Japan",
+      "actors": "China vs. Taiwan / USA",
       "escalation_level": "MITTEL-HOCH",
-      "catalyst": "Militärmanöver und Sanktionen",
-      "impact": "Halbleiter-Lieferketten"
+      "catalyst": "Militärmanöver und Chip-Sanktionen",
+      "impact": "Halbleiter-Lieferketten (TSMC)",
+      "lat": 23.69,
+      "lng": 120.96
     },
     {
       "region": "Rotes Meer / Bab al-Mandab",
       "actors": "Houthi vs. Marine-Allianz",
       "escalation_level": "HOCH",
       "catalyst": "Schiffsangriffe",
-      "impact": "Frachtraten & Supply Chains"
+      "impact": "Frachtraten und Lieferketten",
+      "lat": 12.58,
+      "lng": 43.33
     }
   ],
   "systemic_risks": [
     {
-      "topic": "Moldawien & Transnistrien",
+      "topic": "Nahost-Konflikt",
       "category": "Geopolitische Region",
       "risk_level": "HOCH",
-      "status": "Diplomatische Spannungen & Hybride Einwirkung",
-      "impact": "Gefahr einer zweiten Front im Schwarzmeerraum"
+      "status": "Diplomatische und militärische Spannungen",
+      "impact": "Gefahr eines Ölpreisschocks und globaler wirtschaftlicher Instabilität"
     },
     {
-      "topic": "EU-Chatkontrolle & Verschlüsselungsverbot",
+      "topic": "EU-Chatkontrolle & Verschlüsselung",
       "category": "Digitale Kontrolle",
-      "risk_level": "HOCH",
-      "status": "Gesetzgebungsverfahren in Brüssel",
-      "impact": "Aufweichung der Ende-zu-Ende-Verschlüsselung"
+      "risk_level": "MITTEL-HOCH",
+      "status": "Gesetzgebungsprozess innerhalb der EU",
+      "impact": "Risiken für Ende-zu-Ende-Verschlüsselung und digitale Privatsphäre"
     },
     {
-      "topic": "Seltene Erden Monopol & Rohstoff-Hebel",
+      "topic": "Seltene Erden und strategische Rohstoffe",
       "category": "Strategischer Hebel",
-      "risk_level": "MITTEL-HOCH",
-      "status": "Exportkontrollen & Rivalität",
-      "impact": "Lieferengpässe bei High-Tech und Rüstung"
+      "risk_level": "HOCH",
+      "status": "Exportkontrollen und Lieferkettenunsicherheit",
+      "impact": "Risiken für High-Tech-Industrien und Energieversorgung"
     }
   ],
-  "timestamp": "22.07.2026 - 22:52 UTC",
-  "global_risk_score": 82,
+  "timestamp": "22.07.2026 - 23:00 UTC",
+  "global_risk_score": 85,
   "market_regime": "Multipolare Stagflation & Zins-Unsicherheit",
   "top_overweight": "Gold, Energie, Rohstoffe & Verteidigung",
   "top_risk": "Versorgungsschock / Geopolitische Blockbildung",
-  "daily_executive_summary": "Tagesaktuelle Synthese: Die globalen Spannungen bleiben hoch, insbesondere im Nahen Osten und in der Ukraine. Nukleare Risiken steigen aufgrund der Rhetorik und Militärmanöver. Es ist wichtig, die Entwicklungen in diesen Regionen sowie die Reaktionen der globalen Akteure genau zu beobachten.",
+  "daily_executive_summary": "Die geopolitischen Spannungen im Nahen Osten und an anderen Hotspots treiben die globale Unsicherheit hoch. Die Risiken eines Ölpreisschocks, von Lieferkettenunterbrechungen und eines globalen Versorgungsschocks nehmen zu. Investoren sollten auf defensive Positionen achten und die Entwicklung der strategischen Rohstoffmärkte im Auge behalten.",
   "assets": [
     {
       "name": "Gold & Silber",
       "signal": "GREEN",
       "signal_text": "Sehr Attraktiv",
       "trend": "Stark Steigend",
-      "driver": "Haupttreiber"
+      "driver": "Nahost-Konflikt, Inflation und Zinsumfeld"
     },
     {
-      "name": "KI & Halbleiter",
+      "name": "Energie und Rohstoffe",
       "signal": "GREEN",
       "signal_text": "Attraktiv",
       "trend": "Steigend",
-      "driver": "Haupttreiber"
+      "driver": "Nachfrage und geopolitische Unsicherheit"
     },
     {
-      "name": "Uran & Energie",
+      "name": "Seltene Erden und strategische Rohstoffe",
       "signal": "GREEN",
       "signal_text": "Attraktiv",
-      "trend": "Stark Steigend",
-      "driver": "Haupttreiber"
+      "trend": "Steigend",
+      "driver": "Exportkontrollen und Lieferkettenunsicherheit"
     },
     {
       "name": "S&P 500 / Nasdaq",
       "signal": "AMBER",
       "signal_text": "Neutral",
       "trend": "Volatil",
-      "driver": "Haupttreiber"
-    },
-    {
-      "name": "Bitcoin & Krypto",
-      "signal": "AMBER",
-      "signal_text": "Neutral",
-      "trend": "Volatil",
-      "driver": "Haupttreiber"
+      "driver": "Zinsaussichten und Wirtschaftswachstum"
     },
     {
       "name": "High-Yield Bonds",
       "signal": "RED",
       "signal_text": "Unattraktiv",
       "trend": "Fallend",
-      "driver": "Haupttreiber"
-    },
-    {
-      "name": "Gewerbeimmobilien",
-      "signal": "RED",
-      "signal_text": "Meiden",
-      "trend": "Stark Fallend",
-      "driver": "Haupttreiber"
+      "driver": "Zinsniveau und Kreditrisiko"
     }
   ],
   "regions": [
@@ -120,31 +120,19 @@
       "name": "USA",
       "signal": "GREEN",
       "signal_text": "Grün",
-      "summary": "Stabile Wirtschaft und politische Stabilität"
+      "summary": "Starke Wirtschaft und Militär, aber geopolitische Risiken"
     },
     {
       "name": "BRICS & Globaler Süden",
       "signal": "GREEN",
       "signal_text": "Grün",
-      "summary": "Wachsende wirtschaftliche und politische Macht"
-    },
-    {
-      "name": "Japan & Indien / ASEAN",
-      "signal": "GREEN",
-      "signal_text": "Grün",
-      "summary": "Wachsende wirtschaftliche Zusammenarbeit und Stabilität"
+      "summary": "Wachsende wirtschaftliche und politische Rolle"
     },
     {
       "name": "Kern-Europa (DE/FR/CH)",
       "signal": "RED",
       "signal_text": "Rot",
-      "summary": "Hohe Unsicherheit und Instabilität"
-    },
-    {
-      "name": "China (Binnenmarkt)",
-      "signal": "RED",
-      "signal_text": "Rot",
-      "summary": "Wirtschaftliche und politische Unsicherheit"
+      "summary": "Wirtschaftliche und politische Herausforderungen"
     }
   ],
   "scenarios": [
@@ -153,16 +141,12 @@
       "prob": 45
     },
     {
-      "title": "Zweite Inflationswelle / Multipolare Stagflation",
+      "title": "Zweite Inflationswelle / Stagflation",
       "prob": 30
     },
     {
-      "title": "Direkte NATO-Eskalation / Militärischer Zwischenfall",
-      "prob": 12
-    },
-    {
-      "title": "BRICS-Handelswährung / Beschleunigte Dedollarisierung",
-      "prob": 13
+      "title": "Direkte NATO-Eskalation",
+      "prob": 10
     }
   ]
 }
