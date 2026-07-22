@@ -1,15 +1,95 @@
 {
   "defcon_status": {
     "level": 4,
-    "label": "DEFCON 4 - Erhöhte Wachsamkeit",
-    "nuclear_risk_percent": 20,
-    "primary_driver": "Nukleardoktrin-Anpassungen, Militärmanöver und Spannungen im Nahen Osten"
+    "label": "Erhöhte militärische Bereitschaft",
+    "nuclear_risk_percent": 22,
+    "primary_driver": "Zunehmende Spannungen zwischen den Weltmächten und Bedrohung durch Iran und Nordkorea"
   },
-  "narrative_divergence": {
-    "topic": "Nahost-Konflikt und seine Auswirkungen",
-    "mainstream_view": "Fokus auf Terrorismus und Staatssicherheit, Betonung der Rolle der USA und westlicher Verbündeter",
-    "brics_view": "Betonung der Rolle externer Akteure bei der Eskalation des Konflikts, Fokus auf wirtschaftliche und politische Interessen",
-    "alternative_view": "Kritik an westlichen Interventionen, Fokus auf die Rolle von Öl und strategischen Ressourcen im Konflikt"
+  "domestic_politics": [
+    {
+      "country_region": "USA",
+      "topic": "Innere Unruhen und politische Polarisierung",
+      "status": "Erhöhte Spannungen zwischen Republikanern und Demokraten",
+      "impact": "Einfluss auf die Außenpolitik und die Wirtschaft"
+    },
+    {
+      "country_region": "Deutschland/EU",
+      "topic": "Wirtschaftliche Herausforderungen und Migration",
+      "status": "Erhöhte Unsicherheit in der EU",
+      "impact": "Einfluss auf die europäische Wirtschaft und Sicherheit"
+    },
+    {
+      "country_region": "China/BRICS",
+      "topic": "Wirtschaftswachstum und geopolitische Ambitionen",
+      "status": "Erhöhte wirtschaftliche und militärische Präsenz",
+      "impact": "Einfluss auf die globale Wirtschaft und Sicherheit"
+    }
+  ],
+  "stock_picks": {
+    "top_5_buys": [
+      {
+        "ticker": "RHM.DE",
+        "name": "Rheinmetall",
+        "sector": "Rüstung & Verteidigung",
+        "reason": "Erhöhte Nachfrage nach Verteidigungsgütern"
+      },
+      {
+        "ticker": "CCJ",
+        "name": "Cameco",
+        "sector": "Uran & Kernenergie",
+        "reason": "Erhöhte Nachfrage nach sauberen Energien"
+      },
+      {
+        "ticker": "GOLD",
+        "name": "Barrick Gold",
+        "sector": "Rohstoffe / Gold",
+        "reason": "Sichere Anlage in Zeiten der Unsicherheit"
+      },
+      {
+        "ticker": "LMT",
+        "name": "Lockheed Martin",
+        "sector": "US-Verteidigung",
+        "reason": "Erhöhte Nachfrage nach Verteidigungsgütern"
+      },
+      {
+        "ticker": "NVDA",
+        "name": "Nvidia",
+        "sector": "KI & Tech-Souveränität",
+        "reason": "Erhöhte Nachfrage nach KI-Technologien"
+      }
+    ],
+    "flop_5_sells": [
+      {
+        "ticker": "VNA.DE",
+        "name": "Vonovia",
+        "sector": "Gewerbe & Wohnimmobilien",
+        "reason": "Erhöhte Zinsen und Refinanzierungsrisiken"
+      },
+      {
+        "ticker": "NKE",
+        "name": "Nike",
+        "sector": "Konsumgüter",
+        "reason": "Schwächelnder Binnenmarkt in China"
+      },
+      {
+        "ticker": "BA",
+        "name": "Boeing",
+        "sector": "Luftfahrt",
+        "reason": "Qualitätsprobleme und Lieferketten-Engpässe"
+      },
+      {
+        "ticker": "DBK.DE",
+        "name": "Deutsche Bank",
+        "sector": "Europäische Banken",
+        "reason": "Kreditausfallrisiken bei Gewerbeimmobilien"
+      },
+      {
+        "ticker": "INTC",
+        "name": "Intel",
+        "sector": "Halbleiter (Old Gen)",
+        "reason": "Verlust von Marktanteilen im KI-Segment"
+      }
+    ]
   },
   "conflict_hotspots": [
     {
@@ -51,102 +131,26 @@
   ],
   "systemic_risks": [
     {
-      "topic": "Nahost-Konflikt",
+      "topic": "Moldawien & Transnistrien",
       "category": "Geopolitische Region",
       "risk_level": "HOCH",
-      "status": "Diplomatische und militärische Spannungen",
-      "impact": "Gefahr eines Ölpreisschocks und globaler wirtschaftlicher Instabilität"
+      "status": "Diplomatische Spannungen",
+      "impact": "Gefahr einer zweiten Front im Schwarzmeerraum"
     },
     {
       "topic": "EU-Chatkontrolle & Verschlüsselung",
       "category": "Digitale Kontrolle",
-      "risk_level": "MITTEL-HOCH",
-      "status": "Gesetzgebungsprozess innerhalb der EU",
-      "impact": "Risiken für Ende-zu-Ende-Verschlüsselung und digitale Privatsphäre"
-    },
-    {
-      "topic": "Seltene Erden und strategische Rohstoffe",
-      "category": "Strategischer Hebel",
       "risk_level": "HOCH",
-      "status": "Exportkontrollen und Lieferkettenunsicherheit",
-      "impact": "Risiken für High-Tech-Industrien und Energieversorgung"
+      "status": "Gesetzgebungsprozess EU",
+      "impact": "Risiken für Ende-zu-Ende-Verschlüsselung"
+    },
+    {
+      "topic": "Seltene Erden Monopol",
+      "category": "Strategischer Hebel",
+      "risk_level": "MITTEL-HOCH",
+      "status": "Exportkontrollen",
+      "impact": "Versorgungsrisiken High-Tech"
     }
   ],
-  "timestamp": "22.07.2026 - 23:00 UTC",
-  "global_risk_score": 85,
-  "market_regime": "Multipolare Stagflation & Zins-Unsicherheit",
-  "top_overweight": "Gold, Energie, Rohstoffe & Verteidigung",
-  "top_risk": "Versorgungsschock / Geopolitische Blockbildung",
-  "daily_executive_summary": "Die geopolitischen Spannungen im Nahen Osten und an anderen Hotspots treiben die globale Unsicherheit hoch. Die Risiken eines Ölpreisschocks, von Lieferkettenunterbrechungen und eines globalen Versorgungsschocks nehmen zu. Investoren sollten auf defensive Positionen achten und die Entwicklung der strategischen Rohstoffmärkte im Auge behalten.",
-  "assets": [
-    {
-      "name": "Gold & Silber",
-      "signal": "GREEN",
-      "signal_text": "Sehr Attraktiv",
-      "trend": "Stark Steigend",
-      "driver": "Nahost-Konflikt, Inflation und Zinsumfeld"
-    },
-    {
-      "name": "Energie und Rohstoffe",
-      "signal": "GREEN",
-      "signal_text": "Attraktiv",
-      "trend": "Steigend",
-      "driver": "Nachfrage und geopolitische Unsicherheit"
-    },
-    {
-      "name": "Seltene Erden und strategische Rohstoffe",
-      "signal": "GREEN",
-      "signal_text": "Attraktiv",
-      "trend": "Steigend",
-      "driver": "Exportkontrollen und Lieferkettenunsicherheit"
-    },
-    {
-      "name": "S&P 500 / Nasdaq",
-      "signal": "AMBER",
-      "signal_text": "Neutral",
-      "trend": "Volatil",
-      "driver": "Zinsaussichten und Wirtschaftswachstum"
-    },
-    {
-      "name": "High-Yield Bonds",
-      "signal": "RED",
-      "signal_text": "Unattraktiv",
-      "trend": "Fallend",
-      "driver": "Zinsniveau und Kreditrisiko"
-    }
-  ],
-  "regions": [
-    {
-      "name": "USA",
-      "signal": "GREEN",
-      "signal_text": "Grün",
-      "summary": "Starke Wirtschaft und Militär, aber geopolitische Risiken"
-    },
-    {
-      "name": "BRICS & Globaler Süden",
-      "signal": "GREEN",
-      "signal_text": "Grün",
-      "summary": "Wachsende wirtschaftliche und politische Rolle"
-    },
-    {
-      "name": "Kern-Europa (DE/FR/CH)",
-      "signal": "RED",
-      "signal_text": "Rot",
-      "summary": "Wirtschaftliche und politische Herausforderungen"
-    }
-  ],
-  "scenarios": [
-    {
-      "title": "Ausweitung Nahost-Konflikt (Ölschock >100$)",
-      "prob": 45
-    },
-    {
-      "title": "Zweite Inflationswelle / Stagflation",
-      "prob": 30
-    },
-    {
-      "title": "Direkte NATO-Eskalation",
-      "prob": 10
-    }
-  ]
+  "timestamp": "22.07.2026 - 23:09 UTC"
 }
