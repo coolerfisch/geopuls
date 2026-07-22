@@ -1,0 +1,37 @@
+name: Tägliches Makro-Dashboard Update
+
+on:
+  schedule:
+    # Führt das Skript täglich um 04:00 UTC (06:00 Uhr deutsche Zeit) aus
+    - cron: '0 4 * * *'
+  workflow_dispatch: # Erlaubt es, den Job auch jederzeit manuell per Button zu starten
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code auschecken
+        uses: actions/checkout@v3
+
+      - name: Python einrichten
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Python-Bibliotheken installieren
+        run: |
+          pip install google-genai
+
+      - name: KI-Analyse ausführen
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python update_dashboard.py
+
+      - name: Neue data.json ins Repo committen
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add data.json
+          git commit -m "Auto-Update: Makro & Geopolitik Daten für $(date +'%Y-%m-%d')" || exit 0
+          git push
