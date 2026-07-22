@@ -45,9 +45,9 @@ def get_live_market_data():
 
 live_market_context = get_live_market_data()
 
-# B. 35+ RSS-QUELLEN
+# B. ERWEITERTER QUELLENSPIEGEL (Inkl. neuer unabhängiger & investigativer Medien)
 rss_urls = {
-    # 🌍 BRICS & GLOBALER SÜDEN
+    # 🌍 1. BRICS & GLOBALER SÜDEN
     "Economic Times (Indien)": "https://economictimes.indiatimes.com/rssfeedstopstories.cms",
     "CGTN World (China Staatl.)": "https://news.cgtn.com/rss/World.xml",
     "Xinhua World (China)": "http://www.xinhuanet.com/english/rss/worldrss.xml",
@@ -58,7 +58,7 @@ rss_urls = {
     "South China Morning Post": "https://www.scmp.com/rss/91/feed",
     "Asia Times": "https://asiatimes.com/feed/",
 
-    # 🏛️ PRIMÄRQUELLEN & DIPLOMATIE / INNENPOLITIK
+    # 🏛️ 2. PRIMÄRQUELLEN & DIPLOMATIE / INNENPOLITIK
     "White House Briefing": "https://www.whitehouse.gov/briefing-room/feed/",
     "US Department of State": "https://www.state.gov/rss-feed/press-releases/feed/",
     "Federal Reserve": "https://www.federalreserve.gov/feeds/press_all.xml",
@@ -68,7 +68,7 @@ rss_urls = {
     "Schweizer Bundesrat": "https://www.admin.ch/gov/de/start/dokumentation/medienmitteilungen.rss.html",
     "Münchner Sicherheitskonferenz": "https://securityconference.org/news/rss/",
 
-    # 📈 MAINSTREAM FINANZEN & POLITIK
+    # 📈 3. MAINSTREAM FINANZEN & POLITIK
     "CNBC Finance": "https://www.cnbc.com/id/100003114/device/rss/rss.html",
     "Foreign Policy": "https://foreignpolicy.com/feed/",
     "Nikkei Asia": "https://asia.nikkei.com/rss/feed/nar",
@@ -79,7 +79,19 @@ rss_urls = {
     "Tagesschau": "https://www.tagesschau.de/ausland/index.xml",
     "BBC World": "http://feeds.bbci.co.uk/news/world/rss.xml",
 
-    # 🔓 UNABHÄNGIGE & INNENPOLITIK-ANALYSTEN
+    # 🔓 4. UNABHÄNGIGE, INVESTIGATIVE & ALTERNATIVE ANALYSTEN (ERWEITERT)
+    "Multipolar Magazin": "https://multipolar-magazin.de/feed",
+    "Manova / Rubikon": "https://www.manova.news/feed",
+    "Berliner Tageszeitung": "https://www.berlinertageszeitung.de/rss.xml",
+    "Hintergrund Magazin": "https://www.hintergrund.de/feed/",
+    "Wissensteilchen Blog": "https://wissensteilchen.com/feed/",
+    "Republik (Schweiz)": "https://www.republik.ch/feed",
+    "Krautreporter": "https://krautreporter.de/feed.rss",
+    "The Grayzone": "https://thegrayzone.com/feed/",
+    "The Intercept": "https://theintercept.com/feed/?lang=en",
+    "MintPress News": "https://www.mintpressnews.com/feed/",
+    "Caitlin Johnstone": "https://caitlinjohnstone.com.au/feed/",
+    "Moon of Alabama": "https://www.moonofalabama.org/atom.xml",
     "ZeroHedge": "http://feeds.feedburner.com/zerohedge/feed",
     "UnHerd": "https://unherd.com/feed/",
     "Antiwar.com": "https://news.antiwar.com/feed/",
@@ -114,7 +126,7 @@ if not api_key:
 
 client = Groq(api_key=api_key)
 
-# D. PROMPT MIT ALLEN ANFORDERUNGEN
+# D. PROMPT MIT MEHREREN NARRATIV-THEMEN
 prompt = f"""
 Du bist der Chef-Strategist des GeoPuls Dashboards.
 
@@ -125,17 +137,12 @@ MEDIEN- & REGIERUNGS-FEEDS:
 {feed_context}
 
 DEIN AUFTRAG (NUR VALIDES JSON ZURÜCKGEBEN):
-Analysiere die Gesamtlage inkl. der INNENPOLITIK der Schlüsselstaaten (US-Parteienkampf, EU-Koalitionsprobleme, soziale/wirtschaftliche Unruhen in BRICS) und erstelle konkrete Aktien-Empfehlungen.
+Analysiere die Gesamtlage und erstelle das Lagebild.
 
-SCHLÜSSEL-FELDER IM JSON:
-1. 'defcon_status': Atomkriegs-/Weltkriegsrisiko (level 1-5, label, nuclear_risk_percent, primary_driver).
-2. 'narrative_divergence': Vergleiche das am stärksten unterschiedlich berichtete Thema des Tages. PFLICHT-KEYS: 'topic', 'mainstream_view', 'brics_view', 'alternative_view'.
-3. 'domestic_politics': Analysiere 3 wichtige INNENPOLITISCHE Schauplätze der Welt (z.B. USA, Deutschland/EU, China/BRICS).
-4. 'stock_picks':
-   - 'top_5_buys': 5 Gewinner-Aktien mit ticker, name, sector, reason.
-   - 'flop_5_sells': 5 Verlierer-Aktien mit ticker, name, sector, reason.
-5. 'conflict_hotspots': MINDESTENS 4 ECHTE BRANDHERDE mit exakten Koordinaten ("lat", "lng").
-6. 'systemic_risks': 3 Pflicht-Risiken (Geopolitische Region, Digitale/Monetäre Kontrolle, Strategischer Hebel).
+STRIKTE PFLICHT: 'narrative_divergence' MUSS EINE LISTE VON EXACT 3 UNTERSCHIEDLICHEN REGIONALEN THEMEN SEIN:
+1. Thema 1: Ukraine / NATO / Europa
+2. Thema 2: Naher Osten / Seewege
+3. Thema 3: US-China / BRICS / Handelskonflikt & Dedollarisierung
 
 Exaktes Schema:
 {{
@@ -145,12 +152,26 @@ Exaktes Schema:
     "nuclear_risk_percent": 15,
     "primary_driver": "Nukleardoktrin-Anpassungen & Rhetorik"
   }},
-  "narrative_divergence": {{
-    "topic": "Das am stärksten gespaltene Thema des Tages",
-    "mainstream_view": "Einschätzung westlicher Medien (z.B. Fokus auf NATO & Sanktionen)",
-    "brics_view": "Einschätzung von TASS/CGTN (z.B. Fokus auf Multipolaren Handel)",
-    "alternative_view": "Einschätzung unabhängiger Analysten (z.B. Fokus auf verdeckte Kaskadeneffekte)"
-  }},
+  "narrative_divergence": [
+    {{
+      "topic": "Ukraine & NATO-Ostflanke",
+      "mainstream_view": "Fokus auf NATO-Geschlossenheit, Sanktionen und westliche Hilfen",
+      "brics_view": "Fokus auf Sicherheitsinteressen Moskaus und Kritik an NATO-Osterweiterung",
+      "alternative_view": "Fokus auf geopolitische Abnutzung und verdeckte Diplomatie"
+    }},
+    {{
+      "topic": "Naher Osten & Seewege (Rotes Meer)",
+      "mainstream_view": "Fokus auf Schutz der freien Schifffahrt und Abwehr von Milizen",
+      "brics_view": "Fokus auf Ursachen des Konflikts und Kritik am US-Einsatz",
+      "alternative_view": "Fokus auf globale Frachtkostensteigerung und Lieferkettenbrüche"
+    }},
+    {{
+      "topic": "BRICS & Globale Dedollarisierung / Handelskonflikt",
+      "mainstream_view": "US-Dollar bleibt unangefochtene Reservewährung",
+      "brics_view": "Ausbau von Ausgleichssystemen in Lokalwährungen und Goldreserven",
+      "alternative_view": "Beschleunigte Fragmentierung des globalen Finanzsystems"
+    }}
+  ],
   "domestic_politics": [
     {{
       "country_region": "USA / Washington",
@@ -282,7 +303,7 @@ Exaktes Schema:
 print("Rufe Groq API auf...")
 chat_completion = client.chat.completions.create(
     messages=[
-        {"role": "system", "content": "Du bist ein hochpräzises OSINT-Geopolitikmodell. Du bewertest Innenpolitik und generierst konkrete Aktien-Buys/Sells."},
+        {"role": "system", "content": "Du bist ein hochpräzises OSINT-Geopolitikmodell. Du lieferst starr 3 unterschiedliche Schauplätze in der Narrativ-Matrix."},
         {"role": "user", "content": prompt}
     ],
     model="llama-3.3-70b-versatile",
@@ -291,49 +312,34 @@ chat_completion = client.chat.completions.create(
 
 data = json.loads(chat_completion.choices[0].message.content)
 
-# --- SERVERSEITIGE NORMALISIERUNG & ABSICHERUNG GEGEN FEHLENDE KEYS ---
+# --- NORMALISIERUNG DER NARRATIV-MATRIX ALS ARRAY ---
+raw_nd = data.get("narrative_divergence", [])
+if isinstance(raw_nd, dict):
+    raw_nd = [raw_nd]
 
-# 1. Narrativ-Divergenz absichern
-nd = data.get("narrative_divergence", {})
-if not isinstance(nd, dict):
-    nd = {}
+normalized_nd = []
+for item in raw_nd:
+    if isinstance(item, dict):
+        normalized_nd.append({
+            "topic": item.get("topic") or "Geopolitischer Schauplatz",
+            "mainstream_view": item.get("mainstream_view") or item.get("mainstream") or "Fokus auf westliche Perspektive und Ordnung.",
+            "brics_view": item.get("brics_view") or item.get("brics") or "Fokus auf multipolare Perspektive und Souveränität.",
+            "alternative_view": item.get("alternative_view") or item.get("alternative") or "Fokus auf verdeckte Kaskadeneffekte."
+        })
 
-data["narrative_divergence"] = {
-    "topic": nd.get("topic") or "Globale Machtverschiebung & Geopolitik",
-    "mainstream_view": nd.get("mainstream_view") or nd.get("mainstream") or nd.get("western_view") or "Fokus auf NATO-Geschlossenheit, Sanktionen und Regelbasierte Ordnung.",
-    "brics_view": nd.get("brics_view") or nd.get("brics") or nd.get("global_south") or "Fokus auf multipolare Währungsalternativen und Kritik an westlicher Hegemonie.",
-    "alternative_view": nd.get("alternative_view") or nd.get("alternative") or nd.get("alt") or "Fokus auf verdeckte Kaskadeneffekte, Schattenbanken und Infrastruktur-Schwachstellen."
-}
-
-# 2. Stock Picks absichern
-sp = data.get("stock_picks", {})
-if not isinstance(sp, dict) or "top_5_buys" not in sp or not sp["top_5_buys"]:
-    data["stock_picks"] = {
-        "top_5_buys": [
-            {"ticker": "RHM.DE", "name": "Rheinmetall", "sector": "Verteidigung", "reason": "Europäische Aufrüstung & NATO-Bedarf"},
-            {"ticker": "CCJ", "name": "Cameco", "sector": "Uran / Energie", "reason": "Angebotsdefizit Kernbrennstoff"},
-            {"ticker": "GOLD", "name": "Barrick Gold", "sector": "Rohstoffe", "reason": "Zentralbank-Goldkäufe & Safe-Haven"},
-            {"ticker": "LMT", "name": "Lockheed Martin", "sector": "US-Rüstung", "reason": "Hohe globale Auftragsbestände"},
-            {"ticker": "NVDA", "name": "Nvidia", "sector": "KI-Hardware", "reason": "Technologische Souveränität & KI-Boom"}
-        ],
-        "flop_5_sells": [
-            {"ticker": "VNA.DE", "name": "Vonovia", "sector": "Immobilien", "reason": "Zinsdruck & Refinanzierung"},
-            {"ticker": "NKE", "name": "Nike", "sector": "Konsum", "reason": "Kaufkraftschwäche in China"},
-            {"ticker": "BA", "name": "Boeing", "sector": "Luftfahrt", "reason": "Lieferketten- & Qualitätsprobleme"},
-            {"ticker": "DBK.DE", "name": "Deutsche Bank", "sector": "Banken", "reason": "Gewerbeimmobilien-Risiken"},
-            {"ticker": "INTC", "name": "Intel", "sector": "Legacy-Tech", "reason": "Marktanteilsverlust im KI-Segment"}
-        ]
-    }
-
-# 3. Innenpolitik absichern
-if "domestic_politics" not in data or not data["domestic_politics"]:
-    data["domestic_politics"] = [
-        {"country_region": "USA / Washington", "topic": "Kongress-Budgetstreit", "status": "Polarisierung", "impact": "Blockaden bei Auslandshilfen"},
-        {"country_region": "Deutschland / EU", "topic": "Industriekrise & Haushalt", "status": "Druck auf Sparvorgaben", "impact": "Eingeschränkte Handlungsfähigkeit Brüssels"},
-        {"country_region": "China / BRICS", "topic": "Immobilien-Stimulus", "status": "Deflationsdruck", "impact": "Erhöhter Exportdruck auf globale Märkte"}
+if len(normalized_nd) < 3:
+    fallback_nd = [
+        {"topic": "Ukraine & NATO-Ostflanke", "mainstream_view": "Fokus auf NATO-Geschlossenheit & Sanktionen", "brics_view": "Kritik an NATO-Erweiterung & Sicherheitsinteressen", "alternative_view": "Fokus auf Abnutzung & verdeckte Diplomatie"},
+        {"topic": "Naher Osten & Seewege", "mainstream_view": "Fokus auf Schutz der freien Schifffahrt", "brics_view": "Kritik an US-Militäreinsatz & Konfliktursachen", "alternative_view": "Fokus auf Frachtkosten & Lieferkettenbrüche"},
+        {"topic": "BRICS & Dedollarisierung", "mainstream_view": "US-Dollar bleibt unangefochten", "brics_view": "Ausbau von Lokalwährungen & Goldreserven", "alternative_view": "Beschleunigte Fragmentierung des Finanzsystems"}
     ]
+    for fb in fallback_nd:
+        if len(normalized_nd) < 3:
+            normalized_nd.append(fb)
 
-# 4. GEO-LOOKUP FALLBACK FÜR KOORDINATEN
+data["narrative_divergence"] = normalized_nd
+
+# GEO-LOOKUP FALLBACK FÜR KOORDINATEN
 GEO_LOOKUP = {
     "nah": (31.5, 34.75), "iran": (32.42, 53.68), "israel": (31.04, 34.85),
     "ukraine": (48.37, 31.16), "taiwan": (23.69, 120.96), "rot": (12.58, 43.33),
@@ -358,7 +364,7 @@ for h in data.get("conflict_hotspots", []):
 
 data["timestamp"] = datetime.utcnow().strftime("%d.%m.%Y - %H:%M UTC")
 
-# 5. HISTORIE TRACKEN
+# HISTORIE TRACKEN
 history_file = "history.json"
 history_data = []
 if os.path.exists(history_file):
@@ -379,28 +385,7 @@ if not history_data or history_data[-1].get("date") != today_str:
     with open(history_file, "w", encoding="utf-8") as f:
         json.dump(history_data, f, ensure_ascii=False, indent=2)
 
-# 6. TELEGRAM ALERT (OPTIONAL)
-tg_token = os.environ.get("TELEGRAM_BOT_TOKEN")
-tg_chat_id = os.environ.get("TELEGRAM_CHAT_ID")
-risk_score = data.get("global_risk_score", 0)
-defcon_lvl = data.get("defcon_status", {}).get("level", 5)
-
-if tg_token and tg_chat_id and (risk_score >= 80 or defcon_lvl <= 2):
-    try:
-        alert_msg = (
-            f"🚨 *GeoPuls WARNMELDUNG* 🚨\n\n"
-            f"⚠️ *Global Risk Score:* {risk_score} / 100\n"
-            f"☢️ *DEFCON Status:* Level {defcon_lvl}\n\n"
-            f"📌 *Hauptrisiko:* {data.get('top_risk')}\n"
-        )
-        requests.post(
-            f"https://api.telegram.org/bot{tg_token}/sendMessage",
-            data={"chat_id": tg_chat_id, "text": alert_msg, "parse_mode": "Markdown"}
-        )
-    except Exception as e:
-        print(f"Telegram-Fehler: {e}")
-
 with open("data.json", "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
 
-print("GeoPuls Dashboard erfolgreich abgesichert & gespeichert!")
+print("GeoPuls Dashboard erfolgreich mit erweiterten Feeds aktualisiert!")
