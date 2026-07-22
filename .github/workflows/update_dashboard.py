@@ -1,21 +1,23 @@
-import urllib.request
+import requests
 import xml.etree.ElementTree as ET
 import json
-import re
 from datetime import datetime
 
 print("1. Hole tagesaktuelle Marktdaten von öffentlichen Schnittstellen...")
 
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+}
+
 def get_yahoo_quote(ticker):
-    """Halt tagesaktuelle Kurse über die öffentliche Yahoo Finance Query API (ohne Key)"""
+    """Holt tagesaktuelle Kurse über die öffentliche Yahoo Finance Query API"""
     try:
         url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?interval=1d&range=5d"
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req) as response:
-            data = json.loads(response.read().decode())
+        response = requests.get(url, headers=headers, timeout=10)
+        if response.status_code == 200:
+            data = response.json()
             result = data['chart']['result'][0]
             prices = result['indicators']['quote'][0]['close']
-            # Filter None-Werte
             valid_prices = [p for p in prices if p is not None]
             if len(valid_prices) >= 2:
                 current = valid_prices[-1]
@@ -27,33 +29,29 @@ def get_yahoo_quote(ticker):
     return None, 0.0
 
 # Abruf der wichtigsten Finanz-Indikatoren
-gold_price, gold_pct = get_yahoo_quote("GC=F")       # Gold Futures
+gold_price, gold_pct = get_yahoo_quote("GC=F")       # Gold
 oil_price, oil_pct = get_yahoo_quote("CL=F")         # WTI Rohöl
-vix_index, vix_pct = get_yahoo_quote("^VIX")         # Volatilitätsindex (Angstbarometer)
+vix_index, vix_pct = get_yahoo_quote("^VIX")         # Volatilität
 sp500, sp500_pct = get_yahoo_quote("^GSPC")          # S&P 500
-us10y, us10y_pct = get_yahoo_quote("^TNX")           # US 10-Jährige Staatsanleihen Rendite
+us10y, us10y_pct = get_yahoo_quote("^TNX")           # US 10Y Yield
 
-print("2. Hole Finanz- & Geopolitik-Schlagzeilen aus freien RSS-Feeds...")
+print("2. Hole Finanz- & Geopolitik-Schlagzeilen aus RSS-Feed...")
 
-def get_rss_headlines(feed_url):
-    headlines = []
-    try:
-        req = urllib.request.Request(feed_url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req) as response:
-            xml_data = response.read()
-            root = ET.fromstring(xml_data)
-            for item in root.findall('.//item')[:5]:
-                title = item.find('title').text
-                headlines.append(title)
-    except Exception as e:
-        print(f"RSS Feed Fehler ({e})")
-    return headlines
+news_titles = []
+try:
+    rss_url = "https://news.google.com/rss/search?q=geopolitics+macroeconomics+markets&hl=en-US&gl=US&ceid=US:en"
+    res = requests.get(rss_url, headers=headers, timeout=10)
+    if res.status_code == 200:
+        root = ET.fromstring(res.content)
+        for item in root.findall('.//item')[:5]:
+            title = item.find('title').text
+            if title:
+                news_titles.append(title)
+except Exception as e:
+    print(f"RSS Feed Fehler ({e})")
 
-news_titles = get_rss_headlines("https://news.google.com/rss/search?q=geopolitics+macroeconomics+markets&hl=en-US&gl=US&ceid=US:en")
+print("3. Berechne Scores & Ampeln...")
 
-print("3. Berechne Scores & Ampeln regelbasiert...")
-
-# Dynamische Berechnung des Global Risk Score
 base_risk = 50
 if vix_index:
     if vix_index > 25: base_risk += 15
@@ -68,7 +66,6 @@ if oil_price and oil_price > 85:
 
 risk_score = min(max(base_risk, 10), 95)
 
-# Markt-Regime Bestimmung
 if us10y and us10y > 4.0 and oil_pct > 0:
     regime = "Stagflations-Druck"
 elif sp500_pct > 0 and vix_index and vix_index < 16:
@@ -76,7 +73,6 @@ elif sp500_pct > 0 and vix_index and vix_index < 16:
 else:
     regime = "Makro-Konsolidierung"
 
-# Erstelle strukturierte Ausgabe
 output_data = {
     "timestamp": datetime.utcnow().strftime("%d. %B %Y - %H:%M UTC"),
     "global_risk_score": risk_score,
@@ -112,4 +108,4 @@ print("4. Speichere Ergebnisse in data.json...")
 with open("data.json", "w", encoding="utf-8") as f:
     json.dump(output_data, f, ensure_ascii=False, indent=2)
 
-print("ERFOLG: data.json ohne API-Key generiert!")
+print("ERFOLG: data.json sauber generiert!")
