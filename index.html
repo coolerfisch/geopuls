@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeoPuls - Makro & Geopolitik Radar</title>
+    <title>GeoPuls - OSINT Command Center</title>
+    
+    <!-- Leaflet.js CSS (Dark Mode Weltkarte) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <style>
         :root {
             --bg-color: #0f172a;
@@ -18,73 +22,16 @@
             --accent-purple: #a855f7;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; padding: 20px; max-width: 1200px; margin: 0 auto; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 25px; flex-wrap: wrap; gap: 10px; }
+        h1 { font-size: 1.8rem; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+        .timestamp { font-size: 0.85rem; color: var(--text-secondary); background: #020617; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color); }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .timestamp {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            background: #020617;
-            padding: 6px 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-        }
-
-        /* DEFCON Banner Styling */
-        .defcon-banner {
-            background: #020617;
-            border: 2px solid var(--accent-amber);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .defcon-badge {
-            font-size: 1.5rem;
-            font-weight: 900;
-            padding: 8px 16px;
-            border-radius: 6px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
+        /* DEFCON Banner */
+        .defcon-banner { background: #020617; border: 2px solid var(--accent-amber); border-radius: 10px; padding: 20px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .defcon-badge { font-size: 1.5rem; font-weight: 900; padding: 8px 16px; border-radius: 6px; letter-spacing: 1px; text-transform: uppercase; }
         .defcon-3 { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 2px solid #f59e0b; }
         .defcon-2, .defcon-1 { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 2px solid #ef4444; animation: pulse 2s infinite; }
         .defcon-4, .defcon-5 { background: rgba(34, 197, 94, 0.2); color: #86efac; border: 2px solid #22c55e; }
@@ -95,183 +42,69 @@
             100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* Top Key Metrics Grid */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
+        /* Map Container */
+        #map { height: 380px; width: 100%; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 25px; background: #020617; }
 
-        .metric-card {
-            background: var(--card-bg);
-            padding: 18px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-        }
+        /* Metrics */
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .metric-card { background: var(--card-bg); padding: 18px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .metric-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+        .metric-value { font-size: 1.3rem; font-weight: bold; color: var(--text-primary); }
 
-        .metric-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 5px;
-        }
+        .section-title { font-size: 1.3rem; margin: 30px 0 15px 0; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; }
+        .summary-box { background: var(--card-bg); padding: 20px; border-radius: 10px; border-left: 4px solid var(--accent-blue); font-size: 1.05rem; margin-bottom: 25px; }
 
-        .metric-value {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--text-primary);
-        }
+        /* Narrative Grid */
+        .narrative-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 10px; }
+        .narrative-card { background: #020617; padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.9rem; }
 
-        /* Section Titles */
-        .section-title {
-            font-size: 1.3rem;
-            margin: 30px 0 15px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 8px;
-        }
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
+        .card-title { font-weight: bold; font-size: 1.1rem; }
 
-        .summary-box {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent-blue);
-            font-size: 1.05rem;
-            margin-bottom: 25px;
-        }
-
-        /* Cards Grid */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 18px;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 8px;
-        }
-
-        .card-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .badge {
-            font-size: 0.75rem;
-            font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-
+        .badge { font-size: 0.75rem; font-weight: bold; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; }
         .badge-kritisch, .badge-hoch { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #ef4444; }
         .badge-mittel { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid #f59e0b; }
         .badge-systemic { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid #a855f7; }
 
-        .card-detail {
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-        }
+        .card-detail { font-size: 0.9rem; margin-bottom: 8px; color: var(--text-secondary); }
+        .card-detail strong { color: var(--text-primary); }
 
-        .card-detail strong {
-            color: var(--text-primary);
-        }
+        .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; margin-bottom: 25px; border: 1px solid var(--border-color); }
+        .data-table th, .data-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.95rem; }
+        .data-table th { background: #020617; color: var(--text-secondary); font-weight: 600; }
 
-        /* Data Tables */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 25px;
-            border: 1px solid var(--border-color);
-        }
+        .scenarios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .scenario-card { background: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); }
+        .scenario-prob { font-size: 1.4rem; font-weight: bold; color: var(--accent-amber); }
 
-        .data-table th, .data-table td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.95rem;
-        }
-
-        .data-table th {
-            background: #020617;
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
-
-        /* Scenarios Grid */
-        .scenarios-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 15px;
-        }
-
-        .scenario-card {
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        .scenario-prob {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--accent-amber);
-        }
-
-        footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-        }
+        footer { margin-top: 40px; text-align: center; font-size: 0.8rem; color: var(--text-secondary); border-top: 1px solid var(--border-color); padding-top: 20px; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>🌐 GeoPuls <span style="font-size: 0.9rem; font-weight: normal; color: var(--text-secondary);">Makro & Geopolitik Radar</span></h1>
+        <h1>🌐 GeoPuls <span style="font-size: 0.9rem; font-weight: normal; color: var(--text-secondary);">OSINT Command Center</span></h1>
         <div class="timestamp" id="timestamp">Lade Daten...</div>
     </header>
 
-    <!-- DEFCON & Nuklear/Weltkriegs-Radar -->
+    <!-- DEFCON Banner -->
     <div class="defcon-banner" id="defcon-box">
         <div style="display: flex; align-items: center; gap: 15px;">
             <div class="defcon-badge defcon-3" id="defcon-badge">DEFCON -</div>
             <div>
-                <div style="font-weight: bold; font-size: 1.1rem;" id="defcon-label">Strategische Alarmstufe wird berechnet...</div>
-                <div style="font-size: 0.85rem; color: var(--text-secondary);" id="defcon-driver">Scanne Nukleardoktrinen, Manöver & Statements...</div>
+                <div style="font-weight: bold; font-size: 1.1rem;" id="defcon-label">Berechne Gefahrenlage...</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);" id="defcon-driver">Treiber wird ermittelt...</div>
             </div>
         </div>
         <div style="text-align: right;">
-            <div style="font-size: 0.8rem; color: var(--text-secondary);">Nuklear- / Weltkriegsrisiko</div>
+            <div style="font-size: 0.8rem; color: var(--text-secondary);">Weltkriegs- / Nuklear-Risiko</div>
             <div style="font-size: 1.5rem; font-weight: bold; color: var(--accent-red);" id="defcon-percent">- %</div>
         </div>
     </div>
 
-    <!-- Top Key Metrics -->
+    <!-- Core Metrics -->
     <div class="metrics-grid">
         <div class="metric-card">
             <div class="metric-label">Global Risk Score</div>
@@ -291,20 +124,41 @@
         </div>
     </div>
 
-    <!-- Daily Executive Summary -->
-    <h2 class="section-title">📌 Executive Summary (24h Lagebild)</h2>
-    <div class="summary-box" id="exec-summary">Lade KI-Synthese...</div>
+    <!-- Interaktive Weltkarte -->
+    <h2 class="section-title">🗺️ Interaktive Krisenkarte (OSINT Hotspots)</h2>
+    <div id="map"></div>
 
-    <!-- Akute Brandherde -->
+    <!-- Executive Summary & Narrativ-Matrix -->
+    <h2 class="section-title">📌 Executive Summary & Narrativ-Divergenz</h2>
+    <div class="summary-box">
+        <div id="exec-summary" style="margin-bottom: 15px;">Lade Lagebild...</div>
+        
+        <div style="border-top: 1px solid var(--border-color); padding-top: 12px; margin-top: 12px;">
+            <strong style="color: var(--accent-amber);">⚖️ Narrativ-Matrix (Wer lügt wie?): </strong><span id="narrative-topic">-</span>
+            <div class="narrative-grid">
+                <div class="narrative-card"><strong style="color: var(--accent-blue);">🏛️ Mainstream (Westen):</strong><br><span id="nav-mainstream">-</span></div>
+                <div class="narrative-card"><strong style="color: var(--accent-green);">🌍 BRICS / Global South:</strong><br><span id="nav-brics">-</span></div>
+                <div class="narrative-card"><strong style="color: var(--accent-purple);">🔓 Unabhängig / Alternativ:</strong><br><span id="nav-alt">-</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historischer Trend Chart -->
+    <h2 class="section-title">📈 Historischer Risiko-Verlauf (30 Tage Trend)</h2>
+    <div style="background: var(--card-bg); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 25px;">
+        <canvas id="riskChart" style="max-height: 220px;"></canvas>
+    </div>
+
+    <!-- Hotspots -->
     <h2 class="section-title">🔥 Akute Geopolitische Brandherde</h2>
     <div class="grid-cards" id="hotspots-container"></div>
 
-    <!-- Systemische & Zukunfts-Risiken -->
+    <!-- Systemische Risiken -->
     <h2 class="section-title">🛡️ Systemische Risiken & Latente Zukunfts-Brandherde</h2>
     <div class="grid-cards" id="systemic-container"></div>
 
-    <!-- Asset Allocation -->
-    <h2 class="section-title">📊 Asset-Klassen & Marktsignale</h2>
+    <!-- Asset-Signale -->
+    <h2 class="section-title">📊 Asset-Klassen & Live-Marktsignale</h2>
     <table class="data-table">
         <thead>
             <tr>
@@ -330,26 +184,36 @@
         <tbody id="regions-table"></tbody>
     </table>
 
-    <!-- Szenarien -->
+    <!-- Makro-Szenarien -->
     <h2 class="section-title">🔮 Makro-Szenarien</h2>
     <div class="scenarios-grid" id="scenarios-container"></div>
 
     <footer>
-        GeoPuls Dashboard • Vollautomatisiert via GitHub Actions & Groq Llama 3.3 • Multipolare OSINT-Synthese
+        GeoPuls OSINT Command Center • Automated via GitHub Actions, yfinance, Leaflet.js & Groq Llama 3.3
     </footer>
 
+    <!-- External JS Libraries -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script>
+        // Leaflet Map Initialisieren (Dark Tile Layer)
+        const map = L.map('map').setView([20, 10], 2);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; CartoDB',
+            maxZoom: 18
+        }).addTo(map);
+
         async function loadDashboardData() {
             try {
-                // Erwirkt frisches Laden ohne Browser-Cache
-                const response = await fetch('./data.json?v=' + new Date().getTime());
-                if (!response.ok) throw new Error('data.json konnte nicht geladen werden.');
-                const data = await response.json();
+                // Live Daten mit Cache-Busting laden
+                const res = await fetch('./data.json?v=' + new Date().getTime());
+                const data = await res.json();
 
                 // Header Timestamp
                 document.getElementById('timestamp').innerText = 'Stand: ' + (data.timestamp || 'Aktuell');
 
-                // DEFCON Status Rendern
+                // DEFCON Status
                 if (data.defcon_status) {
                     const ds = data.defcon_status;
                     const badge = document.getElementById('defcon-badge');
@@ -367,34 +231,49 @@
                 document.getElementById('market-regime').innerText = data.market_regime || '-';
                 document.getElementById('top-overweight').innerText = data.top_overweight || '-';
                 document.getElementById('top-risk').innerText = data.top_risk || '-';
-                document.getElementById('exec-summary').innerText = data.daily_executive_summary || 'Keine Zusammenfassung verf&uuml;gbar.';
+                document.getElementById('exec-summary').innerText = data.daily_executive_summary || 'Keine Zusammenfassung verfügbar.';
 
-                // Hotspots (Akute Brandherde)
-                const hotspotsContainer = document.getElementById('hotspots-container');
-                if (data.conflict_hotspots && data.conflict_hotspots.length > 0) {
-                    hotspotsContainer.innerHTML = data.conflict_hotspots.map(h => {
-                        let badgeClass = 'badge-mittel';
-                        const lvl = (h.escalation_level || '').toUpperCase();
-                        if (lvl.includes('KRITISCH') || lvl.includes('HOCH')) badgeClass = 'badge-kritisch';
-
-                        return `
-                            <div class="card">
-                                <div class="card-header">
-                                    <span class="card-title">${h.region}</span>
-                                    <span class="badge ${badgeClass}">${h.escalation_level || 'AKTIV'}</span>
-                                </div>
-                                <div class="card-detail"><strong>Akteure:</strong> ${h.actors}</div>
-                                <div class="card-detail"><strong>Ausl&ouml;ser:</strong> ${h.catalyst}</div>
-                                <div class="card-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>M&auml;rkte & Folgen:</strong> ${h.impact}</div>
-                            </div>
-                        `;
-                    }).join('');
+                // Narrativ-Divergenz
+                if (data.narrative_divergence) {
+                    const nd = data.narrative_divergence;
+                    document.getElementById('narrative-topic').innerText = nd.topic || 'Allgemeine Weltlage';
+                    document.getElementById('nav-mainstream').innerText = nd.mainstream_view || '-';
+                    document.getElementById('nav-brics').innerText = nd.brics_view || '-';
+                    document.getElementById('nav-alt').innerText = nd.alternative_view || '-';
                 }
 
-                // Systemische & Latente Zukunftsrisiken
-                const systemicContainer = document.getElementById('systemic-container');
-                if (data.systemic_risks && data.systemic_risks.length > 0) {
-                    systemicContainer.innerHTML = data.systemic_risks.map(s => `
+                // Hotspots Rendern & Pins auf der Weltkarte setzen
+                const hotspotsContainer = document.getElementById('hotspots-container');
+                if (data.conflict_hotspots) {
+                    hotspotsContainer.innerHTML = data.conflict_hotspots.map(h => `
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">${h.region}</span>
+                                <span class="badge ${h.escalation_level && h.escalation_level.includes('KRITISCH') ? 'badge-kritisch' : 'badge-mittel'}">${h.escalation_level || 'AKTIV'}</span>
+                            </div>
+                            <div class="card-detail"><strong>Akteure:</strong> ${h.actors}</div>
+                            <div class="card-detail"><strong>Auslöser:</strong> ${h.catalyst}</div>
+                            <div class="card-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>Märkte:</strong> ${h.impact}</div>
+                        </div>
+                    `).join('');
+
+                    data.conflict_hotspots.forEach(h => {
+                        if (h.lat && h.lng) {
+                            const color = (h.escalation_level && h.escalation_level.includes('KRITISCH')) ? '#ef4444' : '#f59e0b';
+                            const circle = L.circleMarker([h.lat, h.lng], {
+                                color: color,
+                                fillColor: color,
+                                fillOpacity: 0.6,
+                                radius: 9
+                            }).addTo(map);
+                            circle.bindPopup(`<b>${h.region}</b><br>${h.catalyst}`);
+                        }
+                    });
+                }
+
+                // Systemische Risiken
+                if (data.systemic_risks) {
+                    document.getElementById('systemic-container').innerHTML = data.systemic_risks.map(s => `
                         <div class="card" style="border-left: 4px solid var(--accent-purple);">
                             <div class="card-header">
                                 <span class="card-title">${s.topic}</span>
@@ -407,34 +286,70 @@
                 }
 
                 // Assets Table
-                document.getElementById('assets-table').innerHTML = (data.assets || []).map(a => `
-                    <tr>
-                        <td><strong>${a.name}</strong></td>
-                        <td>${a.signal_text || a.signal}</td>
-                        <td>${a.trend}</td>
-                        <td style="color: var(--text-secondary);">${a.driver}</td>
-                    </tr>
-                `).join('');
+                if (data.assets) {
+                    document.getElementById('assets-table').innerHTML = data.assets.map(a => `
+                        <tr>
+                            <td><strong>${a.name}</strong></td>
+                            <td>${a.signal_text || a.signal}</td>
+                            <td>${a.trend}</td>
+                            <td style="color: var(--text-secondary);">${a.driver}</td>
+                        </tr>
+                    `).join('');
+                }
 
                 // Regions Table
-                document.getElementById('regions-table').innerHTML = (data.regions || []).map(r => `
-                    <tr>
-                        <td><strong>${r.name}</strong></td>
-                        <td>${r.signal_text || r.signal}</td>
-                        <td style="color: var(--text-secondary);">${r.summary}</td>
-                    </tr>
-                `).join('');
+                if (data.regions) {
+                    document.getElementById('regions-table').innerHTML = data.regions.map(r => `
+                        <tr>
+                            <td><strong>${r.name}</strong></td>
+                            <td>${r.signal_text || r.signal}</td>
+                            <td style="color: var(--text-secondary);">${r.summary}</td>
+                        </tr>
+                    `).join('');
+                }
 
                 // Scenarios
-                document.getElementById('scenarios-container').innerHTML = (data.scenarios || []).map(s => `
-                    <div class="scenario-card">
-                        <div class="scenario-prob">${s.prob}%</div>
-                        <div style="font-weight: 500; margin-top: 4px;">${s.title}</div>
-                    </div>
-                `).join('');
+                if (data.scenarios) {
+                    document.getElementById('scenarios-container').innerHTML = data.scenarios.map(s => `
+                        <div class="scenario-card">
+                            <div class="scenario-prob">${s.prob}%</div>
+                            <div style="font-weight: 500; margin-top: 4px;">${s.title}</div>
+                        </div>
+                    `).join('');
+                }
+
+                // Chart.js Historie (history.json laden)
+                try {
+                    const hRes = await fetch('./history.json?v=' + new Date().getTime());
+                    const hData = await hRes.json();
+                    
+                    const ctx = document.getElementById('riskChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: hData.map(d => d.date),
+                            datasets: [{
+                                label: 'Global Risk Score',
+                                data: hData.map(d => d.score),
+                                borderColor: '#3b82f6',
+                                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                                fill: true,
+                                tension: 0.3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { legend: { labels: { color: '#94a3b8' } } },
+                            scales: {
+                                x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+                                y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' }, min: 50, max: 100 }
+                            }
+                        }
+                    });
+                } catch(e) { console.log("Historien-Daten noch im Aufbau."); }
 
             } catch (error) {
-                console.error("Fehler beim Laden der Daten:", error);
+                console.error("Fehler beim Laden:", error);
                 document.getElementById('exec-summary').innerText = "Fehler beim Laden des Live-Lagebildes. Bitte Seite neu laden.";
             }
         }
