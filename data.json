@@ -1,105 +1,98 @@
 {
   "conflict_hotspots": [
     {
-      "region": "Naher Osten / Iran & Israel",
-      "actors": "USA / Israel vs. Iran / Achse des Widerstands",
+      "region": "Naher Osten",
+      "actors": "USA, Iran, Saudi-Arabien",
       "escalation_level": "KRITISCH",
-      "catalyst": "Militärische Schläge und Zündeleien an Seewegen",
-      "impact": "Folgen für Brent-Öl, Tanker-Routen und Märkte"
+      "catalyst": "Drohungen und Angriffe im Persischen Golf",
+      "impact": "Auswirkungen auf Ölpreise und globale Versorgung"
     },
     {
-      "region": "Ukraine / NATO-Ostflanke",
-      "actors": "Russland vs. Ukraine / NATO-Unterstützer",
+      "region": "Ukraine/Russland",
+      "actors": "Ukraine, Russland, USA, EU",
       "escalation_level": "HOCH",
-      "catalyst": "Frontverlauf, Waffenlieferungen und Strategie",
-      "impact": "Energie- und Agrarmärkte"
+      "catalyst": "Fortgesetzte Kämpfe und Sanktionen",
+      "impact": "Auswirkungen auf europäische Energieversorgung und globale Politik"
     },
     {
-      "region": "Mali / Westafrika",
-      "actors": "Al-Qaeda-Affiliaten vs. Internationale Streitkräfte",
-      "escalation_level": "HOCH",
-      "catalyst": "Territoriale Kontrolle und Terroranschläge",
-      "impact": "Regionale Instabilität und globale Sicherheitsbedrohungen"
+      "region": "Asien-Pazifik",
+      "actors": "China, USA, Japan, Indien",
+      "escalation_level": "MITTEL",
+      "catalyst": "Territoriale Streitigkeiten und Handelskonflikte",
+      "impact": "Auswirkungen auf globale Handel und politische Allianzen"
+    },
+    {
+      "region": "Israel/Palästina",
+      "actors": "Israel, Palästinenser, USA",
+      "escalation_level": "KRITISCH",
+      "catalyst": "Fortgesetzte Gewalt und Siedlungsbau",
+      "impact": "Auswirkungen auf regionale Stabilität und internationale Beziehungen"
     }
   ],
   "systemic_risks": [
     {
-      "topic": "Moldawien & Transnistrien (Zukunfts-Brandherd)",
-      "category": "Latenter Geopolitischer Konflikt",
+      "topic": "Globaler Währungskrieg",
+      "category": "Geomonetär",
       "risk_level": "HOCH",
-      "status": "Erhöhte politische & militärische Spannungen",
-      "impact": "Risiko einer zweiten Front im Schwarzmeerraum und Destabilisierung Südosteuropas."
+      "status": "Escalation durch protektionistische Maßnahmen",
+      "impact": "Destabilisierung globaler Finanzmärkte und Handelsbeziehungen"
     },
     {
-      "topic": "EU-Chatkontrolle & Verschlüsselungsverbot",
-      "category": "Digitale Freiheit & Datenschutz",
-      "risk_level": "HOCH",
-      "status": "Gesetzgebungsverfahren in Brüssel",
-      "impact": "Aufweichung der Ende-zu-Ende-Verschlüsselung, Risiken für vertrauliche Kommunikation."
-    },
-    {
-      "topic": "CBDC / Digitaler Euro & Bargeldobergrenzen",
-      "category": "Monetäre Kontrolle",
+      "topic": "Klimawandel und Umweltzerstörung",
+      "category": "Ressourcen",
       "risk_level": "MITTEL-HOCH",
-      "status": "Vorbereitungsphase der EZB",
-      "impact": "Programmierrecht für Geld, Transaktionsüberwachung und Entzug finanzieller Privatsphäre."
+      "status": "Fortgesetzte Erwärmung und Umweltkatastrophen",
+      "impact": "Langfristige Auswirkungen auf globale Ökosysteme und Wirtschaft"
+    },
+    {
+      "topic": "Cybersicherheitsbedrohungen",
+      "category": "Digitalrechte",
+      "risk_level": "HOCH",
+      "status": "Erhöhte Angriffe und Datendiebstähle",
+      "impact": "Verlust von Vertrauen in digitale Systeme und Bedrohung der nationalen Sicherheit"
     }
   ],
-  "timestamp": "22.07.2026 - 22:21 UTC",
-  "global_risk_score": 79,
-  "market_regime": "Multipolare Stagflation & Zins-Unsicherheit",
-  "top_overweight": "Gold, Energie, Rohstoffe & Verteidigung",
-  "top_risk": "Versorgungsschock / Geopolitische Blockbildung",
-  "daily_executive_summary": "Trotz temporärer Entspannungen an den Märkten bleibt die geopolitische Lage äußerst angespannt. Der Nahost-Konflikt und die Ukraine-Krise schlagen sich direkt auf die Energie- und Agrarmärkte nieder. Die multipolare Weltordnung führt zu einer Stagflation unter Zinsunsicherheit. Es ist ratsam, in Gold, Energie, Rohstoffe und Verteidigungswerte investiert zu sein.",
+  "timestamp": "22.07.2026 - 22:25 UTC",
+  "global_risk_score": 85,
+  "market_regime": "Hohe Volatilität und Unsicherheit",
+  "top_overweight": "Verteidigungsindustrie, Edelmetalle, erneuerbare Energien",
+  "top_risk": "Globaler Währungskrieg und Zerfall internationaler Beziehungen",
+  "daily_executive_summary": "Die Welt steht vor zahlreichen Krisenherden und systemischen Risiken. Die Lage im Nahen Ostenescalation und die ukrainisch-russischen Konflikte dominieren die politische Landschaft. Zudem bedrohen Klimawandel, Cybersicherheitsbedrohungen und protektionistische Maßnahmen die globale Stabilität.",
   "assets": [
     {
       "name": "Gold & Silber",
       "signal": "GREEN",
       "signal_text": "Sehr Attraktiv",
       "trend": "Stark Steigend",
-      "driver": "BRICS-Käufe, Geopolitik & Sichere Häfen"
+      "driver": "Flucht in Wertbeständige Assets"
     },
     {
-      "name": "KI & Halbleiter",
+      "name": "Verteidigungsindustrie",
       "signal": "GREEN",
       "signal_text": "Attraktiv",
       "trend": "Steigend",
-      "driver": "Asien-HardwareBoom & Tech-Rüstung"
+      "driver": "Militärische Aufrüstung und Konflikte"
     },
     {
       "name": "Uran & Energie",
       "signal": "GREEN",
       "signal_text": "Attraktiv",
       "trend": "Stark Steigend",
-      "driver": "Angebotsdefizit & Versorgungsängste"
+      "driver": "Energiekrise und nuclearerneuerbare Energien"
     },
     {
       "name": "S&P 500 / Nasdaq",
       "signal": "AMBER",
       "signal_text": "Neutral",
       "trend": "Volatil",
-      "driver": "US-Bewertung vs. Fed-Zinsaussichten"
-    },
-    {
-      "name": "Bitcoin & Krypto",
-      "signal": "AMBER",
-      "signal_text": "Neutral",
-      "trend": "Volatil",
-      "driver": "Globales Liquiditätsumfeld"
+      "driver": "Unsicherheit und Marktschwankungen"
     },
     {
       "name": "High-Yield Bonds",
       "signal": "RED",
       "signal_text": "Unattraktiv",
       "trend": "Fallend",
-      "driver": "Ausfallrisiken & Refinanzierungsdruck"
-    },
-    {
-      "name": "Gewerbeimmobilien",
-      "signal": "RED",
-      "signal_text": "Meiden",
-      "trend": "Stark Fallend",
-      "driver": "Hohes Zinsniveau & Leerstände"
+      "driver": "Zinserhöhungen und Kreditrisiken"
     }
   ],
   "regions": [
@@ -107,48 +100,36 @@
       "name": "USA",
       "signal": "GREEN",
       "signal_text": "Grün",
-      "summary": "Militärische & Kapitalmarkt-Dominanz, aber Rekordverschuldung."
+      "summary": "Wirtschaftliche Stärke und geopolitische Macht"
     },
     {
-      "name": "BRICS & Globaler Süden",
+      "name": "Asien-Pazifik",
       "signal": "GREEN",
       "signal_text": "Grün",
-      "summary": "Ausbau alternativer Handelsnetze & Rohstoffkontrolle."
+      "summary": "Wirtschaftswachstum und strategische Bedeutung"
     },
     {
-      "name": "Japan & Indien / ASEAN",
-      "signal": "GREEN",
-      "signal_text": "Grün",
-      "summary": "Profiteure der globalen Lieferketten-Umlenkung."
-    },
-    {
-      "name": "Kern-Europa (DE/FR)",
+      "name": "Europa",
       "signal": "RED",
       "signal_text": "Rot",
-      "summary": "Deindustrialisierung, hohe Energiekosten & Standortschwäche."
-    },
-    {
-      "name": "China (Binnenmarkt)",
-      "signal": "RED",
-      "signal_text": "Rot",
-      "summary": "Immobilienkrise, Handelskonflikte & Deflationsdruck."
+      "summary": "Wirtschaftliche Herausforderungen und politische Instabilität"
     }
   ],
   "scenarios": [
     {
-      "title": "Ausweitung Nahost-Konflikt (Ölschock >100$)",
+      "title": "Szenario 1: Globale Rezession",
       "prob": 40
     },
     {
-      "title": "Zweite Inflationswelle / Multipolare Stagflation",
+      "title": "Szenario 2: Eskalation im Nahen Osten",
       "prob": 30
     },
     {
-      "title": "Direkte NATO-Eskalation / Militärischer Zwischenfall",
+      "title": "Szenario 3: Klimakatastrophe",
       "prob": 15
     },
     {
-      "title": "BRICS-Handelswährung / Beschleunigte Dedollarisierung",
+      "title": "Szenario 4: Wiederherstellung globaler Stabilität",
       "prob": 15
     }
   ]
