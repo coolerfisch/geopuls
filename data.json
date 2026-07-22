@@ -4,85 +4,141 @@
       "region": "Naher Osten / Iran & Israel",
       "actors": "USA / Israel vs. Iran / Achse des Widerstands",
       "escalation_level": "KRITISCH",
-      "catalyst": "Trump droht Iran mit Angriffen auf Brücken und Kraftwerke",
-      "impact": "Brent-Öl um mehr als vier Prozent gestiegen, Versorgungsangst schürt"
+      "catalyst": "Militärische Ereignisse und Zündeleien an Seewegen",
+      "impact": "Folgen für Brent-Öl, Tanker-Routen und Märkte"
     },
     {
-      "region": "Ukraine / NATO-Ostflanke",
-      "actors": "Russland vs. Ukraine / NATO-Unterstützer",
+      "region": "Ukraine/NATO",
+      "actors": "Russland vs. Ukraine/NATO",
       "escalation_level": "HOCH",
-      "catalyst": "Krieg in der Ukraine seit über vier Jahren, EU-Beitrittspläne",
-      "impact": "Folgen für europäische Strom-/Gaspreise, Rüstungssektor und Agrarrohstoffe"
+      "catalyst": "Militärische Auseinandersetzungen und Sanktionen",
+      "impact": "Folgen für Energieversorgung, Getreideexporte und europäische Stabilität"
     },
     {
-      "region": "Rotes Meer / Bab al-Mandab",
-      "actors": "Houthi-Milizen vs. Westliche Marine-Allianz",
-      "escalation_level": "HOCH",
-      "catalyst": "Schiffsangriffe und Sicherung der Handelsrouten",
-      "impact": "Lieferketten, Frachtraten und Container-Transport gefährdet"
+      "region": "Taiwan/Indopazifik",
+      "actors": "China vs. Taiwan/USA",
+      "escalation_level": "ANSPRUCHSVOLL",
+      "catalyst": "Militärische Drohungen und wirtschaftliche Einflussnahme",
+      "impact": "Folgen für globale Lieferketten, Halbleiterindustrie und regionale Stabilität"
     },
     {
-      "region": "Taiwan-Straße / Indopazifik",
-      "actors": "China vs. Taiwan / USA & Japan",
-      "escalation_level": "MITTEL-HOCH",
-      "catalyst": "Militärmanöver und technologische Sanktionen",
-      "impact": "Risiken für Halbleiter-Lieferketten (TSMC) und Tech-Sektor"
+      "region": "Rotes Meer",
+      "actors": "Huthi-Rebellen vs. Saudi-Arabien/USA",
+      "escalation_level": "KRITISCH",
+      "catalyst": "Angriffe auf Öl-Tanker und Seewege",
+      "impact": "Folgen für Ölpreise, globale Energieversorgung und Schifffahrt"
     }
   ],
-  "timestamp": "22.07.2026 - 22:02 UTC",
-  "global_risk_score": 78,
-  "market_regime": "Geopolitische Stagflation & Zins-Unsicherheit",
+  "systemic_risks": [
+    {
+      "topic": "EU-Chatkontrolle & Verschlüsselungsverbot",
+      "category": "Digitale Freiheit & Datenschutz",
+      "risk_level": "HOCH",
+      "status": "Gesetzgebungsverfahren in Brüssel",
+      "impact": "Aufweichung der Ende-zu-Ende-Verschlüsselung, Risiken für Bürgerrechte"
+    },
+    {
+      "topic": "BRICS-Dedollarisierung",
+      "category": "Währungssysteme & internationale Beziehungen",
+      "risk_level": "MITTEL",
+      "status": "Fortgeschrittene Verhandlungen zwischen BRICS-Staaten",
+      "impact": "Potenzielle Auswirkungen auf den US-Dollar als Leitwährung und globale Wirtschaftsstrukturen"
+    },
+    {
+      "topic": "CBDCs/Digitaler Euro",
+      "category": "Zentralbanken & Finanzsysteme",
+      "risk_level": "HOCH",
+      "status": "Entwicklungsphase in verschiedenen Ländern",
+      "impact": "Mögliche Auswirkungen auf die Rolle von Bargeld, Privatsphäre und Finanzmarktstabilität"
+    }
+  ],
+  "timestamp": "22.07.2026 - 22:12 UTC",
+  "global_risk_score": 79,
+  "market_regime": "Multipolare Stagflation & Zins-Unsicherheit",
   "top_overweight": "Gold, Energie, Rohstoffe & Verteidigung",
-  "top_risk": "Versorgungsschock / Zins- und Refinanzierungsdruck",
-  "daily_executive_summary": "Die anhaltenden Spannungen im Nahen Osten, der Ukraine und im Pazifik haben die Märkte unter Druck gesetzt. Die Ölpreise sind gestiegen, und die Lieferketten sind gefährdet. Investoren sollten auf sichere Häfen wie Gold und Energie setzen und den Rüstungssektor im Auge behalten.",
+  "top_risk": "Versorgungsschock / Geopolitische Blockbildung",
+  "daily_executive_summary": "Synthese aus Mainstream- und alternativen Berichten weltweit, mit Fokus auf geopolitischen Spannungen, wirtschaftlichen Risiken und den damit verbundenen Auswirkungen auf verschiedene Anlageklassen und Regionen.",
   "assets": [
     {
       "name": "Gold & Silber",
       "signal": "GREEN",
-      "signal_text": "⏩ Sehr Attraktiv",
+      "signal_text": "Sehr Attraktiv",
       "trend": "Stark Steigend",
-      "driver": "Geopolitik, Zentralbankkäufe & Sichere Häfen"
+      "driver": "BRICS-Käufe, Geopolitik & Sichere Häfen"
+    },
+    {
+      "name": "KI & Halbleiter",
+      "signal": "GREEN",
+      "signal_text": "Attraktiv",
+      "trend": "Steigend",
+      "driver": "Asien-HardwareBoom & Tech-Rüstung"
     },
     {
       "name": "Uran & Energie",
       "signal": "GREEN",
-      "signal_text": "⏩ Attraktiv",
+      "signal_text": "Attraktiv",
       "trend": "Stark Steigend",
       "driver": "Angebotsdefizit & Versorgungsängste"
     },
     {
       "name": "S&P 500 / Nasdaq",
       "signal": "AMBER",
-      "signal_text": "⏨ Neutral",
+      "signal_text": "Neutral",
       "trend": "Volatil",
-      "driver": "Hohe KGV-Bewertung vs. Zinsaussichten"
+      "driver": "US-Bewertung vs. Fed-Zinsaussichten"
+    },
+    {
+      "name": "Bitcoin & Krypto",
+      "signal": "AMBER",
+      "signal_text": "Neutral",
+      "trend": "Volatil",
+      "driver": "Globales Liquiditätsumfeld"
     },
     {
       "name": "High-Yield Bonds",
       "signal": "RED",
-      "signal_text": "⏥ Unattraktiv",
+      "signal_text": "Unattraktiv",
       "trend": "Fallend",
       "driver": "Ausfallrisiken & Refinanzierungsdruck"
+    },
+    {
+      "name": "Gewerbeimmobilien",
+      "signal": "RED",
+      "signal_text": "Meiden",
+      "trend": "Stark Fallend",
+      "driver": "Hohes Zinsniveau & Leerstände"
     }
   ],
   "regions": [
     {
       "name": "USA",
       "signal": "GREEN",
-      "signal_text": "⏩ Grün",
-      "summary": "Tech- & Kapitalmarkt-Dominanz, aber Rekordverschuldung."
+      "signal_text": "Grün",
+      "summary": "Militärische & Kapitalmarkt-Dominanz, aber Rekordverschuldung."
+    },
+    {
+      "name": "BRICS & Globaler Süden",
+      "signal": "GREEN",
+      "signal_text": "Grün",
+      "summary": "Ausbau alternativer Handelsnetze & Rohstoffkontrolle."
+    },
+    {
+      "name": "Japan & Indien / ASEAN",
+      "signal": "GREEN",
+      "signal_text": "Grün",
+      "summary": "Profiteure der globalen Lieferketten-Umlenkung."
     },
     {
       "name": "Kern-Europa (DE/FR)",
       "signal": "RED",
-      "signal_text": "⏥ Rot",
+      "signal_text": "Rot",
       "summary": "Deindustrialisierung, hohe Energiekosten & Standortschwäche."
     },
     {
       "name": "China (Binnenmarkt)",
       "signal": "RED",
-      "signal_text": "⏥ Rot",
-      "summary": "Immobilienkrise, Kapitalabflüsse & Deflationsdruck."
+      "signal_text": "Rot",
+      "summary": "Immobilienkrise, Handelskonflikte & Deflationsdruck."
     }
   ],
   "scenarios": [
@@ -91,11 +147,15 @@
       "prob": 40
     },
     {
-      "title": "Zweite Inflationswelle / Geopolitische Stagflation",
+      "title": "Zweite Inflationswelle / Multipolare Stagflation",
       "prob": 30
     },
     {
       "title": "Direkte NATO-Eskalation / Militärischer Zwischenfall",
+      "prob": 15
+    },
+    {
+      "title": "BRICS-Handelswährung / Beschleunigte Dedollarisierung",
       "prob": 15
     }
   ]
