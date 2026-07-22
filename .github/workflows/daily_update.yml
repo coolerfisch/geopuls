@@ -1,35 +1,39 @@
-name: Tägliches Makro-Dashboard Update
+name: GeoPuls Daily AI Update
 
 on:
   schedule:
-    # Führt das Skript täglich um 04:00 UTC (06:00 Uhr deutsche Zeit) aus
-    - cron: '0 4 * * *'
-  workflow_dispatch: # Erlaubt manuelle Ausführung im Browser
+    - cron: '0 4 * * *'  # Täglich 04:00 UTC
+  workflow_dispatch:     # Manuell auslösbar
 
 jobs:
-  update-data:
+  run-ai:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
       - name: Code auschecken
-        uses: actions/checkout@v4  # Auf v4 aktualisiert (behebt Node.js Warnung)
+        uses: actions/checkout@v4
 
       - name: Python einrichten
-        uses: actions/setup-python@v5  # Auf v5 aktualisiert (behebt Node.js Warnung)
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
-      - name: Benötigte Pakete installieren
+      - name: Groq-SDK installieren
         run: |
-          pip install requests
+          pip install groq
 
-      - name: Freies Skript ausführen
+      - name: KI Analyse ausführen
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           python update_dashboard.py
 
-      - name: Neue data.json ins Repo committen
+      - name: data.json committen und pushen
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action Bot"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add data.json
-          git commit -m "Auto-Update: Makro Daten für $(date +'%Y-%m-%d')" || exit 0
+          git commit -m "GeoPuls: Tägliches KI-Update [skip ci]" || exit 0
           git push
