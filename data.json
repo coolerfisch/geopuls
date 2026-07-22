@@ -1,139 +1,102 @@
 {
-  "timestamp": "22.07.2026 - 21:53 UTC",
-  "global_risk_score": 82,
-  "market_regime": "Geopolitische Stagflation & Multipolarer Konflikt",
-  "top_overweight": "Gold, Rohstoffe, Energie & Verteidigung",
-  "top_risk": "Eskalation der Regionalkonflikte / Versorgungsschock",
-  "daily_executive_summary": "Die globalen Finanz- und Geopolitik-Entwicklungen der letzten 24 Stunden sind durch eine weitere Verschärfung der Regionalkonflikte und eine Zunahme der Versorgungsunsicherheiten geprägt. Die Lage im Nahen Osten, in der Ukraine und in der Taiwan-Straße bleibt angespannt. Die Märkte reagieren nervös auf die erhöhte Unsicherheit.",
   "conflict_hotspots": [
     {
       "region": "Naher Osten / Iran & Israel",
       "actors": "USA / Israel vs. Iran / Achse des Widerstands",
       "escalation_level": "KRITISCH",
-      "catalyst": "Beschreibung der aktuellen Vorfälle, Provokationen und militärischen Aktionen, einschließlich Raketenangriffen und Drohnenattacken.",
-      "impact": "Die Spannungen im Nahen Osten treiben die Ölpreise nach oben und gefährden die globale Energieversorgung. Die Straße von Hormus bleibt ein Hotspot der globalen Ölnavigation."
+      "catalyst": "Trump droht Iran mit Angriffen auf Brücken und Kraftwerke",
+      "impact": "Brent-Öl um mehr als vier Prozent gestiegen, Versorgungsangst schürt"
     },
     {
       "region": "Ukraine / NATO-Ostflanke",
       "actors": "Russland vs. Ukraine / NATO-Unterstützer",
       "escalation_level": "HOCH",
-      "catalyst": "Frontverlauf, Waffenlieferungen, Eskalationsschritte und strategische Zündeleien, einschließlich der jüngsten Angriffe auf ukrainische Städte.",
-      "impact": "Die Kämpfe in der Ukraine haben zu einer Verschlechterung der humanitären Lage und einer Zunahme der Flüchtlingsströme geführt. Die europäischen Energiepreise bleiben volatil."
+      "catalyst": "Krieg in der Ukraine seit über vier Jahren, EU-Beitrittspläne",
+      "impact": "Folgen für europäische Strom-/Gaspreise, Rüstungssektor und Agrarrohstoffe"
     },
     {
       "region": "Rotes Meer / Bab al-Mandab",
-      "actors": "Houthi-Ansarallah vs. Westliche Marine-Allianz",
+      "actors": "Houthi-Milizen vs. Westliche Marine-Allianz",
       "escalation_level": "HOCH",
-      "catalyst": "Angriffe auf Handelsschiffe, Umleitung um das Kap der Guten Hoffnung und die jüngsten Drohnenangriffe auf saudische Ölfacilities.",
-      "impact": "Die Angriffe auf Schiffe im Bab al-Mandab Kanal haben zu einer Verschärfung der globalen Lieferkettenprobleme und einer Zunahme der Frachtraten geführt."
+      "catalyst": "Schiffsangriffe und Sicherung der Handelsrouten",
+      "impact": "Lieferketten, Frachtraten und Container-Transport gefährdet"
     },
     {
       "region": "Taiwan-Straße / Indopazifik",
       "actors": "China vs. Taiwan / USA & Japan",
       "escalation_level": "MITTEL-HOCH",
-      "catalyst": "Militärmanöver, Handelsrestriktionen und diplomatisches Zündeln, einschließlich der jüngsten chinesischen Militärübungen um Taiwan.",
-      "impact": "Die Spannungen in der Taiwan-Straße gefährden die globale Halbleiter-Produktion und die Lieferketten für High-Tech-Produkte."
+      "catalyst": "Militärmanöver und technologische Sanktionen",
+      "impact": "Risiken für Halbleiter-Lieferketten (TSMC) und Tech-Sektor"
     }
   ],
+  "timestamp": "22.07.2026 - 22:02 UTC",
+  "global_risk_score": 78,
+  "market_regime": "Geopolitische Stagflation & Zins-Unsicherheit",
+  "top_overweight": "Gold, Energie, Rohstoffe & Verteidigung",
+  "top_risk": "Versorgungsschock / Zins- und Refinanzierungsdruck",
+  "daily_executive_summary": "Die anhaltenden Spannungen im Nahen Osten, der Ukraine und im Pazifik haben die Märkte unter Druck gesetzt. Die Ölpreise sind gestiegen, und die Lieferketten sind gefährdet. Investoren sollten auf sichere Häfen wie Gold und Energie setzen und den Rüstungssektor im Auge behalten.",
   "assets": [
     {
       "name": "Gold & Silber",
       "signal": "GREEN",
-      "signal_text": "⟡ Sehr Attraktiv",
+      "signal_text": "⏩ Sehr Attraktiv",
       "trend": "Stark Steigend",
-      "driver": "Geopolitische Krise & Sichere Häfen"
-    },
-    {
-      "name": "KI & Halbleiter",
-      "signal": "GREEN",
-      "signal_text": "⟡ Attraktiv",
-      "trend": "Steigend",
-      "driver": "Technologie-Rüstung & Hardware-Boom"
+      "driver": "Geopolitik, Zentralbankkäufe & Sichere Häfen"
     },
     {
       "name": "Uran & Energie",
       "signal": "GREEN",
-      "signal_text": "⟡ Attraktiv",
+      "signal_text": "⏩ Attraktiv",
       "trend": "Stark Steigend",
-      "driver": "Versorgungsängste & Infrastruktur-Schutz"
+      "driver": "Angebotsdefizit & Versorgungsängste"
     },
     {
       "name": "S&P 500 / Nasdaq",
       "signal": "AMBER",
-      "signal_text": "⟠ Neutral",
+      "signal_text": "⏨ Neutral",
       "trend": "Volatil",
-      "driver": "Hohe Bewertung vs. Kriegs-Risikoaufschlag"
-    },
-    {
-      "name": "Bitcoin & Krypto",
-      "signal": "AMBER",
-      "signal_text": "⟠ Neutral",
-      "trend": "Volatil",
-      "driver": "Globales Liquiditätsumfeld"
+      "driver": "Hohe KGV-Bewertung vs. Zinsaussichten"
     },
     {
       "name": "High-Yield Bonds",
       "signal": "RED",
-      "signal_text": "⟤ Unattraktiv",
+      "signal_text": "⏥ Unattraktiv",
       "trend": "Fallend",
       "driver": "Ausfallrisiken & Refinanzierungsdruck"
-    },
-    {
-      "name": "Gewerbeimmobilien",
-      "signal": "RED",
-      "signal_text": "⟤ Meiden",
-      "trend": "Stark Fallend",
-      "driver": "Hohes Zinsniveau & Kreditklemme"
     }
   ],
   "regions": [
     {
       "name": "USA",
       "signal": "GREEN",
-      "signal_text": "⟡ Grün",
-      "summary": "Militärische Machtprojektion, aber Rekordverschuldung."
-    },
-    {
-      "name": "Japan & Indien",
-      "signal": "GREEN",
-      "signal_text": "⟡ Grün",
-      "summary": "Gewinner der globalen Lieferketten-Neuordnung."
-    },
-    {
-      "name": "ASEAN",
-      "signal": "GREEN",
-      "signal_text": "⟡ Grün",
-      "summary": "Kapitalzuflüsse durch verlagerte Produktion."
+      "signal_text": "⏩ Grün",
+      "summary": "Tech- & Kapitalmarkt-Dominanz, aber Rekordverschuldung."
     },
     {
       "name": "Kern-Europa (DE/FR)",
       "signal": "RED",
-      "signal_text": "⟤ Rot",
-      "summary": "Hohe Energiekosten, Deindustrialisierung & Standortschwäche."
+      "signal_text": "⏥ Rot",
+      "summary": "Deindustrialisierung, hohe Energiekosten & Standortschwäche."
     },
     {
       "name": "China (Binnenmarkt)",
       "signal": "RED",
-      "signal_text": "⟤ Rot",
-      "summary": "Immobilienkrise, Kapitalabflüsse & Sanktionen."
+      "signal_text": "⏥ Rot",
+      "summary": "Immobilienkrise, Kapitalabflüsse & Deflationsdruck."
     }
   ],
   "scenarios": [
     {
       "title": "Ausweitung Nahost-Konflikt (Ölschock >100$)",
-      "prob": 42
+      "prob": 40
     },
     {
       "title": "Zweite Inflationswelle / Geopolitische Stagflation",
-      "prob": 32
+      "prob": 30
     },
     {
       "title": "Direkte NATO-Eskalation / Militärischer Zwischenfall",
-      "prob": 18
-    },
-    {
-      "title": "KI-Produktivitätsboom (Goldilocks)",
-      "prob": 8
+      "prob": 15
     }
   ]
 }
