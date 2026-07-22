@@ -1,198 +1,385 @@
 <!DOCTYPE html>
-<html lang="de" class="dark">
+<html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Institutional Macro & Geopolitics Monitor</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Vue.js 3 CDN -->
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            darkbg: '#0b0f17',
-            cardbg: '#151c28',
-            bordercol: '#232d3f'
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoPuls - Makro & Geopolitik Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-green: #22c55e;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-blue: #3b82f6;
         }
-      }
-    }
-  </script>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timestamp {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background: #020617;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Top Metrics Row */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+
+        /* Executive Summary & Sections */
+        .section-title {
+            font-size: 1.3rem;
+            margin: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .summary-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-blue);
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+        }
+
+        /* Hotspots Grid */
+        .hotspots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .hotspot-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 18px;
+            position: relative;
+        }
+
+        .hotspot-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 8px;
+        }
+
+        .hotspot-region {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .badge-kritisch { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #ef4444; }
+        .badge-hoch { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid #f59e0b; }
+        .badge-mittel { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid #3b82f6; }
+
+        .hotspot-detail {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .hotspot-detail strong {
+            color: var(--text-primary);
+        }
+
+        /* Asset & Region Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .data-table th {
+            background: #020617;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* Scenarios Grid */
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+        }
+
+        .scenario-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .scenario-prob {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--accent-amber);
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+    </style>
 </head>
-<body class="bg-darkbg text-slate-200 font-sans antialiased min-h-screen p-4 md:p-8">
+<body>
 
-  <div id="app" class="max-w-7xl mx-auto space-y-6">
-
-    <!-- Header -->
-    <header class="flex flex-col md:flex-row md:items-center justify-between border-b border-bordercol pb-4 gap-4">
-      <div>
-        <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white flex items-center gap-2">
-          <span>🛡️</span> Macro & Geopolitics Pulse
-        </h1>
-        <p class="text-xs md:text-sm text-slate-400 mt-1">
-          Tägliche KI-gestützte Risiko-Analyse & Kapitalstrom-Synthese
-        </p>
-      </div>
-      <div class="text-left md:text-right">
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-          ● System Aktiv
-        </span>
-        <p class="text-xs text-slate-500 mt-1">Stand: {{ data.timestamp }}</p>
-      </div>
+    <header>
+        <h1>🌐 GeoPuls <span style="font-size: 0.9rem; font-weight: normal; color: var(--text-secondary);">Makro & Geopolitik Synthese</span></h1>
+        <div class="timestamp" id="timestamp">Lade Daten...</div>
     </header>
 
-    <!-- Ebene 1: Executive Key Metrics -->
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="bg-cardbg border border-bordercol rounded-xl p-4">
-        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Global Risk Index</p>
-        <div class="flex items-baseline gap-2 mt-2">
-          <span class="text-3xl font-bold text-amber-400">{{ data.global_risk_score }}</span>
-          <span class="text-xs text-slate-400">/ 100</span>
+    <!-- Top Key Metrics -->
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-label">Global Risk Score</div>
+            <div class="metric-value" id="risk-score">- / 100</div>
         </div>
-        <p class="text-xs text-amber-400/80 mt-1">Erhöhter Makro-Druck</p>
-      </div>
-
-      <div class="bg-cardbg border border-bordercol rounded-xl p-4">
-        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Dominantes Regime</p>
-        <p class="text-xl font-bold text-white mt-2">{{ data.market_regime }}</p>
-        <p class="text-xs text-slate-400 mt-1">Zinsen hoch, Rohstoffe stark</p>
-      </div>
-
-      <div class="bg-cardbg border border-bordercol rounded-xl p-4">
-        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Top Overweight</p>
-        <p class="text-xl font-bold text-emerald-400 mt-2">{{ data.top_overweight }}</p>
-        <p class="text-xs text-slate-400 mt-1">Strukturelles Marktdefizit</p>
-      </div>
-
-      <div class="bg-cardbg border border-bordercol rounded-xl p-4">
-        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Hauptrisiko Today</p>
-        <p class="text-xl font-bold text-rose-400 mt-2">{{ data.top_risk }}</p>
-        <p class="text-xs text-slate-400 mt-1">Private Credit / Office Immo</p>
-      </div>
-    </section>
-
-    <!-- Briefing Box -->
-    <div class="bg-cardbg/50 border border-bordercol rounded-xl p-4 text-sm text-slate-300 leading-relaxed">
-      <strong class="text-white block mb-1">Tägliches Synopsen-Briefing:</strong>
-      {{ data.daily_executive_summary }}
+        <div class="metric-card">
+            <div class="metric-label">Markt-Regime</div>
+            <div class="metric-value" id="market-regime">-</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Top Übergewichten</div>
+            <div class="metric-value" style="color: var(--accent-green);" id="top-overweight">-</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Hauptrisiko</div>
+            <div class="metric-value" style="color: var(--accent-red);" id="top-risk">-</div>
+        </div>
     </div>
 
-    <!-- Tab Navigation -->
-    <div class="flex border-b border-bordercol space-x-4">
-      <button @click="activeTab = 'assets'" :class="activeTab === 'assets' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-400 hover:text-slate-200'" class="py-2 px-1 border-b-2 font-medium text-sm transition-colors">
-        Anlageklassen
-      </button>
-      <button @click="activeTab = 'regions'" :class="activeTab === 'regions' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-400 hover:text-slate-200'" class="py-2 px-1 border-b-2 font-medium text-sm transition-colors">
-        Regionen & Geopolitik
-      </button>
-      <button @click="activeTab = 'scenarios'" :class="activeTab === 'scenarios' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-400 hover:text-slate-200'" class="py-2 px-1 border-b-2 font-medium text-sm transition-colors">
-        Szenario-Radar
-      </button>
+    <!-- Daily Executive Summary -->
+    <h2 class="section-title">📌 Executive Summary (24h Lagebild)</h2>
+    <div class="summary-box" id="exec-summary">Lade KI-Synthese...</div>
+
+    <!-- Conflict Hotspots Section -->
+    <h2 class="section-title">🔥 Geopolitische Brandherde & Konfliktzonen</h2>
+    <div class="hotspots-grid" id="hotspots-container">
+        <!-- Wird dynamisch befüllt -->
     </div>
 
-    <!-- Tab 1: Anlageklassen -->
-    <div v-if="activeTab === 'assets'" class="bg-cardbg border border-bordercol rounded-xl overflow-x-auto">
-      <table class="w-full text-left text-sm text-slate-300">
-        <thead class="bg-slate-900/50 text-xs uppercase text-slate-400 border-b border-bordercol">
-          <tr>
-            <th class="p-3.5">Assetklasse</th>
-            <th class="p-3.5">Bewertung</th>
-            <th class="p-3.5">Trend (12M)</th>
-            <th class="p-3.5">Haupttreiber</th>
-          </tr>
+    <!-- Asset Allocation -->
+    <h2 class="section-title">📊 Asset-Klassen & Marktsignale</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Asset</th>
+                <th>Signal</th>
+                <th>Trend</th>
+                <th>Haupttreiber</th>
+            </tr>
         </thead>
-        <tbody class="divide-y divide-bordercol">
-          <tr v-for="asset in data.assets" :key="asset.name" class="hover:bg-slate-800/30 transition-colors">
-            <td class="p-3.5 font-medium text-white">{{ asset.name }}</td>
-            <td class="p-3.5">
-              <span :class="getBadgeClass(asset.signal)" class="px-2 py-0.5 rounded text-xs font-semibold">
-                {{ asset.signal_text }}
-              </span>
-            </td>
-            <td class="p-3.5">{{ asset.trend }}</td>
-            <td class="p-3.5 text-slate-400 text-xs">{{ asset.driver }}</td>
-          </tr>
+        <tbody id="assets-table">
+            <!-- Wird dynamisch befüllt -->
         </tbody>
-      </table>
+    </table>
+
+    <!-- Regional Overview -->
+    <h2 class="section-title">🌍 Regionale Lagebeurteilung</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Region</th>
+                <th>Status</th>
+                <th>Einschätzung</th>
+            </tr>
+        </thead>
+        <tbody id="regions-table">
+            <!-- Wird dynamisch befüllt -->
+        </tbody>
+    </table>
+
+    <!-- Scenarios -->
+    <h2 class="section-title">🔮 Makro-Szenarien</h2>
+    <div class="scenarios-grid" id="scenarios-container">
+        <!-- Wird dynamisch befüllt -->
     </div>
 
-    <!-- Tab 2: Regionen -->
-    <div v-if="activeTab === 'regions'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div v-for="region in data.regions" :key="region.name" class="bg-cardbg border border-bordercol rounded-xl p-4 space-y-2">
-        <div class="flex justify-between items-center">
-          <h3 class="font-bold text-white">{{ region.name }}</h3>
-          <span :class="getBadgeClass(region.signal)" class="px-2 py-0.5 rounded text-xs font-semibold">
-            {{ region.signal_text }}
-          </span>
-        </div>
-        <p class="text-xs text-slate-400 leading-normal">{{ region.summary }}</p>
-      </div>
-    </div>
+    <footer>
+        GeoPuls Dashboard • Vollautomatisiert via GitHub Actions & Groq Llama 3.3 • Datenquellen: Unabhängige & Makro-Analysen
+    </footer>
 
-    <!-- Tab 3: Szenario-Radar -->
-    <div v-if="activeTab === 'scenarios'" class="bg-cardbg border border-bordercol rounded-xl p-5 space-y-4">
-      <div v-for="szenario in data.scenarios" :key="szenario.title" class="space-y-1">
-        <div class="flex justify-between text-xs font-medium">
-          <span class="text-white">{{ szenario.title }}</span>
-          <span class="text-slate-400">{{ szenario.prob }}%</span>
-        </div>
-        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-          <div class="bg-emerald-500 h-full rounded-full transition-all duration-500" :style="{ width: szenario.prob + '%' }"></div>
-        </div>
-      </div>
-    </div>
+    <script>
+        async function loadDashboardData() {
+            try {
+                // Cache-Busting durch Zeitstempel erzwingen
+                const response = await fetch('./data.json?v=' + new Date().getTime());
+                if (!response.ok) throw new Error('data.json konnte nicht geladen werden.');
+                
+                const data = await response.json();
 
-  </div>
+                // Header & Metrics
+                document.getElementById('timestamp').innerText = 'Stand: ' + (data.timestamp || 'Aktuell');
+                document.getElementById('risk-score').innerText = (data.global_risk_score || '-') + ' / 100';
+                document.getElementById('market-regime').innerText = data.market_regime || '-';
+                document.getElementById('top-overweight').innerText = data.top_overweight || '-';
+                document.getElementById('top-risk').innerText = data.top_risk || '-';
+                document.getElementById('exec-summary').innerText = data.daily_executive_summary || 'Keine Zusammenfassung verfügbar.';
 
-  <script>
-    const { createApp } = Vue
+                // Hotspots / Brandherde
+                const hotspotsContainer = document.getElementById('hotspots-container');
+                if (data.conflict_hotspots && data.conflict_hotspots.length > 0) {
+                    hotspotsContainer.innerHTML = data.conflict_hotspots.map(h => {
+                        let badgeClass = 'badge-mittel';
+                        const lvl = (h.escalation_level || '').toUpperCase();
+                        if (lvl.includes('KRITISCH')) badgeClass = 'badge-kritisch';
+                        else if (lvl.includes('HOCH')) badgeClass = 'badge-hoch';
 
-    createApp({
-      data() {
-        return {
-          activeTab: 'assets',
-          data: {
-            timestamp: "Lade aktuelle Daten...",
-            global_risk_score: "--",
-            market_regime: "Lade...",
-            daily_executive_summary: "Daten werden abgerufen...",
-            top_overweight: "---",
-            top_risk: "---",
-            assets: [],
-            regions: [],
-            scenarios: []
-          }
-        }
-      },
-      async mounted() {
-        await this.loadData();
-      },
-      methods: {
-        async loadData() {
-          try {
-            // Relativer Pfad './data.json' verhindert 404 auf Subdomains + Cache-Buster
-            const response = await fetch('./data.json?v=' + new Date().getTime());
-            if (response.ok) {
-              this.data = await response.json();
-            } else {
-              console.error("HTTP-Fehler beim Laden der data.json:", response.status);
+                        return `
+                            <div class="hotspot-card">
+                                <div class="hotspot-header">
+                                    <span class="hotspot-region">${h.region}</span>
+                                    <span class="badge ${badgeClass}">${h.escalation_level}</span>
+                                </div>
+                                <div class="hotspot-detail"><strong>Akteure:</strong> ${h.actors}</div>
+                                <div class="hotspot-detail"><strong>Zündel-Faktor / Auslöser:</strong> ${h.catalyst}</div>
+                                <div class="hotspot-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>Märkte & Folgen:</strong> ${h.impact}</div>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    hotspotsContainer.innerHTML = '<p style="color: var(--text-secondary);">Keine aktuellen Hotspots gemeldet.</p>';
+                }
+
+                // Assets Table
+                const assetsTable = document.getElementById('assets-table');
+                if (data.assets) {
+                    assetsTable.innerHTML = data.assets.map(a => `
+                        <tr>
+                            <td><strong>${a.name}</strong></td>
+                            <td>${a.signal_text || a.signal}</td>
+                            <td>${a.trend}</td>
+                            <td style="color: var(--text-secondary);">${a.driver}</td>
+                        </tr>
+                    `).join('');
+                }
+
+                // Regions Table
+                const regionsTable = document.getElementById('regions-table');
+                if (data.regions) {
+                    regionsTable.innerHTML = data.regions.map(r => `
+                        <tr>
+                            <td><strong>${r.name}</strong></td>
+                            <td>${r.signal_text || r.signal}</td>
+                            <td style="color: var(--text-secondary);">${r.summary}</td>
+                        </tr>
+                    `).join('');
+                }
+
+                // Scenarios
+                const scenariosContainer = document.getElementById('scenarios-container');
+                if (data.scenarios) {
+                    scenariosContainer.innerHTML = data.scenarios.map(s => `
+                        <div class="scenario-card">
+                            <div class="scenario-prob">${s.prob}%</div>
+                            <div style="font-weight: 500; margin-top: 4px;">${s.title}</div>
+                        </div>
+                    `).join('');
+                }
+
+            } catch (error) {
+                console.error("Fehler beim Laden des Dashboards:", error);
+                document.getElementById('exec-summary').innerText = "Fehler beim Laden der Live-Daten. Bitte Seite aktualisieren.";
             }
-          } catch (e) {
-            console.error("Netzwerkfehler beim Laden der data.json:", e);
-          }
-        },
-        getBadgeClass(signal) {
-          if (signal === 'GREEN') return 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-          if (signal === 'AMBER') return 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-          if (signal === 'RED') return 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
-          return 'bg-slate-700 text-slate-300'
         }
-      }
-    }).mount('#app')
-  </script>
+
+        // Beim Laden ausführen
+        loadDashboardData();
+    </script>
 </body>
 </html>
