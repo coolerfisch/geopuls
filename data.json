@@ -1,0 +1,109 @@
+{
+  "timestamp": "22.07.2026 - 21:30 UTC",
+  "global_risk_score": 72,
+  "market_regime": "Inflations- und Zinsdruck",
+  "top_overweight": "Edelmetalle, erneuerbare Energien und Technologie",
+  "top_risk": "Globale Verschuldung und geopolitische Spannungen",
+  "daily_executive_summary": "Die globalen Finanzmärkte stehen vor einer neuen Herausforderung, da die Inflation und die Zinsen steigen. Die Verschuldung der Länder und Unternehmen ist ein großes Risiko, während die geopolitischen Spannungen weiter anhalten.",
+  "assets": [
+    {
+      "name": "Gold und Silber",
+      "signal": "GREEN",
+      "signal_text": "⟨ Sehr Attraktiv",
+      "trend": "Stark Steigend",
+      "driver": "Inflations- und Zinsdruck"
+    },
+    {
+      "name": "Erneuerbare Energien",
+      "signal": "GREEN",
+      "signal_text": "⟨ Attraktiv",
+      "trend": "Steigend",
+      "driver": "Nachhaltigkeits- und Klimapolitik"
+    },
+    {
+      "name": "Technologie und KI",
+      "signal": "GREEN",
+      "signal_text": "⟨ Attraktiv",
+      "trend": "Steigend",
+      "driver": "Innovation und Digitalisierung"
+    },
+    {
+      "name": "S&P 500 und Nasdaq",
+      "signal": "AMBER",
+      "signal_text": "⟩ Neutral",
+      "trend": "Seitwärts",
+      "driver": "Hohe Bewertungen und Unsicherheit"
+    },
+    {
+      "name": "Bitcoin und Krypto",
+      "signal": "AMBER",
+      "signal_text": "⟩ Neutral",
+      "trend": "Volatil",
+      "driver": "Regulatorische Unsicherheit und Marktvolatilität"
+    },
+    {
+      "name": "High-Yield Bonds",
+      "signal": "RED",
+      "signal_text": "❌ Unattraktiv",
+      "trend": "Fallend",
+      "driver": "Kreditrisiko und Zinsdruck"
+    },
+    {
+      "name": "Gewerbeimmobilien",
+      "signal": "RED",
+      "signal_text": "❌ Meiden",
+      "trend": "Stark Fallend",
+      "driver": "Leerstand, hohe Zinsen und regulatorische Risiken"
+    }
+  ],
+  "regions": [
+    {
+      "name": "USA",
+      "signal": "GREEN",
+      "signal_text": "⟨ Grün",
+      "summary": "Starke Wirtschaft, niedrige Arbeitslosigkeit und hohe technologische Innovation"
+    },
+    {
+      "name": "Asien-Pazifik",
+      "signal": "GREEN",
+      "signal_text": "⟨ Grün",
+      "summary": "Starker Wirtschaftswachstum, zunehmende globale Bedeutung und wachsende Mittelschicht"
+    },
+    {
+      "name": "Europa",
+      "signal": "RED",
+      "signal_text": "❌ Rot",
+      "summary": "Hohe Verschuldung, niedriges Wirtschaftswachstum und regulatorische Herausforderungen"
+    },
+    {
+      "name": "Lateinamerika",
+      "signal": "AMBER",
+      "signal_text": "⟩ Gelb",
+      "summary": "Unsicherheit, Korruption und wirtschaftliche Herausforderungen, aber auch Chancen für Wachstum"
+    },
+    {
+      "name": "Afrika",
+      "signal": "GREEN",
+      "signal_text": "⟨ Grün",
+      "summary": "Wachsende Wirtschaft, zunehmende Bedeutung und Chancen für Investitionen"
+    }
+  ],
+  "scenarios": [
+    {
+      "title": "Weitere Inflationssteigerung",
+      "prob": 40
+    },
+    {
+      "title": "Wirtschaftlicher Abschwung",
+      "prob": 30
+    },
+    {
+      "name": "Geopolitische Spannungen",
+      "prob": 20
+    },
+    {
+      "title": "Technologischer Fortschritt und Innovation",
+      "prob": 10
+    }
+  ]
+}
