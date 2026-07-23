@@ -543,7 +543,7 @@
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: historyData.map(h => h.date);
+                        labels: historyData.map(h => h.date),
                         datasets: [{
                             data: historyData.map(h => h.score),
                             borderColor: '#00f2fe',
