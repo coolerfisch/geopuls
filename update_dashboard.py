@@ -378,14 +378,18 @@ def filter_feeds(text):
         print("Hinweis: Kein Groq Key. Überspringe Stufe-1 Pre-Filter.")
         return text[:50000]
     print("Filtere alle Feeds via Groq (Llama 3.3 70B)...")
-    prompt = """Du bist ein weltweites OSINT-Filter-Modul. Deine Aufgabe: Filtere die Feeds unvoreingenommen, ausgewogen und GLOBAL.
+    prompt = """Du bist ein weltweites OSINT-Filter-Modul. 
+
+WICHTIGER ZEITANKER: Wir schreiben das Jahr 2026! US-Präsident ist Donald Trump (Trump-Administration). Ignoriere veraltete Vorgehensweisen oder vergangene Wahlen (wie Midterms 2024 oder Biden-Regierung).
+
+Deine Aufgabe: Filtere die Feeds unvoreingenommen, ausgewogen und GLOBAL.
 Vergleiche die Positionen von Links (Demokraten/Progressive), Rechts (Republikaner/Konservative) und Mitte/Liberalen bei Großmächten (USA, EU, UK, BRICS).
 
 LÖSCHE Triviales, Sport, PR, Lokalkriminalität.
 BEHALTE UNBEDINGT:
 1. INNENPOLITISCHER DRUCK & PARTEIENKÄMPFE: Wahlzyklen, Parteikongresse, Gesetzgebungsblockaden, Regierungsinstabilitäten (USA, EU, BRICS, Nahost, Afrika).
 2. ESKALATIONSSPIRALEN & SPIELTHEORIE: Truppen, NOTAMs, GPS-Jamming, Sanktionen, Manöver.
-3. HYBRIDE/NEUE BRENNPUNKTE: Pufferstaaten (Moldawien, Kaukasus), Enklaven, Machtvakua, Cyber, maritime Nadelöhre.
+3. HYBRIDE/NEUE BRENNPUNKTE: Pufferstaaten (Moldawien, Kaukasus), EnKLaven, Machtvakua, Cyber, maritime Nadelöhre.
 4. FLÜCHTLINGSSTRÖME & VERTREIBUNG: UNHCR/IOM DTM, Massenflucht als Frühwarnindikator.
 5. MONETÄRE & DIGITALE SOUVERÄNITÄT: CBDCs, EU-Chatkontrolle/Verschlüsselungsverbot, US-Verschuldung, BRICS Pay, SWIFT.
 6. MAKRO, ROHSTOFFE & LOGISTIK: Zinsen, Anleihestress, Rig Count, Gas-Storage, Frachtraten.
@@ -414,7 +418,12 @@ def run_deepseek_game_theory(context):
         print("Hinweis: DeepSeek Key (DEEPSEEK_API_KEY) nicht konfiguriert.")
         return "DeepSeek Spieltheorie-Analyse nicht verfügbar."
     print("Starte DeepSeek-R1 Spieltheorie-Analyse (deepseek-reasoner)...")
-    gt_prompt = """Analysiere das akuteste globale Krisenereignis aus den Feeds streng spieltheoretisch.
+    gt_prompt = """WICHTIGER ZEITANKER & REALITÄTS-CHECK:
+- Wir schreiben das Jahr 2026.
+- US-Präsident ist Donald Trump (Trump-Administration).
+- Erwähne NIEMALS veraltete Akteure oder Ereignisse wie 'Biden-Administration' oder 'Midterms 2024'!
+
+Analysiere das akuteste globale Krisenereignis aus den Feeds streng spieltheoretisch.
 Setze folgende 6 Prinzipien um:
 1. AKTEUR-GRANULARITÄT: Zerlege Staaten in interne Fraktionen (Exekutive, Militär, Parteiflügel, Lobby).
 2. ZEITHORIZONT: Analysiere separat 4-8 Wochen (Ein-Runden-Spiel) vs. Langfristig (Schatten der Zukunft).
@@ -446,7 +455,9 @@ def run_gemini_macro(context, markets):
         print("Hinweis: Gemini Key nicht konfiguriert.")
         return "Gemini Makro-Analyse nicht verfügbar."
     print("Starte Gemini 2.0 Flash Makro- & Migrations-Scan...")
-    macro_prompt = """Analysiere die Feeds und Live-Finanzdaten auf:
+    macro_prompt = """WICHTIGER ZEITANKER: Wir schreiben das Jahr 2026. US-Präsident ist Donald Trump.
+
+Analysiere die Feeds und Live-Finanzdaten auf:
 1. Makroökonomische Schocks (Zinsen, Inflation, Rohstoff-Nadelöhre, Seewege).
 2. Fluchtbewegungen & Vertreibung (UNHCR/IOM) als Frühwarnindikatoren für verdeckte Eskalationen.
 3. Digitale Souveränität (CBDCs, Überwachungsgesetze, Kapitalverkehrskontrollen).
@@ -469,6 +480,10 @@ gemini_analysis = run_gemini_macro(filtered_context, live_market_context)
 # ============================================================
 orchestrator_prompt = """Du bist die 'Argus Grid Systemic Intelligence Engine' (Chef-Analyst).
 Synthetisiere die Berichte der Spezial-Analysten (DeepSeek Spieltheorie + Gemini Makro/Migration) und die Live-Feeds zu einer unvoreingenommenen Gesamtlage.
+
+WICHTIGER ZEITANKER & FAKTEN-GUARDRAIL:
+- Es ist das Jahr 2026. US-Präsident ist Donald Trump (Trump-Administration).
+- Korrigiere und eliminiere jegliche Halluzinationen oder veraltete Referenzen aus Vorgängermodellen (z. B. Biden, Midterms 2024 etc.).
 
 DEINE AUFGABE:
 - Integriere die spieltheoretischen Payoffs (-3 bis +3) und das Gegenmodell.
