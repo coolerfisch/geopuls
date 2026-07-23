@@ -1,0 +1,93 @@
+{
+  "entities": [
+    {
+      "id": "E1",
+      "name": "Straße von Hormus",
+      "type": "CHOKEPOINT"
+    },
+    {
+      "id": "E2",
+      "name": "Bab al-Mandab",
+      "type": "CHOKEPOINT"
+    },
+    {
+      "id": "E3",
+      "name": "Brent Öl",
+      "type": "COMMODITY"
+    },
+    {
+      "id": "E4",
+      "name": "Seltene Erden",
+      "type": "COMMODITY"
+    },
+    {
+      "id": "E5",
+      "name": "VIX",
+      "type": "MARKET_INDICATOR"
+    }
+  ],
+  "relations": [
+    {
+      "subject": "Iran",
+      "predicate": "THREATENS_CLOSURE_OF",
+      "object": "Straße von Hormus",
+      "severity": 85
+    },
+    {
+      "subject": "Straße von Hormus",
+      "predicate": "PRICE_DRIVER_OF",
+      "object": "Brent Öl",
+      "severity": 90
+    },
+    {
+      "subject": "Bab al-Mandab",
+      "predicate": "AFFECTS",
+      "object": "Tanker-Frachtraten",
+      "severity": 75
+    },
+    {
+      "subject": "China",
+      "predicate": "MAY_RESTRICT_EXPORT_OF",
+      "object": "Seltene Erden",
+      "severity": 70
+    },
+    {
+      "subject": "Brent Öl",
+      "predicate": "REINFORCES",
+      "object": "US-Inflationserwartungen",
+      "severity": 65
+    }
+  ],
+  "causal_chains": [],
+  "historical_precedents": [
+    {
+      "trigger": "China Exportbeschränkung Seltene Erden",
+      "past_years": [
+        2010,
+        2023,
+        2025
+      ],
+      "impact": "Seltene Erden +45%, Bergbauaktien +12%, Japan-Industrie -7%",
+      "affected_assets": [
+        "MP",
+        "LYC",
+        "REMX"
+      ]
+    },
+    {
+      "trigger": "Drohung Sperrung Straße von Hormus / Bab al-Mandab",
+      "past_years": [
+        2019,
+        2023,
+        2024
+      ],
+      "impact": "Brent Öl +18%, Tanker-Frachtraten +40%, Gold +6%",
+      "affected_assets": [
+        "BZ=F",
+        "CL=F",
+        "FRO",
+        "GC=F"
+      ]
+    }
+  ]
+}

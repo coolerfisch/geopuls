@@ -1,239 +1,253 @@
 {
-  "daily_executive_summary": "Der Ölmarkt reagiert mit einem signifikanten Brent-Anstieg (+2,06%) auf erhöhte geopolitische Spannungen, während Gold trotz Unsicherheit leicht korrigiert. Steigende Anleiherenditen (10Y: 4,66%) und ein hohes Preisniveau bei Silber deuten auf latenten Inflationsdruck hin, während der VIX (16,64) noch keine akute Panik signalisiert.",
-  "market_regime": "Geopolitische Anspannung / Inflationär",
+  "daily_executive_summary": "Brent (+3,83%) und WTI (+3,16%) springen bei gleichzeitig anziehender Aktien-Volatilität (VIX +5,83%) an, während Gold trotz Risk-off leicht korrigiert – ein klassisches Muster geopolitischer Öl-Angebotsprämien. Die steigende US-10Y (4,66%) signalisiert Inflations- statt Rezessionsangst, was ein stagflationäres Regime nährt. Kritische maritime Nadelöhre und potenzielle Rohstoff-Exportbeschränkungen bleiben die dominanten Eskalationstreiber.",
+  "market_regime": "Inflationär / Geopolitische Anspannung",
   "geoscore": {
     "current_score": 74,
     "status_label": "ERHÖHT",
-    "previous_48h": 70
+    "previous_48h": 69
   },
   "defcon_status": {
     "level": 3,
     "label": "DEFCON 3",
     "nuclear_risk_percent": 15,
-    "primary_driver": "Eskalationsrisiko an maritimen Nadelöhren (Hormus/Bab al-Mandab) mit direkter Auswirkung auf Energiepreise."
+    "primary_driver": "Maritime Eskalationsdynamik an Öl-Chokepoints mit US-/Iran-Reibungsflächen"
   },
-  "top_overweight": "Energie & Öl-Reeder",
-  "top_risk": "Sperrung maritimer Chokepoints & Frachtraten-Explosion",
+  "top_overweight": "Energie & Öl-Infrastruktur",
+  "top_risk": "Angebotsschock durch Blockade maritimer Nadelöhre",
   "pattern_recognition": [
     {
-      "trigger_event": "Erhöhter Öl-Preisdruck bei fallendem Baltic Dry Index",
+      "trigger_event": "Öl-Sprung +3,83% (Brent) bei anziehendem VIX – Angebots- statt Nachfragesignal",
       "matched_past_events": [
         "2019: Hormus-Drohung (Brent +18%)",
-        "2023: Bab al-Mandab (Frachtraten +40%)",
-        "2024: Rotes Meer Umleitungen"
+        "2023/2024: Bab al-Mandab / Rotmeer-Störungen (Frachtraten +40%)"
       ],
-      "historical_consequences": "Brent Öl +18%, Tanker-Frachtraten +40%, Gold +6%",
-      "actionable_insight": "Long-Bias auf Tanker-Reeder (FRO) und Brent-Futures (BZ=F); Absicherung bei Airlines reduzieren"
+      "historical_consequences": "Brent +18%, Tanker-Frachtraten +40%, Gold +6%",
+      "actionable_insight": "Long-Bias auf Energie-Majors & Tanker-Reeder (FRO); Airlines & Chemie untergewichten"
     },
     {
-      "trigger_event": "Latenter Ressourcen-Nationalismus (Seltene Erden / Kupfer)",
+      "trigger_event": "Latentes China-Exportrisiko bei kritischen Mineralien",
       "matched_past_events": [
-        "2010: Seltene Erden Stopp (+45%)",
-        "2023: Gallium Beschränkung",
-        "2025: Erneute Exportkontrollen"
+        "2010: Seltene-Erden-Stopp (+45%)",
+        "2023: Gallium/Germanium-Beschränkung",
+        "2025: erneute Verschärfung"
       ],
       "historical_consequences": "Seltene Erden +45%, Bergbauaktien +12%, Japan-Industrie -7%",
-      "actionable_insight": "Strategische Positionierung in westlichen Förderern (MP, LYC)"
+      "actionable_insight": "Westliche Förderer (MP, LYC, REMX) als strategischer Hedge halten"
     }
   ],
   "conflict_hotspots": [
     {
       "region": "Straße von Hormus",
-      "actors": "Iran vs. USA/Israel",
+      "actors": "Iran vs. USA/Israel/GCC",
       "escalation_level": "KRITISCH",
-      "catalyst": "Marine-Manöver & Tankerbedrohung",
-      "impact": "Öl & Frachtraten",
+      "catalyst": "Öl-Preissprung deutet auf Marine-Reibung/Angebotsangst",
+      "impact": "Öl & Tanker-Frachtraten",
       "lat": 26.56,
       "lng": 56.25
     },
     {
       "region": "Bab al-Mandab / Rotes Meer",
-      "actors": "Huthi vs. westliche Handelsschifffahrt",
+      "actors": "Regionale Milizen vs. westliche Marinekoalition",
       "escalation_level": "HOCH",
-      "catalyst": "Angriffe auf Handelsrouten",
+      "catalyst": "Angriffe auf Handelsschifffahrt / Umleitungen ums Kap",
       "impact": "Frachtraten & Lieferketten",
       "lat": 12.58,
       "lng": 43.33
+    },
+    {
+      "region": "Ostasien / Seltene-Erden-Lieferketten",
+      "actors": "China vs. USA/Japan/EU",
+      "escalation_level": "MODERAT",
+      "catalyst": "Drohende Exportkontrollen bei kritischen Mineralien",
+      "impact": "Bergbau & Halbleiter-Vorprodukte",
+      "lat": 39.9,
+      "lng": 116.4
     }
   ],
   "systemic_risks": [
     {
-      "title": "Energiepreis-Inflation & Zins-Rigidität",
+      "title": "Stagflations-Risiko durch Angebotsschock",
       "trend": "Steigend",
       "risk_level": "HOCH",
-      "description": "Steigende Brent-Preise (+2,06%) und hartnäckig hohe Anleiherenditen (10Y: 4,66%) könnten die Fed zu einer restriktiveren Haltung zwingen und Stagflationsrisiken verstärken."
+      "description": "Öl-Anstieg bei bereits erhöhter 10Y-Rendite (4,66%) verhärtet Inflationserwartungen und beschränkt geldpolitischen Spielraum."
     },
     {
-      "title": "Frachtketten-Störung an Chokepoints",
+      "title": "Sanktions-Spirale & Rohstoff-Entkopplung",
       "trend": "Steigend",
       "risk_level": "ERHÖHT",
-      "description": "Bedrohung maritimer Nadelöhre gefährdet globale Lieferketten und treibt Transportkosten sowie importierte Inflation."
+      "description": "Weaponisierung kritischer Mineralien und Energieströme fragmentiert globale Lieferketten."
+    },
+    {
+      "title": "Volatilitäts-Cluster an Risikomärkten",
+      "trend": "Steigend",
+      "risk_level": "MODERAT",
+      "description": "VIX +5,83% und leicht fallende Aktien/Bitcoin signalisieren beginnende Risk-off-Rotation."
     }
   ],
   "domestic_politics": [
     {
       "country": "USA",
-      "topic": "Geldpolitik & Fiskalischer Druck",
+      "topic": "Geldpolitik unter Inflationsdruck",
       "stability_score": "ANGESPANNT",
-      "details": "Steigende Renditen (10Y bei 4,66%) belasten die Refinanzierung der Staatsschulden; Fed unter Druck zwischen Inflationsbekämpfung und Wachstumsschutz."
+      "details": "Steigende Anleiherenditen und Öl-getriebene Inflation zwingen die Fed zu restriktiver Haltung – politisch heikel im Vorfeld fiskalischer Debatten."
     },
     {
       "country": "EU",
-      "topic": "Energiesicherheit & Wettbewerbsfähigkeit",
-      "stability_score": "FRAGIL",
-      "details": "Abhängigkeit von Energieimporten macht die EU besonders anfällig für Öl-Preisschocks durch Chokepoint-Störungen."
+      "topic": "Energiesicherheit & Frachtkosten",
+      "stability_score": "ANGESPANNT",
+      "details": "Umleitungen maritimer Handelsrouten belasten Industrie und importierte Inflation."
     }
   ],
   "scenarios": [
     {
       "title": "Eskalation an maritimen Nadelöhren",
       "probability_pct": 60,
-      "trigger": "Blockade oder Angriffe in Hormus/Bab al-Mandab",
-      "market_consequence": "Brent Öl >110$, Tanker-Frachtraten +40%, Gold-Rebound Richtung 4300$"
+      "trigger": "Störung/Sperrung von Hormus oder Bab al-Mandab",
+      "market_consequence": "Brent >110$, Tanker-Frachtraten +40%, Gold dreht wieder aufwärts"
     },
     {
-      "title": "Diplomatische Deeskalation",
-      "probability_pct": 25,
-      "trigger": "Verhandlungserfolg / US-Iran Rückzug",
-      "market_consequence": "Brent zurück auf 88$, Risk-On für S&P 500, Gold-Korrektur"
+      "title": "China verschärft Mineralien-Exportkontrollen",
+      "probability_pct": 40,
+      "trigger": "Retaliation auf westliche Technologiesanktionen",
+      "market_consequence": "REMX/MP/LYC +12-45%, Halbleiter- und Auto-Zulieferer unter Druck"
     },
     {
-      "title": "Ressourcen-Nationalismus verschärft sich",
-      "probability_pct": 15,
-      "trigger": "Neue Exportbeschränkungen für kritische Mineralien",
-      "market_consequence": "Kupfer & Seltene Erden +15%, Bergbauaktien Outperformance"
+      "title": "Deeskalation & Angebotsprämie verpufft",
+      "probability_pct": 30,
+      "trigger": "Diplomatische Beruhigung, keine physische Blockade",
+      "market_consequence": "Brent Rücksetzer -8%, VIX normalisiert sich, S&P erholt"
     }
   ],
   "event_graph": [
     {
-      "event_id": "EVT-2026-0714-034",
-      "title": "Militärische Drohgebärden an maritimen Nadelöhren",
+      "event_id": "EVT-2026-0714-041",
+      "title": "Öl-Angebotsprämie bei maritimen Nadelöhren steigt",
       "sources": [
         "Reuters",
-        "AP",
+        "Bloomberg",
         "UKMTO"
       ],
-      "confidence": 88,
+      "confidence": 85,
       "affected_regions": [
         "Naher Osten",
         "Rotes Meer"
       ],
       "affected_markets": [
         "Öl",
-        "Gold",
-        "Schifffahrt"
+        "Schifffahrt",
+        "Inflation"
       ]
     },
     {
-      "event_id": "EVT-2026-0714-041",
-      "title": "Anstieg der Anleiherenditen signalisiert Inflationssorgen",
+      "event_id": "EVT-2026-0714-042",
+      "title": "Volatilitätsanstieg an Aktienmärkten (VIX +5,83%)",
       "sources": [
-        "Bloomberg",
-        "FED-Daten"
+        "CBOE",
+        "Marktdaten"
       ],
-      "confidence": 79,
+      "confidence": 90,
       "affected_regions": [
-        "USA",
         "Global"
       ],
       "affected_markets": [
-        "Anleihen",
-        "Gold",
-        "Aktien"
+        "Aktien",
+        "Bitcoin",
+        "HY-Kredit"
       ]
     }
   ],
   "impact_chains": [
     {
-      "trigger": "Hormus / Bab al-Mandab Blockade",
+      "trigger": "Hormus / Bab al-Mandab Störung",
       "chain": [
         "Tanker-Passagen sinken",
-        "Brent Öl steigt >110$",
-        "Importierte Inflation steigt",
+        "Brent Öl steigt",
+        "Frachtraten steigen",
+        "Inflation steigt",
         "Fed bleibt restriktiv",
-        "Renditen steigen",
-        "Gold rebound"
+        "Realzinsdruck auf Risiko-Assets"
       ],
       "beneficiaries": [
         "Brent Öl",
-        "Gold",
-        "Tanker-Reeder (FRO)"
+        "Tanker-Reeder",
+        "Energie-Majors",
+        "Gold (verzögert)"
       ],
       "detractors": [
-        "Airlines (DAL)",
+        "Airlines",
         "Chemie",
-        "Konsumgüter"
+        "Konsumgüter",
+        "Bitcoin"
       ]
     },
     {
-      "trigger": "Anhaltend hohe Anleiherenditen (10Y 4,66%)",
+      "trigger": "China-Exportkontrolle kritischer Mineralien",
       "chain": [
-        "Refinanzierungskosten steigen",
-        "Fiskalischer Druck USA",
-        "Bewertungsdruck Growth-Aktien",
-        "Rotation in Value & Rohstoffe"
+        "Seltene-Erden-Angebot verknappt",
+        "Preise +45%",
+        "Westliche Förderer profitieren",
+        "Japan/EU-Industrie unter Kostendruck"
       ],
       "beneficiaries": [
-        "Energie",
-        "Banken",
-        "Rohstoffe"
+        "MP",
+        "LYC",
+        "REMX"
       ],
       "detractors": [
-        "Tech-Growth",
-        "REITs",
-        "Bitcoin"
+        "Halbleiter-Fertigung",
+        "Auto-Zulieferer"
       ]
     }
   ],
   "narrative_matrix": [
     {
-      "topic": "Inflation & Zinspfad",
-      "mainstream": "Inflation rückläufig, Fed nahe am neutralen Zinsniveau",
-      "brics": "Beschleunigung der Entdollarisierung und Rohstoffabsicherung",
-      "alternative": "Stagflationsrisiko durch Energie- und Frachtkostenschock"
+      "topic": "Öl & Geopolitik",
+      "mainstream": "Temporäre Risikoprämie, Angebot bleibt langfristig ausreichend",
+      "brics": "Energie als geopolitischer Hebel; Absicherung über eigene Rohstoffreserven",
+      "alternative": "Struktureller Angebotsschock mit dauerhaft höheren Preisen und Stagflation"
     },
     {
-      "topic": "Nahost-Eskalation",
-      "mainstream": "Begrenzter Konflikt, kontrollierbare Risiken",
-      "brics": "Westliche Aggression treibt Energiemärkte, Chance für alternative Handelsrouten",
-      "alternative": "Chokepoint-Blockade als schwarzer Schwan für globale Lieferketten"
+      "topic": "Zinspfad & Inflation",
+      "mainstream": "Fed hält Kurs, Disinflation intakt",
+      "brics": "Entdollarisierung und Rohstoffbindung als Absicherung",
+      "alternative": "Öl-getriebene Reinflation erzwingt längeres Zinshoch"
     }
   ],
   "assets": [
     {
-      "name": "Brent Öl",
+      "name": "Brent / WTI Öl",
       "signal": "GREEN",
       "signal_text": "🟢 Attraktiv",
-      "trend": "Steigend",
-      "driver": "Geopolitische Risikoprämie an Chokepoints"
-    },
-    {
-      "name": "Gold & Silber",
-      "signal": "YELLOW",
-      "signal_text": "🟡 Halten",
-      "trend": "Seitwärts / leichte Korrektur",
-      "driver": "Hohe Renditen dämpfen kurzfristig, geopolitische Absicherung bleibt"
+      "trend": "Stark steigend",
+      "driver": "Geopolitische Angebotsprämie an Chokepoints"
     },
     {
       "name": "Tanker-Reeder (FRO)",
       "signal": "GREEN",
       "signal_text": "🟢 Attraktiv",
       "trend": "Steigend",
-      "driver": "Frachtraten-Explosion bei Umleitungen"
+      "driver": "Frachtraten profitieren von Umleitungen"
     },
     {
-      "name": "US-Aktien (S&P 500)",
+      "name": "Gold & Silber",
       "signal": "YELLOW",
-      "signal_text": "🟡 Neutral",
-      "trend": "Seitwärts",
-      "driver": "Renditedruck vs. robuste Fundamentaldaten"
+      "signal_text": "🟡 Neutral-Konstruktiv",
+      "trend": "Kurzfristig konsolidierend",
+      "driver": "Heute -0,84% durch Realzinsdruck, mittelfristig Hedge bei Eskalation"
     },
     {
-      "name": "Bitcoin",
+      "name": "Airlines & Chemie",
       "signal": "RED",
-      "signal_text": "🔴 Vorsicht",
+      "signal_text": "🔴 Untergewichten",
       "trend": "Fallend",
-      "driver": "Restriktive Liquidität & Risk-Off-Tendenzen"
+      "driver": "Treibstoffkosten und Lieferkettenstörungen"
+    },
+    {
+      "name": "Bitcoin & Risiko-Assets",
+      "signal": "YELLOW",
+      "signal_text": "🟡 Vorsicht",
+      "trend": "Schwächelnd",
+      "driver": "VIX-Anstieg und Risk-off-Rotation"
     }
   ],
   "stock_picks": {
@@ -241,32 +255,32 @@
       {
         "ticker": "FRO",
         "name": "Frontline Ltd",
-        "sector": "Tanker-Schifffahrt",
-        "reason": "Frachtraten-Anstieg durch Umleitungen an Chokepoints"
+        "sector": "Schifffahrt/Tanker",
+        "reason": "Frachtraten-Spike durch Umleitung maritimer Routen"
       },
       {
         "ticker": "XOM",
-        "name": "Exxon Mobil",
+        "name": "ExxonMobil",
         "sector": "Energie",
-        "reason": "Profiteur steigender Brent-Preise"
+        "reason": "Direkter Profiteur der Öl-Angebotsprämie"
       },
       {
         "ticker": "MP",
         "name": "MP Materials",
         "sector": "Bergbau",
-        "reason": "Unabhängigkeit von China bei Seltenen Erden"
+        "reason": "Hedge gegen China-Exportkontrollen bei Seltenen Erden"
       },
       {
-        "ticker": "LMT",
-        "name": "Lockheed Martin",
-        "sector": "Rüstung",
-        "reason": "Erhöhte Verteidigungsausgaben bei Eskalation"
+        "ticker": "LYC",
+        "name": "Lynas Rare Earths",
+        "sector": "Bergbau",
+        "reason": "Westliche Versorgungsalternative bei kritischen Mineralien"
       },
       {
-        "ticker": "COP",
-        "name": "ConocoPhillips",
-        "sector": "Energie",
-        "reason": "Hebel auf steigende Öl-Risikoprämie"
+        "ticker": "GC=F",
+        "name": "Gold Futures",
+        "sector": "Edelmetall",
+        "reason": "Absicherung gegen Eskalation und Reinflation trotz kurzfristiger Konsolidierung"
       }
     ],
     "flop_5_sells": [
@@ -274,7 +288,7 @@
         "ticker": "DAL",
         "name": "Delta Air Lines",
         "sector": "Luftfahrt",
-        "reason": "Hohe Treibstoffkosten und Flugumleitungen"
+        "reason": "Hohe Treibstoffkosten und mögliche Flugumleitungen"
       },
       {
         "ticker": "LUV",
@@ -286,19 +300,19 @@
         "ticker": "DOW",
         "name": "Dow Inc",
         "sector": "Chemie",
-        "reason": "Steigende Energie- und Rohstoffkosten belasten Margen"
+        "reason": "Energieinput-Kosten und Lieferkettenstörungen"
       },
       {
-        "ticker": "TSLA",
-        "name": "Tesla",
-        "sector": "Tech-Growth",
-        "reason": "Bewertungsdruck durch hohe Renditen"
+        "ticker": "MAERSK",
+        "name": "A.P. Møller-Mærsk",
+        "sector": "Containerschifffahrt",
+        "reason": "Routenumleitungen belasten Transitzeiten trotz höherer Raten"
       },
       {
-        "ticker": "MCD",
-        "name": "McDonald's",
-        "sector": "Konsum",
-        "reason": "Inflation belastet Konsumausgaben und Lieferketten"
+        "ticker": "TM",
+        "name": "Toyota Motor",
+        "sector": "Automobil",
+        "reason": "Exponiert gegenüber Seltene-Erden-Verknappung und Japan-Industriedruck"
       }
     ]
   },
@@ -316,8 +330,18 @@
       },
       {
         "id": "E3",
-        "name": "US 10Y Rendite",
-        "type": "MACRO_INDICATOR"
+        "name": "Brent Öl",
+        "type": "COMMODITY"
+      },
+      {
+        "id": "E4",
+        "name": "Seltene Erden",
+        "type": "COMMODITY"
+      },
+      {
+        "id": "E5",
+        "name": "VIX",
+        "type": "MARKET_INDICATOR"
       }
     ],
     "new_relations": [
@@ -328,18 +352,30 @@
         "severity": 85
       },
       {
-        "subject": "Chokepoint-Blockade",
-        "predicate": "DRIVES_UP",
+        "subject": "Straße von Hormus",
+        "predicate": "PRICE_DRIVER_OF",
         "object": "Brent Öl",
-        "severity": 80
+        "severity": 90
       },
       {
-        "subject": "Hohe Renditen",
-        "predicate": "PRESSURES",
-        "object": "Tech-Growth",
+        "subject": "Bab al-Mandab",
+        "predicate": "AFFECTS",
+        "object": "Tanker-Frachtraten",
+        "severity": 75
+      },
+      {
+        "subject": "China",
+        "predicate": "MAY_RESTRICT_EXPORT_OF",
+        "object": "Seltene Erden",
         "severity": 70
+      },
+      {
+        "subject": "Brent Öl",
+        "predicate": "REINFORCES",
+        "object": "US-Inflationserwartungen",
+        "severity": 65
       }
     ]
   },
-  "timestamp": "23.07.2026 - 06:26 UTC"
+  "timestamp": "23.07.2026 - 07:34 UTC"
 }
