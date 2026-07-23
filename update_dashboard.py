@@ -75,7 +75,7 @@ def get_live_market_data():
 
 live_market_context = get_live_market_data()
 
-# B. VOLLSTÄNDIGER VOLL-QUELLENPOOL (68 QUELLEN GEWICHTET INKL. REDDIT MATRIX)
+# B. VOLLSTÄNDIGER VOLL-QUELLENPOOL (INKL. NASA FIRMS FEUER-/EXPLOSIONS-DATA & REDDIT MATRIX)
 SOURCES = [
     # 🏛️ 1. ZENTRALBANKEN & MAKRO-INSTITUTIONEN (Gewicht: 1.0)
     {"name": "Federal Reserve Press", "url": "[https://www.federalreserve.gov/feeds/press_all.xml](https://www.federalreserve.gov/feeds/press_all.xml)", "cat": "Zentralbank", "weight": 1.00, "bias": "OFFIZIELL"},
@@ -96,7 +96,8 @@ SOURCES = [
     {"name": "AFP World", "url": "[https://news.google.com/rss/search?q=when:24h+source:Agence+France-Presse&hl=en-US&gl=US&ceid=US:en](https://news.google.com/rss/search?q=when:24h+source:Agence+France-Presse&hl=en-US&gl=US&ceid=US:en)", "cat": "Agentur", "weight": 0.95, "bias": "MAINSTREAM"},
     {"name": "Kyodo News (Japan)", "url": "[https://english.kyodonews.net/rss/news.xml](https://english.kyodonews.net/rss/news.xml)", "cat": "Agentur", "weight": 0.95, "bias": "MAINSTREAM"},
 
-    # 🛡️ 3. OSINT, VERTEIDIGUNG & SATELLITEN (Gewicht: 0.85)
+    # 🛡️ 3. OSINT, VERTEIDIGUNG, SATELLITEN & NASA FIRE DATA (Gewicht: 0.85)
+    {"name": "NASA FIRMS Fire & Hazards", "url": "[https://earthobservatory.nasa.gov/feeder/natural_hazards.rss](https://earthobservatory.nasa.gov/feeder/natural_hazards.rss)", "cat": "OSINT / Satellit", "weight": 0.90, "bias": "OFFIZIELL"},
     {"name": "ISW (Institute f. Study of War)", "url": "[https://www.understandingwar.org/rss.xml](https://www.understandingwar.org/rss.xml)", "cat": "OSINT / Militär", "weight": 0.85, "bias": "WESTERN"},
     {"name": "US Naval Institute News", "url": "[https://news.usni.org/feed](https://news.usni.org/feed)", "cat": "Marine / AIS OSINT", "weight": 0.85, "bias": "WESTERN"},
     {"name": "Naval News", "url": "[https://www.navalnews.com/feed/](https://www.navalnews.com/feed/)", "cat": "Schifffahrt & Marine", "weight": 0.85, "bias": "WESTERN"},
@@ -167,7 +168,7 @@ SOURCES = [
     {"name": "Caitlin Johnstone", "url": "[https://caitlinjohnstone.com.au/feed/](https://caitlinjohnstone.com.au/feed/)", "cat": "Blogger", "weight": 0.40, "bias": "ALTERNATIVE"}
 ]
 
-browser_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 GeoPulsOSINTBot/1.0"
+browser_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 ArgusGridOSINTBot/1.0"
 
 # C. PARALLEL SCRAPING METHODE VIA THREADPOOLEXECUTOR
 def fetch_single_feed(src):
@@ -281,7 +282,7 @@ if not anth_key:
 client_anthropic = anthropic.Anthropic(api_key=anth_key)
 
 system_instruction = (
-    "Du bist der Chef-Analyst und OSINT-Spezialist eines hochmodernen Geopolitik-Lagezentrums ('Palantir Light'). "
+    "Du bist der Chef-Analyst und OSINT-Spezialist eines hochmodernen Geopolitik-Lagezentrums ('Argus Grid'). "
     "DEINE AUFGABE: Berechne den synthetischen GeoScore (0-100), erstelle aus den Rohnachrichten einen deduplizierten Event-Graphen, berechne mehrstufige Kausalitätsketten (Impact Chains) und gewichte alle Erkenntnisse anhand der Quellenprioritäten. "
     "WICHTIGSTE FORM-VORGABE: HALTE DICH IN ALLEN TEXTFELDERN UND BEGRÜNDUNGEN EXTREM PRÄGNANT UND KURZ (max. 1-2 Sätze pro Feld). Das JSON darf keinesfalls mitten im Satz abgeschnitten werden! "
     "Antworte AUSSCHLIESSLICH im rein validen JSON-Format basierend auf diesem Schema:\n" + json_template_desc
@@ -296,7 +297,7 @@ claude_models = [
 
 for model_name in claude_models:
     try:
-        print(f"Generiere Palantir Light Lagebild mit Anthropic {model_name}...")
+        print(f"Generiere Argus Grid Lagebild mit Anthropic {model_name}...")
         response = client_anthropic.messages.create(
             model=model_name,
             max_tokens=8192,
@@ -386,4 +387,4 @@ if not history_data or history_data[-1].get("date") != today_str:
 with open("data.json", "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
 
-print(f"OSINT Lagezentrum erfolgreich mit GeoScore & Event-Graph ({generator_used}) aktualisiert!")
+print(f"Argus Grid Lagezentrum erfolgreich mit GeoScore & Event-Graph ({generator_used}) aktualisiert!")
