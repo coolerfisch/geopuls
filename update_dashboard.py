@@ -185,16 +185,34 @@ with ThreadPoolExecutor(max_workers=25) as executor:
 if len(feed_context) > 35000:
     feed_context = feed_context[:35000] + "\n... [Quellenkontext gekürzt]"
 
-# API Key sauber auslesen
-anth_key = os.environ.get("ANTHROPIC_API_KEY", "").strip().strip('"').strip("'")
+# API Key gründlich säubern
+raw_key = os.environ.get("ANTHROPIC_API_KEY", "")
+anth_key = raw_key.strip().strip('"').strip("'")
+
 if not anth_key:
     raise ValueError("ANTHROPIC_API_KEY wurde nicht in den Umgebungsvariablen gefunden!")
 
 client_anthropic = anthropic.Anthropic(api_key=anth_key)
 
 # ============================================================
-# D. SINGLE-PASS INTELLIGENCE ENGINE (EXAKT PASSEND ZUR FRONTEND-HTML)
+# D. DYNAMISCHE MODELL-ERKENNUNG (MODEL DISCOVERY)
 # ============================================================
+def get_working_models(client):
+    try:
+        print("Abfrage der freigeschalteten Modelle via client.models.list()...")
+        models_resp = client.models.list()
+        avail = [m.id for m in models_resp.data]
+        print(f"Erkannte verfügbare Modelle: {avail}")
+        if avail:
+            return avail
+    except Exception as e:
+        print(f"Hinweis beim Abrufen der Modellliste: {e}")
+    
+    # Fallback-Liste falls List-API deaktiviert ist
+    return ["claude-3-5-sonnet-latest", "claude-3-5-haiku-latest", "claude-3-opus-latest"]
+
+CLAUDE_MODELS = get_working_models(client_anthropic)
+
 orchestrator_prompt = """Du bist die 'Argus Grid Intelligence Engine' (Chef-Analyst für Geopolitik, Makro, Rohstoffe & OSINT).
 
 Führe anhand der Eingabedaten eine tiefgehende Lageanalyse durch.
@@ -320,11 +338,6 @@ user_payload = f"""
 {feed_context}
 """
 
-CLAUDE_MODELS = [
-    "claude-3-5-sonnet-20241022",
-    "claude-3-haiku-20240307"
-]
-
 print("Generiere Argus Grid Phase 2 Intelligence Lageanalyse...")
 raw_text = None
 
@@ -344,7 +357,7 @@ for model in CLAUDE_MODELS:
         print(f"Modell {model} fehlgeschlagen: {e}")
 
 if not raw_text:
-    raise RuntimeError("Fehler: Kein Anthropic-Modell konnte erfolgreich aufgerufen werden.")
+    raise RuntimeError("Fehler: Kein erreichbares Anthropic-Modell gefunden. Bitte API-Key prüfen.")
 
 data = repair_and_parse_json(raw_text)
 
