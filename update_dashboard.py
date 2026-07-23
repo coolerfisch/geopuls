@@ -281,12 +281,12 @@ system_instruction = (
     "Antworte AUSSCHLIESSLICH im rein validen JSON-Format basierend auf diesem Schema:\n" + json_template_desc
 )
 
-# AKTUELLE ANTHROPIC MODELL-IDs (OFFIZIELLER STAND 2026)
+# AKTUELLE MODELL-IDs (OHNE TEMPERATUR-DEPRECATION & MIT ERHÖHTEM TOKEN-LIMIT)
 claude_models = [
-    "claude-sonnet-5",
     "claude-sonnet-4-6",
     "claude-3-7-sonnet-20250219",
-    "claude-3-5-sonnet-20241022"
+    "claude-3-5-sonnet-20241022",
+    "claude-sonnet-5"
 ]
 
 for model_name in claude_models:
@@ -294,8 +294,7 @@ for model_name in claude_models:
         print(f"Generiere Palantir Light Lagebild mit Anthropic {model_name}...")
         response = client_anthropic.messages.create(
             model=model_name,
-            max_tokens=4000,
-            temperature=0.2,
+            max_tokens=8192,  # Erhöhtes Token-Limit verhindert abgeschnittene JSONs
             system=system_instruction,
             messages=[{"role": "user", "content": f"Live-Rohstoffe & Marktdaten:\n{live_market_context}\n\nGewichteter OSINT-Kontext:\n{feed_context}"}]
         )
@@ -303,7 +302,7 @@ for model_name in claude_models:
         generator_used = f"Anthropic ({model_name})"
         break
     except Exception as e:
-        print(f"Hinweis: {model_name} nicht erreichbar: {e}")
+        print(f"Hinweis: {model_name} nicht erreichbar oder abgelehnt: {e}")
 
 if not raw_text:
     raise RuntimeError("Fehler: Anthropic konnte keine Antwort generieren. Bitte Key & Modell-Berechtigungen prüfen.")
