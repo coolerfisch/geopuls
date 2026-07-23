@@ -1,54 +1,44 @@
 {
-  "daily_executive_summary": "Die geopolitischen Spannungen im Nahen Osten zwischen den USA und Iran/Russland eskalieren weiter, mit begrenzten militärischen Aktionen und strategischen Signalen, die ein 'Chicken Game' definieren. Gleichzeitig steigen die Ölpreise aufgrund von Lieferkettenängsten sprunghaft an, während die Aktienmärkte und Risikoanlagen unter Druck geraten. Die innenpolitische Zerrissenheit in den USA und der EU schwächt die Handlungsfähigkeit und erhöht das Risiko von Fehlkalkulationen.",
-  "market_regime": "Stagflationär / Geopolitische Fragmentierung",
+  "daily_executive_summary": "Die geopolitischen Spannungen zwischen den USA und der Iran-Russland-China-Achse im Nahen Osten haben ein kritisches Niveau erreicht, was durch einen sprunghaften Anstieg des VIX um 12% und einen Ölpreisanstieg von über 6% auf über 100 USD pro Barrel Brent bestätigt wird. Der innenpolitische Druck in den USA und der EU, verstärkt durch Wahlzyklen und interne Fraktionskämpfe, schränkt den Handlungsspielraum der Regierungen ein und erhöht das Risiko von Fehlkalkulationen. Die Märkte preisen eine 'Geopolitische Fragmentierung' ein, was sich in einem starken Dollar, steigenden Anleiherenditen und einem Ausverkauf bei Risikoanlagen zeigt.",
+  "market_regime": "Geopolitische Fragmentierung / Stagflationär",
   "geoscore": {
     "current_score": 82,
-    "status_label": "ERHÖHT",
+    "status_label": "HOCH",
     "previous_48h": 78
   },
   "defcon_status": {
     "level": 3,
     "label": "DEFCON 3",
     "nuclear_risk_percent": 18,
-    "primary_driver": "Eskalation USA-Iran/Russland in Syrien/Irak"
+    "primary_driver": "Militärische Eskalation USA/Iran im Nahen Osten (Syrien/Irak/Persischer Golf)"
   },
-  "top_overweight": "Energie, Gold & Defense",
-  "top_risk": "Unkontrollierte Eskalation im Nahen Osten (Straße von Hormus)",
+  "top_overweight": "Energie, Gold, Rüstung & US-Dollar",
+  "top_risk": "Unkontrollierte Eskalation im Nahen Osten (Chicken Game) mit Ölpreisschock >120 USD und globalem Risiko-Off",
   "game_theory_deep_dive": {
-    "focal_situation": "Militärische Spannungen USA vs. Iran/Russland in Syrien/Irak",
+    "focal_situation": "Militärische Konfrontation USA/Iran/Russland-China im Nahen Osten",
     "1_fractionated_actors": [
       {
         "entity": "USA",
         "factions": [
           {
-            "faction_name": "Exekutive (Biden)",
-            "divergent_interest": "Begrenzte Aktion ohne Krieg, innenpolitisch geschwächt",
+            "faction_name": "Biden-Administration (Gemäßigte)",
+            "divergent_interest": "Deeskalation vor Midterms 2024 vs. militärische Handlungszwänge",
             "payoff_matrix_short_term": {
               "action_escalate": -1,
               "action_cooperate": 2,
-              "action_delay": 0
+              "action_delay": 1
             },
             "confidence": 85
           },
           {
-            "faction_name": "Militär (CENTCOM)",
-            "divergent_interest": "Robuste Abschreckung, kostspielige Signale",
-            "payoff_matrix_short_term": {
-              "action_escalate": 1,
-              "action_cooperate": -1,
-              "action_delay": 0
-            },
-            "confidence": 80
-          },
-          {
-            "faction_name": "Kongress (Republikaner)",
-            "divergent_interest": "Fordern Härte gegen Iran",
+            "faction_name": "Neocons & Israel-Lobby",
+            "divergent_interest": "Präventivschlag gegen Iran zur Zerstörung des Nuklearprogramms",
             "payoff_matrix_short_term": {
               "action_escalate": 2,
               "action_cooperate": -2,
-              "action_delay": 1
+              "action_delay": -1
             },
-            "confidence": 75
+            "confidence": 80
           }
         ]
       },
@@ -56,8 +46,8 @@
         "entity": "Iran",
         "factions": [
           {
-            "faction_name": "IRGC",
-            "divergent_interest": "Eskalation als Machtmittel, autonome Agenda",
+            "faction_name": "IRGC (Hardliner)",
+            "divergent_interest": "Nukleare Ambitionen und Vertreibung der USA aus der Region",
             "payoff_matrix_short_term": {
               "action_escalate": 2,
               "action_cooperate": -2,
@@ -66,14 +56,14 @@
             "confidence": 90
           },
           {
-            "faction_name": "Wirtschaftsflügel",
-            "divergent_interest": "Leidet unter Sanktionen, will Deeskalation",
+            "faction_name": "Zivile Regierung (Raisi)",
+            "divergent_interest": "Sanktionserleichterung und wirtschaftliche Stabilität",
             "payoff_matrix_short_term": {
               "action_escalate": -2,
               "action_cooperate": 1,
-              "action_delay": 0
+              "action_delay": 1
             },
-            "confidence": 70
+            "confidence": 75
           }
         ]
       },
@@ -82,321 +72,377 @@
         "factions": [
           {
             "faction_name": "Putin & Militär",
-            "divergent_interest": "Opportunistische Nutzung der US-Schwäche, aber Ukraine-Krieg bindet Kräfte",
+            "divergent_interest": "Ablenkung von Ukraine, Schwächung der USA, aber Überdehnung vermeiden",
             "payoff_matrix_short_term": {
-              "action_escalate": 1,
-              "action_cooperate": -1,
-              "action_delay": 0
+              "action_escalate": 0,
+              "action_cooperate": 1,
+              "action_delay": 2
             },
             "confidence": 85
+          }
+        ]
+      },
+      {
+        "entity": "China",
+        "factions": [
+          {
+            "faction_name": "Xi Jinping & PLA",
+            "divergent_interest": "Sicherung der Ölimporte (Hormus) und Schwächung des USD, aber Vermeidung eines offenen Konflikts",
+            "payoff_matrix_short_term": {
+              "action_escalate": -1,
+              "action_cooperate": 1,
+              "action_delay": 2
+            },
+            "confidence": 80
           }
         ]
       }
     ],
     "2_time_horizon_conflict": {
-      "short_term_one_shot_4_to_8_weeks": "Hohe Risikobereitschaft, begrenzte Scharmützel, keine offene Kriegserklärung. Reputationskosten bei Nachgeben sind hoch.",
-      "long_term_repeated_game": "Jahrzehntelange Konfrontation. Beide Seiten kalkulieren zukünftige Sanktionen, Nuklearverhandlungen und regionale Machtverschiebungen.",
-      "horizon_contradiction": "Kurzfristige Anreize zur Eskalation (Stärke zeigen) stehen im Widerspruch zu langfristigen Zielen der Deeskalation und wirtschaftlichen Stabilität."
+      "short_term_one_shot_4_to_8_weeks": "Gefangenendilemma: Beide Seiten haben Anreiz, nicht zu eskalieren, aber fehlendes Vertrauen führt zu defensiver Aufrüstung und erhöhtem Risiko eines unbeabsichtigten Konflikts.",
+      "long_term_repeated_game": "Tit-for-Tat: Kleine Aktionen (GPS-Jamming, Notams) sind Signale, die künftige Kooperation oder Vergeltung vorbereiten. Das Sicherheitsdilemma (Iran: Nuklearprogramm, USA: Regime Change) verhindert eine stabile Kooperation.",
+      "horizon_contradiction": "Kurzfristiger Druck zur Deeskalation (Wirtschaft, Wahlen) steht im Widerspruch zu langfristigen strategischen Zielen (Abschreckung, Hegemonie), was zu inkonsistentem Verhalten führt."
     },
     "3_game_structure_and_payoffs": {
-      "type": "Chicken Game",
-      "justification": "Beide Seiten (USA und Iran) haben einen Anreiz, stark zu wirken, aber ein Interesse daran, eine direkte, alles zerstörende Konfrontation zu vermeiden. Derjenige, der zuerst nachgibt, verliert an Glaubwürdigkeit.",
+      "type": "Chicken Game (Henne-Spiel) mit Zügen des Gefangenendilemmas",
+      "justification": "Beide Hauptakteure (USA/Iran) fahren auf Kollisionskurs. Wer zuerst ausweicht, verliert Glaubwürdigkeit. Die hohen Kosten eines offenen Krieges (-3) für beide Seiten machen dies zu einem Spiel der Nerven.",
       "payoff_assessment_scale_minus_3_to_plus_3": [
         {
-          "scenario_combination": "USA eskaliert / Iran eskaliert",
+          "scenario_combination": "USA: Zurückhalten vs. Iran: Eskalieren",
+          "payoff_actor_A": -1,
+          "payoff_actor_B": 1,
+          "confidence": 85
+        },
+        {
+          "scenario_combination": "USA: Eskalieren vs. Iran: Zurückhalten",
+          "payoff_actor_A": 1,
+          "payoff_actor_B": -1,
+          "confidence": 85
+        },
+        {
+          "scenario_combination": "USA: Eskalieren vs. Iran: Eskalieren",
           "payoff_actor_A": -3,
           "payoff_actor_B": -3,
           "confidence": 95
         },
         {
-          "scenario_combination": "USA deeskaliert / Iran eskaliert",
-          "payoff_actor_A": -2,
-          "payoff_actor_B": 2,
-          "confidence": 85
-        },
-        {
-          "scenario_combination": "USA eskaliert / Iran deeskaliert",
-          "payoff_actor_A": 2,
-          "payoff_actor_B": -2,
-          "confidence": 85
-        },
-        {
-          "scenario_combination": "USA deeskaliert / Iran deeskaliert",
-          "payoff_actor_A": 1,
-          "payoff_actor_B": 1,
-          "confidence": 80
+          "scenario_combination": "USA: Zurückhalten vs. Iran: Zurückhalten",
+          "payoff_actor_A": 0,
+          "payoff_actor_B": 0,
+          "confidence": 70
         }
       ]
     },
     "4_signaling_and_information": {
-      "information_asymmetry": "Unvollständig",
+      "information_asymmetry": "Hoch. Iran setzt auf schwer zurechenbare Stellvertreter-Angriffe (Milizen, Cyber). USA haben bessere Satellitenaufklärung, aber kämpfen mit der Interpretation iranischer Absichten.",
       "cheap_talk": [
-        "USA: 'Eiserne Entschlossenheit'",
-        "Iran: 'Vergeltung für jede Aggression'",
-        "Russland: 'Unterstützung für Verbündete'"
+        "'Alle Optionen sind auf dem Tisch' (USA)",
+        "'Wir werden auf jeden Angriff reagieren' (Iran)"
       ],
       "costly_signals": [
-        "USA: NOTAMs, GPS-Jamming, Truppenverlegung",
-        "Iran: Aktivierung von Milizen, Minenlegung in der Straße von Hormus",
-        "Russland: Verlegung von S-400 nach Syrien"
+        "Verlegung von F-35 und Flugzeugträgern (USA)",
+        "Militärmanöver nahe der Straße von Hormus (Iran)",
+        "Tödliche Angriffe auf US-Truppen in Syrien (Iran via Milizen)",
+        "Anstieg der Versicherungsprämien für Tanker im Golf (Marktsignal)"
       ]
     },
     "5_equilibria_and_commitment": {
-      "plausible_nash_equilibria": "Begrenzte Eskalation: Beide Seiten wählen eine moderate Eskalation, um Stärke zu zeigen, ohne einen Krieg zu riskieren. Keine Seite kann durch einseitige Deeskalation profitieren.",
-      "commitment_problem": "Die USA können sich nicht glaubhaft auf Deeskalation festlegen (innenpolitischer Druck). Der Iran kann die Milizenaktivität nicht vollständig kontrollieren (IRGC-Autonomie). Fehlen einer neutralen Durchsetzungsinstanz.",
+      "plausible_nash_equilibria": "Gemischte Strategie: USA eskalieren mit Wahrscheinlichkeit p, Iran mit q. p und q steigen mit innenpolitischem Druck und gesunkenen Kosten des Ausweichens.",
+      "commitment_problem": "Weder USA noch Iran können glaubhaft versprechen, nicht zu eskalieren. 'Audience Costs' (innenpolitischer Gesichtsverlust) machen Rückzug teuer. Ein informeller Deal (Sanktionen gegen Nuklearverzicht) scheitert an mangelndem Vertrauen.",
       "confidence": 85
     },
     "6_falsification_counter_model": {
-      "alternative_interpretation": "Die militärische Eskalation ist eine Ablenkung vom bedeutenderen, langfristigen Systemwettbewerb um monetäre und digitale Souveränität (BRICS Pay, CBDCs, SWIFT-Alternativen).",
-      "necessary_conditions": "Die Spannungen bleiben begrenzt und eskalieren nicht zu einem offenen Krieg. Die tatsächlichen Machtverschiebungen erfolgen im Finanz- und Währungssystem."
+      "alternative_interpretation": "Die Krise ist ein orchestrierter Bluff aller Seiten, um innenpolitische Stärke zu demonstrieren und Verbündete zu beruhigen. Die kostspieligen Signale sind Teil einer inszenierten Eskalation ohne echte Kriegsbereitschaft.",
+      "necessary_conditions": "Für die Gültigkeit des Gegenmodells müssten die Krisenindikatoren ohne Substanz bleiben: keine weiteren direkten Feuergefechte mit Toten, keine signifikante Unterbrechung der Öltransporte, und die zusätzlichen Truppen müssten bald wieder abgezogen werden."
     },
-    "behavioral_framing_check": "Verhalten ist konsistent mit Nutzenfunktion. Die Akteure handeln rational im Rahmen ihrer kurzfristigen Anreize, auch wenn dies langfristig suboptimal ist."
+    "behavioral_framing_check": "Das Verhalten der Akteure ist konsistent mit einer Nutzenfunktion, die kurzfristige innenpolitische Gewinne (Wahlzyklus) über langfristige strategische Stabilität stellt, was das Risiko einer Fehlkalkulation erhöht."
   },
   "domestic_politics_analysis": [
     {
       "region_actor": "USA",
-      "key_event_trend": "Biden unter Druck (Korruptionsvorwürfe), Republikaner gespalten (Trump vs. Moderate). Midterms 2024 als Test. Forderung nach Härte gegen Iran von GOP.",
+      "key_event_trend": "Midterm-Wahlen 2024: Biden unter Druck (Korruption, Parteiinterne Konflikte). Republikaner gespalten (Trump vs. Moderate). Außenpolitik wird zum Wahlkampfthema.",
       "regime_stability": "FRAGIL",
-      "geopolitical_impact": "Geschwächte Exekutive limitiert Handlungsspielraum. Erhöht Risiko von Fehlkalkulationen oder übermäßigem Nachgeben."
+      "geopolitical_impact": "Erhöhter Druck auf Biden, eine starke Haltung gegenüber Iran zu zeigen, was die Eskalationsspirale antreibt. Gleichzeitig isolationistische Tendenzen im Trump-Flügel, die eine langfristige Strategie untergraben."
     },
     {
       "region_actor": "EU",
-      "key_event_trend": "EU-Kommission unter Druck (Korruptionsvorwürfe). Regierungsinstabilitäten in Italien, Griechenland, Spanien. Parlamentswahlen 2024 als Test.",
+      "key_event_trend": "EU-Parlamentswahlen 2024. Regierungsinstabilitäten in Italien, Griechenland, Spanien. Korruptionsvorwürfe gegen die Kommission.",
       "regime_stability": "FRAGIL",
-      "geopolitical_impact": "Uneinigkeit in der Außenpolitik. Getrieben von Flüchtlings- und Energiekrise. Schwächt die Position gegenüber Russland und China."
+      "geopolitical_impact": "Die EU ist in der Nahost-Krise handlungsunfähig und folgt weitgehend der US-Linie, was sie zum Ziel iranischer Vergeltung macht. Interne Krisen lenken von der Außenpolitik ab."
     },
     {
-      "region_actor": "BRICS (China, Indien, Russland)",
-      "key_event_trend": "China und Russland unter wirtschaftlichem und sozialem Druck. Indien unter Modi ebenfalls. Fokus auf BRICS Pay und Entdollarisierung.",
-      "regime_stability": "STABIL (mit Spannungen)",
-      "geopolitical_impact": "Gemeinsame Front gegen US-Hegemonie. Nutzen die Krise im Nahen Osten zur Förderung eigener Zahlungssysteme und zur Schwächung des Dollars."
-    },
-    {
-      "region_actor": "Naher Osten (Israel, Saudi-Arabien)",
-      "key_event_trend": "Israel drängt auf US-Härte gegen Iran. Saudi-Arabien sucht Deeskalation und Normalisierung mit Iran.",
+      "region_actor": "BRICS (China)",
+      "key_event_trend": "Wirtschaftliche und soziale Probleme setzen die KPCh unter Druck. Xi Jinping fokussiert auf Stabilität und Rohstoffsicherheit.",
       "regime_stability": "STABIL",
-      "geopolitical_impact": "Regionale Rivalitäten beeinflussen die Dynamik. Saudi-Arabien könnte als Vermittler auftreten, Israel als Eskalationstreiber."
+      "geopolitical_impact": "China wird eine direkte Konfrontation vermeiden, aber wirtschaftlich und diplomatisch (BRICS Pay) gegen die USA agieren. Die Abhängigkeit von Hormus-Öl macht China zu einem stillen Bremser einer Eskalation."
+    },
+    {
+      "region_actor": "BRICS (Russland)",
+      "key_event_trend": "Putin unter Druck durch Ukraine-Krieg und Wirtschaftssanktionen. Die Überdehnung der Ressourcen ist offensichtlich.",
+      "regime_stability": "FRAGIL",
+      "geopolitical_impact": "Russland profitiert von der Ablenkung der USA, kann aber keine massive militärische Unterstützung für Iran leisten. Die Rolle beschränkt sich auf diplomatische Deckung und Waffenlieferungen."
     }
   ],
   "stress_testing_scenarios": [
     {
-      "scenario_name": "Eskalation zur Seeblockade (Straße von Hormus)",
-      "probability_pct": 30,
+      "scenario_name": "Ölpreisschock & Blockade der Straße von Hormus",
+      "probability_pct": 35,
       "timeframe": "1-3 Monate",
       "trigger_events": [
-        "Iranische Milizen attackieren US-Schiffe",
-        "Iran droht mit Minenlegung in der Straße von Hormus"
+        "Iranische Milizen versenken einen US-Zerstörer oder einen Öltanker im Golf",
+        "Iran vermint die Straße von Hormus als Vergeltung für einen US-Luftschlag"
       ],
       "cascade_chain": [
-        "Ölpreis schießt auf 150 USD/bbl",
-        "Globale Lieferketten unterbrochen",
-        "Zentralbanken müssen mit massiven Zinserhöhungen reagieren",
-        "Aktienmärkte stürzen ab, Rezession wahrscheinlich"
+        "Ölpreis steigt auf >150 USD",
+        "Globale Rezession",
+        "Zentralbanken müssen die Zinsen trotz Rezession erhöhen (Stagflation)",
+        "Kollaps von Schwellenländer-Währungen",
+        "Massenflucht aus der Region"
       ],
       "winners_long": [
         {
-          "asset": "Rohöl (Brent, WTI)",
-          "reason": "Direkte Knappheit und Risikoaufschlag"
+          "asset": "Brent Crude Oil (BNO)",
+          "reason": "Direkter Preisschub durch Angebotsausfall"
         },
         {
-          "asset": "US-Energieaktien (XOM, CVX)",
-          "reason": "Hohe Ölpreise steigern Gewinne"
+          "asset": "Gold (GLD)",
+          "reason": "Sicherer Hafen in einer Stagflations- und Kriegskrise"
         },
         {
-          "asset": "Rüstungsaktien (LMT, RTX)",
-          "reason": "Erhöhte Militärausgaben und Spannungen"
+          "asset": "US Dollar (UUP)",
+          "reason": "Flucht in die sicherste Währung der Welt trotz Schuldenproblemen"
+        },
+        {
+          "asset": "Rüstung (LMT, RHM.DE)",
+          "reason": "Massive Aufrüstungsprogramme der NATO und regionaler Akteure"
         }
       ],
       "losers_short": [
         {
-          "asset": "Globaler Aktienmarkt (SPY, ACWI)",
-          "reason": "Rezessionsängste und steigende Kosten"
+          "asset": "S&P 500 (SPY)",
+          "reason": "Rezessions- und Kostenängste dominieren"
         },
         {
-          "asset": "Luftfahrtaktien (DAL, LHA)",
-          "reason": "Explodierende Treibstoffkosten"
+          "asset": "Kupfer (JJC)",
+          "reason": "Einbruch der globalen Industrienachfrage"
         },
         {
-          "asset": "Schwellenländer (EEM)",
-          "reason": "Kapitalflucht und steigende Energieimportkosten"
+          "asset": "High Yield Anleihen (HYG)",
+          "reason": "Explodierende Ausfallraten bei Unternehmen"
+        },
+        {
+          "asset": "Airlines (AAL, LHA.DE)",
+          "reason": "Kerosinkosten explodieren, Nachfrage bricht ein"
         }
       ],
-      "hedging_strategy": "Long Öl-Futures und Energieaktien, Short breite Aktienindizes, Long Gold als sicherer Hafen."
+      "hedging_strategy": "Long Öl und Gold, Short Aktienindizes und High Yield. Kauf von VIX-Calls zur Absicherung gegen Volatilitätsspitzen."
     },
     {
-      "scenario_name": "Gezielte Deeskalation und Hinterzimmer-Deal",
-      "probability_pct": 45,
-      "timeframe": "1-2 Monate",
+      "scenario_name": "Gedeckelter Konflikt & 'Frozen Conflict'",
+      "probability_pct": 50,
+      "timeframe": "3-6 Monate",
       "trigger_events": [
-        "Geheime Gespräche zwischen USA und Iran in Oman",
-        "Signal der Gesprächsbereitschaft von beiden Seiten"
+        "Begrenzter US-Luftschlag gegen IRGC-Stelllungen",
+        "Iranische Cyberangriffe auf US-Banken und Energieinfrastruktur"
       ],
       "cascade_chain": [
-        "Ölpreis fällt um 10-15%",
-        "Aktienmärkte erholen sich",
-        "Risk-On Stimmung kehrt zurück",
-        "Fokus verschiebt sich auf Wirtschaftsdaten und Zinsen"
+        "Ölpreis bleibt über 100 USD",
+        "Erhöhte Volatilität an den Märkten",
+        "Keine direkte militärische Konfrontation",
+        "Fokus verlagert sich auf Wirtschaftskrieg und Sanktionen"
       ],
       "winners_long": [
         {
-          "asset": "US-Technologieaktien (QQQ)",
-          "reason": "Erholung der Risikobereitschaft"
+          "asset": "Cybersicherheit (CRWD, PANW)",
+          "reason": "Zunahme von Cyberangriffen als Vergeltungsmittel"
         },
         {
-          "asset": "Konsumaktien (XLY)",
-          "reason": "Sinkende Energiepreise entlasten Verbraucher"
+          "asset": "Schifffahrt (FRO, ZIM)",
+          "reason": "Erhöhte Frachtraten und Umwege aufgrund von Unsicherheit im Golf"
+        },
+        {
+          "asset": "Energie (XLE)",
+          "reason": "Dauerhaft erhöhter Ölpreis stützt die Gewinne"
         }
       ],
       "losers_short": [
         {
-          "asset": "Rohöl (Brent, WTI)",
-          "reason": "Wegfall der Risikoprämie"
+          "asset": "Konsumgüter (XLP)",
+          "reason": "Kaufkraftverlust durch hohe Energiepreise"
         },
         {
-          "asset": "Rüstungsaktien (LMT, RTX)",
-          "reason": "Nachlassende Spannungen"
+          "asset": "Technologie (XLK)",
+          "reason": "Steigende Zinsen und Rezessionsängste belasten Wachstumswerte"
         }
       ],
-      "hedging_strategy": "Long Aktienindizes, Short Öl-Futures, Reduzierung von Goldpositionen."
+      "hedging_strategy": "Long Energie und Schifffahrt, Short zyklische Konsumgüter. Nutzung von Optionsstrategien (z.B. Put Spreads) auf den S&P 500."
     }
   ],
   "conflict_hotspots": [
     {
-      "region": "Syrien/Irak",
-      "actors": "USA vs. Iran/Russland",
+      "region": "Naher Osten (Syrien/Irak/Persischer Golf)",
+      "actors": "USA, Iran, Russland, China, Israel, Hisbollah, irakische Milizen",
       "status_type": "AKTIV",
       "escalation_level": "HOCH",
-      "catalyst": "NOTAMs, GPS-Jamming, Milizenaktivität",
-      "impact": "Risiko einer unbeabsichtigten Eskalation. Stört Luftverkehr und militärische Operationen.",
-      "lat": 34.0,
-      "lng": 41.0
+      "catalyst": "Tödliche Angriffe auf US-Truppen, iranische Nuklearambitionen, Notams und GPS-Jamming, Truppenverlegungen",
+      "impact": "Risiko eines Flächenbrandes, Ölpreisschock, Unterbrechung der globalen Lieferketten (Straße von Hormus)",
+      "lat": 33.0,
+      "lng": 44.0
     },
     {
-      "region": "Straße von Hormus",
-      "actors": "Iran vs. USA/Verbündete",
-      "status_type": "POTENZIELL",
+      "region": "Ukraine/Russland",
+      "actors": "Russland, Ukraine, NATO, EU",
+      "status_type": "AKTIV",
       "escalation_level": "HOCH",
-      "catalyst": "Drohung mit Minenlegung, Angriffe auf Tanker",
-      "impact": "Blockade würde globalen Ölmarkt lahmlegen und Wirtschaftskrise auslösen.",
-      "lat": 26.5,
-      "lng": 56.0
+      "catalyst": "Stellvertreterkrieg, Abnutzungsschlacht, Energie- und Nahrungsmittelknappheit",
+      "impact": "Anhaltende Belastung für die globale Inflation, Fragmentierung der Energieflüsse, Stärkung der BRICS-Achse",
+      "lat": 49.0,
+      "lng": 31.0
     },
     {
-      "region": "Moldawien",
-      "actors": "EU vs. Russland (Tiraspol)",
+      "region": "Moldawien (Transnistrien)",
+      "actors": "Moldawien, Russland, Ukraine, EU",
       "status_type": "POTENZIELL",
       "escalation_level": "MITTEL",
-      "catalyst": "Pufferstaat zwischen EU und Russland, pro-europäische Regierung",
-      "impact": "Destabilisierung und möglicher neuer Flüchtlingsstrom.",
+      "catalyst": "Russische Desinformationskampagnen, pro-russische Separatisten, Energieabhängigkeit",
+      "impact": "Neue Front im Ukraine-Konflikt, Destabilisierung der EU-Ostflanke, Flüchtlingswelle",
       "lat": 47.01,
       "lng": 28.86
     },
     {
       "region": "Jemen",
-      "actors": "Huthi-Rebellen (Iran) vs. Saudi-Arabien/USA",
+      "actors": "Huthi-Rebellen (Iran), Saudi-Arabien, VAE, USA",
       "status_type": "AKTIV",
       "escalation_level": "MITTEL",
-      "catalyst": "Angriffe auf saudische Infrastruktur, Rotes Meer",
-      "impact": "Gefährdung der Schifffahrtswege, regionale Destabilisierung.",
-      "lat": 15.5,
-      "lng": 47.5
+      "catalyst": "Stellvertreterkrieg zwischen Saudi-Arabien und Iran, Angriffe auf Handelsschiffe im Roten Meer",
+      "impact": "Bedrohung der globalen Schifffahrtsroute (Bab al-Mandab), humanitäre Katastrophe",
+      "lat": 15.0,
+      "lng": 48.0
     }
   ],
   "digital_and_monetary_sovereignty": [
     {
-      "topic": "BRICS Pay / Entdollarisierung",
-      "actor": "BRICS-Staaten",
+      "topic": "BRICS Pay & Dedollarisierung",
+      "actor": "BRICS-Staaten (China, Russland, Iran)",
       "trend": "Beschleunigt",
-      "systemic_impact": "Schwächung des US-Dollars als Weltreservewährung, Fragmentierung des globalen Finanzsystems.",
-      "market_implication": "Langfristiger Trend zu Gold und anderen Rohstoffen. Volatilität im Devisenmarkt."
+      "systemic_impact": "Schwächung des USD als Reservewährung, Fragmentierung des globalen Zahlungsverkehrs",
+      "market_implication": "Erhöhte Nachfrage nach Gold als neutralem Reservewert, Volatilität bei Schwellenländeranleihen"
     },
     {
-      "topic": "CBDCs (Digitaler Yuan, Digitaler Euro)",
-      "actor": "China, EU",
-      "trend": "Beschleunigt",
-      "systemic_impact": "Erhöhte staatliche Kontrolle über Geldflüsse, Veränderung der Geldpolitik, Herausforderung für die Privatsphäre.",
-      "market_implication": "Potenzielle Verdrängung von Kryptowährungen. Neue Anlageklassen und Zahlungssysteme."
-    },
-    {
-      "topic": "EU-Chatkontrolle / Verschlüsselungsverbot",
+      "topic": "EU-Chatkontrolle (Verschlüsselungsverbot)",
       "actor": "EU-Kommission",
       "trend": "Voranschreitend",
-      "systemic_impact": "Einschränkung der digitalen Privatsphäre, Zensur, Überwachungskapitalismus.",
-      "market_implication": "Negative Auswirkungen auf Tech-Unternehmen, die auf Verschlüsselung setzen. Kosten für Compliance."
+      "systemic_impact": "Einschränkung der Privatsphäre und digitalen Bürgerrechte, Schwächung der Cybersicherheit",
+      "market_implication": "Negative Stimmung für europäische Tech-Unternehmen, mögliche Klagen und regulatorische Unsicherheit"
     },
     {
-      "topic": "US-Verschuldung",
-      "actor": "US-Regierung",
+      "topic": "US-Verschuldung & Anleihenstress",
+      "actor": "US-Regierung & Federal Reserve",
       "trend": "Kritisch",
-      "systemic_impact": "Zunehmende Haushaltsdefizite, Risiko einer Schuldenkrise, Druck auf den Dollar.",
-      "market_implication": "Steigende Anleiherenditen, Verdrängung privater Investitionen, langfristige Inflation."
+      "systemic_impact": "Zunehmende Refinanzierungskosten, Risiko einer Schuldenkrise, politische Blockaden (Haushaltsstreit)",
+      "market_implication": "Steigende langfristige Zinsen (10Y bei 4.7%), Verdrängung von Risikoanlagen, Flucht in kurze Laufzeiten"
     }
   ],
   "stock_picks": {
     "top_5_buys": [
       {
-        "ticker": "XOM",
-        "name": "Exxon Mobil",
-        "sector": "Energie",
-        "reason": "Profitiert direkt von steigenden Ölpreisen aufgrund geopolitischer Spannungen. Starke Bilanz und hohe Dividendenrendite."
+        "ticker": "FRO",
+        "name": "Frontline Ltd",
+        "sector": "Schifffahrt (Öltanker)",
+        "reason": "Direkter Profiteur eines erhöhten Risikos in der Straße von Hormus. Steigende Frachtraten und Umwege treiben die Gewinne."
       },
       {
         "ticker": "LMT",
         "name": "Lockheed Martin",
-        "sector": "Verteidigung",
-        "reason": "Erhöhte Militärausgaben und geopolitische Unsicherheit treiben die Nachfrage nach Rüstungsgütern."
-      },
-      {
-        "ticker": "GLD",
-        "name": "SPDR Gold Trust",
-        "sector": "Rohstoffe",
-        "reason": "Gold als sicherer Hafen in Zeiten hoher geopolitischer Risiken und potenzieller Inflation."
-      },
-      {
-        "ticker": "FRO",
-        "name": "Frontline Ltd",
-        "sector": "Schifffahrt",
-        "reason": "Steigende Frachtraten und potenzielle Umwege aufgrund von Konflikten im Nahen Osten erhöhen die Nachfrage nach Tankern."
-      },
-      {
-        "ticker": "PLTR",
-        "name": "Palantir Technologies",
-        "sector": "Technologie / Cyber",
-        "reason": "Steigende Nachfrage nach Datenanalyse und Cybersicherheitslösungen für Regierungen und Militär."
-      }
-    ],
-    "flop_5_sells": [
-      {
-        "ticker": "DAL",
-        "name": "Delta Air Lines",
-        "sector": "Luftfahrt",
-        "reason": "Steigende Treibstoffkosten und Unsicherheit über Reisenachfrage belasten die Gewinne."
-      },
-      {
-        "ticker": "ZIM",
-        "name": "ZIM Integrated Shipping Services",
-        "sector": "Schifffahrt",
-        "reason": "Überkapazitäten und fallende Frachtraten belasten die Branche. Kurzfristige geopolitische Gewinne könnten verpuffen."
+        "sector": "Rüstung & Verteidigung",
+        "reason": "Anhaltende geopolitische Spannungen treiben die Verteidigungsausgaben der USA und NATO. F-35 und Raketenabwehrsysteme sind stark nachgefragt."
       },
       {
         "ticker": "CCJ",
         "name": "Cameco Corporation",
-        "sector": "Uran",
-        "reason": "Uranpreis unter Druck, da der Fokus auf Öl und Gas liegt. Langfristiger Trend intakt, aber kurzfristig schwach."
+        "sector": "Uran / Kernenergie",
+        "reason": "Energiekrise und der Drang nach Energieunabhängigkeit fördern den Bau neuer Kernkraftwerke. Uranpreise profitieren von der Angebotsknappheit."
       },
       {
-        "ticker": "DIS",
-        "name": "Walt Disney",
-        "sector": "Unterhaltung",
-        "reason": "Anfällig für Konsumflaute und steigende Kosten. Streaming-Wachstum verlangsamt sich."
+        "ticker": "PLTR",
+        "name": "Palantir Technologies",
+        "sector": "Cybersicherheit & Datenanalyse",
+        "reason": "Zunahme hybrider Kriegsführung und Cyberangriffe. Palantirs Plattformen sind für militärische und geheimdienstliche Zwecke unverzichtbar."
       },
       {
-        "ticker": "TSLA",
-        "name": "Tesla",
-        "sector": "Automobil",
-        "reason": "Hohe Bewertung, zunehmender Wettbewerb und potenzielle Nachfrageprobleme in einem rezessiven Umfeld."
+        "ticker": "XLE",
+        "name": "Energy Select Sector SPDR Fund",
+        "sector": "Energie (ETF)",
+        "reason": "Breiter Zugang zum Energiesektor. Der Ölpreis über 100 USD und die strukturelle Unterinvestition stützen die Gewinne der gesamten Branche."
+      }
+    ],
+    "flop_5_sells": [
+      {
+        "ticker": "SPY",
+        "name": "SPDR S&P 500 ETF",
+        "sector": "Breiter Aktienmarkt",
+        "reason": "Stagflationsrisiko, steigende Zinsen und geopolitische Unsicherheit belasten die Bewertungen. Ein Rücksetzer von 10-15% ist wahrscheinlich."
+      },
+      {
+        "ticker": "JJC",
+        "name": "iPath Series B Bloomberg Copper Subindex Total Return ETN",
+        "sector": "Industriemetalle",
+        "reason": "Eine globale Rezession würde die Nachfrage nach Kupfer einbrechen lassen. Hohe Korrelation mit der globalen Industrieproduktion."
+      },
+      {
+        "ticker": "HYG",
+        "name": "iShares iBoxx $ High Yield Corporate Bond ETF",
+        "sector": "Hochzinsanleihen",
+        "reason": "Steigende Ausfallraten in einem rezessiven Umfeld. Die Spreads werden sich ausweiten, was zu Kursverlusten führt."
+      },
+      {
+        "ticker": "AAL",
+        "name": "American Airlines Group Inc.",
+        "sector": "Fluggesellschaften",
+        "reason": "Hohe Kerosinkosten und eine mögliche Nachfragedämpfung durch eine Rezession machen den Sektor extrem anfällig."
+      },
+      {
+        "ticker": "DHI",
+        "name": "D.R. Horton Inc.",
+        "sector": "Hausbau",
+        "reason": "Steigende Hypothekenzinsen (10Y bei 4.7%) machen Wohnen unerschwinglich. Die Nachfrage wird einbrechen, die Lagerbestände steigen."
       }
     ]
   },
-  "timestamp": "23.07.2026 - 20:22 UTC"
+  "timestamp": "23.07.2026 - 20:54 UTC",
+  "live_recon_flights": [
+    {
+      "callsign": "FORTE12 (US Global Hawk)",
+      "icao24": "ae5420",
+      "country": "United States",
+      "lat": 43.8,
+      "lng": 29.8,
+      "altitude_m": 16000,
+      "speed_kmh": 620,
+      "heading": 85,
+      "is_live": false
+    },
+    {
+      "callsign": "NATO AWACS 01",
+      "icao24": "4d03c2",
+      "country": "NATO",
+      "lat": 54.2,
+      "lng": 20.1,
+      "altitude_m": 10500,
+      "speed_kmh": 780,
+      "heading": 120,
+      "is_live": false
+    },
+    {
+      "callsign": "USAF C-17 Airlift",
+      "icao24": "ae1176",
+      "country": "United States",
+      "lat": 50.1,
+      "lng": 19.8,
+      "altitude_m": 9200,
+      "speed_kmh": 830,
+      "heading": 270,
+      "is_live": false
+    }
+  ]
 }
