@@ -3,429 +3,539 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeoPuls - OSINT Command Center</title>
-    
-    <!-- Leaflet.js CSS (Dark Mode Weltkarte) -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --border-color: #334155;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent-green: #22c55e;
-            --accent-amber: #f59e0b;
-            --accent-red: #ef4444;
-            --accent-blue: #3b82f6;
-            --accent-purple: #a855f7;
-        }
+    <title>GeoPuls — Geopolitisches OSINT Lagezentrum</title>
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; padding: 20px; max-width: 1200px; margin: 0 auto; }
-
-        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 25px; flex-wrap: wrap; gap: 10px; }
-        h1 { font-size: 1.8rem; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
-        .timestamp { font-size: 0.85rem; color: var(--text-secondary); background: #020617; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color); }
-
-        /* DEFCON Banner */
-        .defcon-banner { background: #020617; border: 2px solid var(--accent-amber); border-radius: 10px; padding: 20px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-        .defcon-badge { font-size: 1.5rem; font-weight: 900; padding: 8px 16px; border-radius: 6px; letter-spacing: 1px; text-transform: uppercase; }
-        .defcon-3 { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 2px solid #f59e0b; }
-        .defcon-2, .defcon-1 { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 2px solid #ef4444; animation: pulse 2s infinite; }
-        .defcon-4, .defcon-5 { background: rgba(34, 197, 94, 0.2); color: #86efac; border: 2px solid #22c55e; }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-        }
-
-        /* Map Container */
-        #map { height: 380px; width: 100%; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 25px; background: #020617; }
-
-        /* Metrics */
-        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .metric-card { background: var(--card-bg); padding: 18px; border-radius: 10px; border: 1px solid var(--border-color); }
-        .metric-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
-        .metric-value { font-size: 1.3rem; font-weight: bold; color: var(--text-primary); }
-
-        .section-title { font-size: 1.3rem; margin: 30px 0 15px 0; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; }
-        .summary-box { background: var(--card-bg); padding: 20px; border-radius: 10px; border-left: 4px solid var(--accent-blue); font-size: 1.05rem; margin-bottom: 25px; }
-
-        /* Stock Picks Grid */
-        .stocks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
-        @media (max-width: 768px) { .stocks-grid { grid-template-columns: 1fr; } }
-
-        .stock-column { background: var(--card-bg); border-radius: 10px; border: 1px solid var(--border-color); padding: 18px; }
-        .stock-item { background: #020617; padding: 12px; border-radius: 6px; margin-bottom: 10px; border-left: 3px solid var(--accent-green); }
-        .stock-item.sell { border-left-color: var(--accent-red); }
-
-        /* Narrative Grid */
-        .narrative-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 8px; }
-        .narrative-card { background: #0f172a; padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.88rem; }
-
-        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px; }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
-        .card-title { font-weight: bold; font-size: 1.1rem; }
-
-        .badge { font-size: 0.75rem; font-weight: bold; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; }
-        .badge-kritisch, .badge-hoch { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #ef4444; }
-        .badge-mittel { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid #f59e0b; }
-        .badge-systemic { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid #a855f7; }
-
-        .card-detail { font-size: 0.9rem; margin-bottom: 8px; color: var(--text-secondary); }
-        .card-detail strong { color: var(--text-primary); }
-
-        .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 10px; overflow: hidden; margin-bottom: 25px; border: 1px solid var(--border-color); }
-        .data-table th, .data-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.95rem; }
-        .data-table th { background: #020617; color: var(--text-secondary); font-weight: 600; }
-
-        .scenarios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .scenario-card { background: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); }
-        .scenario-prob { font-size: 1.4rem; font-weight: bold; color: var(--accent-amber); }
-
-        footer { margin-top: 40px; text-align: center; font-size: 0.8rem; color: var(--text-secondary); border-top: 1px solid var(--border-color); padding-top: 20px; }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>🌐 GeoPuls <span style="font-size: 0.9rem; font-weight: normal; color: var(--text-secondary);">OSINT Command Center</span></h1>
-        <div class="timestamp" id="timestamp">Lade Daten...</div>
-    </header>
-
-    <!-- DEFCON Banner -->
-    <div class="defcon-banner" id="defcon-box">
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <div class="defcon-badge defcon-3" id="defcon-badge">DEFCON -</div>
-            <div>
-                <div style="font-weight: bold; font-size: 1.1rem;" id="defcon-label">Berechne Gefahrenlage...</div>
-                <div style="font-size: 0.85rem; color: var(--text-secondary);" id="defcon-driver">Treiber wird ermittelt...</div>
-            </div>
-        </div>
-        <div style="text-align: right;">
-            <div style="font-size: 0.8rem; color: var(--text-secondary);">Weltkriegs- / Nuklear-Risiko</div>
-            <div style="font-size: 1.5rem; font-weight: bold; color: var(--accent-red);" id="defcon-percent">- %</div>
-        </div>
-    </div>
-
-    <!-- Core Metrics -->
-    <div class="metrics-grid">
-        <div class="metric-card">
-            <div class="metric-label">Global Risk Score</div>
-            <div class="metric-value" id="risk-score">- / 100</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-label">Markt-Regime</div>
-            <div class="metric-value" id="market-regime">-</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-label">Top Übergewichten</div>
-            <div class="metric-value" style="color: var(--accent-green);" id="top-overweight">-</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-label">Hauptrisiko</div>
-            <div class="metric-value" style="color: var(--accent-red);" id="top-risk">-</div>
-        </div>
-    </div>
-
-    <!-- Interaktive Weltkarte -->
-    <h2 class="section-title">🗺️ Interaktive Krisenkarte (OSINT Hotspots)</h2>
-    <div id="map"></div>
-
-    <!-- Executive Summary & Narrativ-Matrix -->
-    <h2 class="section-title">📌 Executive Summary & Multipolarer Medienvergleich</h2>
-    <div class="summary-box">
-        <div id="exec-summary" style="margin-bottom: 20px;">Lade Lagebild...</div>
-        
-        <div style="border-top: 1px solid var(--border-color); padding-top: 15px;">
-            <h3 style="color: var(--accent-amber); font-size: 1.05rem; margin-bottom: 12px;">⚖️ Narrativ-Matrix (Wer lügt wie zu welchen Themen?):</h3>
-            <div id="narrative-container" style="display: flex; flex-direction: column; gap: 15px;">Lade Medienvergleich...</div>
-        </div>
-    </div>
-
-    <!-- Top 5 Buy / Flop 5 Sell Aktien -->
-    <h2 class="section-title">🎯 Geopolitische Aktien-Empfehlungen (Top 5 Buys / Flop 5 Sells)</h2>
-    <div class="stocks-grid">
-        <div class="stock-column">
-            <h3 style="color: var(--accent-green); margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">🟢 Top 5 Kaufen (Gewinner)</h3>
-            <div id="buys-container">Lade Empfehlungen...</div>
-        </div>
-        <div class="stock-column">
-            <h3 style="color: var(--accent-red); margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">🔴 Flop 5 Verkaufen / Meiden</h3>
-            <div id="sells-container">Lade Empfehlungen...</div>
-        </div>
-    </div>
-
-    <!-- Innenpolitik der Weltmächte -->
-    <h2 class="section-title">🏛️ Globale Innenpolitik (Strategische Treiber)</h2>
-    <div class="grid-cards" id="domestic-container"></div>
-
-    <!-- Historischer Trend Chart -->
-    <h2 class="section-title">📈 Historischer Risiko-Verlauf (30 Tage Trend)</h2>
-    <div style="background: var(--card-bg); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 25px;">
-        <canvas id="riskChart" style="max-height: 220px;"></canvas>
-    </div>
-
-    <!-- Hotspots -->
-    <h2 class="section-title">🔥 Akute Geopolitische Brandherde</h2>
-    <div class="grid-cards" id="hotspots-container"></div>
-
-    <!-- Systemische Risiken -->
-    <h2 class="section-title">🛡️ Systemische Risiken & Latente Zukunfts-Brandherde</h2>
-    <div class="grid-cards" id="systemic-container"></div>
-
-    <!-- Asset-Signale -->
-    <h2 class="section-title">📊 Asset-Klassen & Live-Marktsignale</h2>
-    <table class="data-table">
-        <thead>
-            <tr>
-                <th>Asset</th>
-                <th>Signal</th>
-                <th>Trend</th>
-                <th>Haupttreiber</th>
-            </tr>
-        </thead>
-        <tbody id="assets-table"></tbody>
-    </table>
-
-    <!-- Makro-Szenarien -->
-    <h2 class="section-title">🔮 Makro-Szenarien</h2>
-    <div class="scenarios-grid" id="scenarios-container"></div>
-
-    <footer>
-        GeoPuls OSINT Command Center • Automated via GitHub Actions, yfinance, Leaflet.js & Groq Llama 3.3
-    </footer>
-
-    <!-- External JS Libraries -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        const map = L.map('map').setView([20, 10], 2);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; CartoDB',
-            subdomains: 'abcd',
-            maxZoom: 19
-        }).addTo(map);
-
-        async function loadDashboardData() {
-            try {
-                const res = await fetch('./data.json?v=' + new Date().getTime());
-                const data = await res.json();
-
-                document.getElementById('timestamp').innerText = 'Stand: ' + (data.timestamp || 'Aktuell');
-
-                // DEFCON
-                if (data.defcon_status) {
-                    const ds = data.defcon_status;
-                    const badge = document.getElementById('defcon-badge');
-                    const lvl = ds.level || 3;
-                    badge.innerText = 'DEFCON ' + lvl;
-                    badge.className = 'defcon-badge defcon-' + lvl;
-
-                    document.getElementById('defcon-label').innerText = ds.label || 'DEFCON Status';
-                    document.getElementById('defcon-driver').innerText = 'Treiber: ' + (ds.primary_driver || ds.driver || '-');
-                    document.getElementById('defcon-percent').innerText = (ds.nuclear_risk_percent || 10) + ' %';
-                }
-
-                // Core Metrics
-                document.getElementById('risk-score').innerText = (data.global_risk_score || '-') + ' / 100';
-                document.getElementById('market-regime').innerText = data.market_regime || '-';
-                document.getElementById('top-overweight').innerText = data.top_overweight || '-';
-                document.getElementById('top-risk').innerText = data.top_risk || '-';
-                
-                // Executive Summary (Tolerant für alle Feldnamen)
-                const execText = data.daily_executive_summary || data.executive_summary || data.summary || data.daily_summary || 'Keine Zusammenfassung verfügbar.';
-                document.getElementById('exec-summary').innerHTML = execText;
-
-                // Narrativ-Divergenz (Tolerant für Liste UND Einzelobjekte mit allen Feldnamen)
-                const navContainer = document.getElementById('narrative-container');
-                if (navContainer) {
-                    let ndArray = [];
-                    if (Array.isArray(data.narrative_divergence)) {
-                        ndArray = data.narrative_divergence;
-                    } else if (data.narrative_divergence && typeof data.narrative_divergence === 'object') {
-                        ndArray = [data.narrative_divergence];
-                    }
-
-                    if (ndArray.length > 0) {
-                        navContainer.innerHTML = ndArray.map(nd => {
-                            const topic = nd.topic || nd.title || nd.region || 'Geopolitischer Schauplatz';
-                            const main = nd.mainstream_view || nd.mainstream || nd.western_view || nd.western || '-';
-                            const brics = nd.brics_view || nd.brics || nd.global_south || nd.eastern || '-';
-                            const alt = nd.alternative_view || nd.alternative || nd.alt || nd.independent || '-';
-
-                            return `
-                                <div style="background: #020617; padding: 14px; border-radius: 8px; border: 1px solid var(--border-color);">
-                                    <strong style="color: var(--accent-amber); font-size: 1rem; display: block; margin-bottom: 8px;">🔹 ${topic}</strong>
-                                    <div class="narrative-grid">
-                                        <div class="narrative-card"><strong style="color: var(--accent-blue);">🏛️ Mainstream (Westen):</strong><br>${main}</div>
-                                        <div class="narrative-card"><strong style="color: var(--accent-green);">🌍 BRICS / Global South:</strong><br>${brics}</div>
-                                        <div class="narrative-card"><strong style="color: var(--accent-purple);">🔓 Unabhängig / Alternativ:</strong><br>${alt}</div>
-                                    </div>
-                                </div>
-                            `;
-                        }).join('');
-                    } else {
-                        navContainer.innerHTML = 'Keine Narrativ-Daten verfügbar.';
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#090d16',
+                        cardbg: '#111827',
+                        cardborder: '#1f293d',
+                        accentcyan: '#00f2fe',
+                        accentblue: '#3b82f6',
+                        accentred: '#ef4444',
+                        accentgreen: '#10b981',
+                        accentamber: '#f59e0b'
                     }
                 }
-
-                // Top 5 Buys & Flop 5 Sells
-                if (data.stock_picks) {
-                    const buys = data.stock_picks.top_5_buys || data.stock_picks.buys || [];
-                    const sells = data.stock_picks.flop_5_sells || data.stock_picks.sells || [];
-
-                    if (buys.length > 0) {
-                        document.getElementById('buys-container').innerHTML = buys.map(b => `
-                            <div class="stock-item">
-                                <div style="display: flex; justify-content: space-between; font-weight: bold;">
-                                    <span>${b.name || 'Aktie'} (${b.ticker || '-'})</span>
-                                    <span style="font-size: 0.8rem; color: var(--accent-green);">${b.sector || ''}</span>
-                                </div>
-                                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">${b.reason || ''}</div>
-                            </div>
-                        `).join('');
-                    }
-
-                    if (sells.length > 0) {
-                        document.getElementById('sells-container').innerHTML = sells.map(s => `
-                            <div class="stock-item sell">
-                                <div style="display: flex; justify-content: space-between; font-weight: bold;">
-                                    <span>${s.name || 'Aktie'} (${s.ticker || '-'})</span>
-                                    <span style="font-size: 0.8rem; color: var(--accent-red);">${s.sector || ''}</span>
-                                </div>
-                                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">${s.reason || ''}</div>
-                            </div>
-                        `).join('');
-                    }
-                }
-
-                // Innenpolitik
-                if (data.domestic_politics) {
-                    document.getElementById('domestic-container').innerHTML = data.domestic_politics.map(d => `
-                        <div class="card" style="border-left: 4px solid var(--accent-blue);">
-                            <div class="card-header">
-                                <span class="card-title">${d.country_region || d.country || 'Region'}</span>
-                                <span class="badge" style="background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid #3b82f6;">Innenpolitik</span>
-                            </div>
-                            <div class="card-detail"><strong>Thema:</strong> ${d.topic || '-'}</div>
-                            <div class="card-detail"><strong>Status:</strong> ${d.status || '-'}</div>
-                            <div class="card-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>Geopolitische Folgen:</strong> ${d.impact || '-'}</div>
-                        </div>
-                    `).join('');
-                }
-
-                // Hotspots Rendern & Map Pins
-                const hotspotsContainer = document.getElementById('hotspots-container');
-                if (data.conflict_hotspots) {
-                    hotspotsContainer.innerHTML = data.conflict_hotspots.map(h => `
-                        <div class="card">
-                            <div class="card-header">
-                                <span class="card-title">${h.region || h.name || 'Krisenherd'}</span>
-                                <span class="badge ${h.escalation_level && h.escalation_level.includes('KRITISCH') ? 'badge-kritisch' : 'badge-mittel'}">${h.escalation_level || 'AKTIV'}</span>
-                            </div>
-                            <div class="card-detail"><strong>Akteure:</strong> ${h.actors || '-'}</div>
-                            <div class="card-detail"><strong>Auslöser:</strong> ${h.catalyst || '-'}</div>
-                            <div class="card-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>Märkte:</strong> ${h.impact || '-'}</div>
-                        </div>
-                    `).join('');
-
-                    data.conflict_hotspots.forEach(h => {
-                        const lat = parseFloat(h.lat);
-                        const lng = parseFloat(h.lng);
-
-                        if (!isNaN(lat) && !isNaN(lng) && (lat !== 0 || lng !== 0)) {
-                            const color = (h.escalation_level && h.escalation_level.includes('KRITISCH')) ? '#ef4444' : '#f59e0b';
-                            const circle = L.circleMarker([lat, lng], {
-                                color: color,
-                                fillColor: color,
-                                fillOpacity: 0.7,
-                                radius: 8
-                            }).addTo(map);
-                            circle.bindPopup(`<b>${h.region || 'Hotspot'}</b><br>${h.catalyst || ''}`);
-                        }
-                    });
-
-                    setTimeout(() => { map.invalidateSize(); }, 200);
-                }
-
-                // Systemische Risiken
-                if (data.systemic_risks) {
-                    document.getElementById('systemic-container').innerHTML = data.systemic_risks.map(s => `
-                        <div class="card" style="border-left: 4px solid var(--accent-purple);">
-                            <div class="card-header">
-                                <span class="card-title">${s.topic || s.name || 'Risiko'}</span>
-                                <span class="badge badge-systemic">${s.category || 'Systemisch'}</span>
-                            </div>
-                            <div class="card-detail"><strong>Status:</strong> ${s.status || '-'}</div>
-                            <div class="card-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>Auswirkungen:</strong> ${s.impact || '-'}</div>
-                        </div>
-                    `).join('');
-                }
-
-                // Assets Table
-                if (data.assets) {
-                    document.getElementById('assets-table').innerHTML = data.assets.map(a => `
-                        <tr>
-                            <td><strong>${a.name}</strong></td>
-                            <td>${a.signal_text || a.signal || '-'}</td>
-                            <td>${a.trend || '-'}</td>
-                            <td style="color: var(--text-secondary);">${a.driver || '-'}</td>
-                        </tr>
-                    `).join('');
-                }
-
-                // Scenarios
-                if (data.scenarios) {
-                    document.getElementById('scenarios-container').innerHTML = data.scenarios.map(s => `
-                        <div class="scenario-card">
-                            <div class="scenario-prob">${s.prob || s.probability || 0}%</div>
-                            <div style="font-weight: 500; margin-top: 4px;">${s.title || s.name || '-'}</div>
-                        </div>
-                    `).join('');
-                }
-
-                // Chart.js Historie
-                try {
-                    const hRes = await fetch('./history.json?v=' + new Date().getTime());
-                    const hData = await hRes.json();
-                    
-                    const ctx = document.getElementById('riskChart').getContext('2d');
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: hData.map(d => d.date),
-                            datasets: [{
-                                label: 'Global Risk Score',
-                                data: hData.map(d => d.score),
-                                borderColor: '#3b82f6',
-                                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                                fill: true,
-                                tension: 0.3
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: { legend: { labels: { color: '#94a3b8' } } },
-                            scales: {
-                                x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
-                                y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' }, min: 50, max: 100 }
-                            }
-                        }
-                    });
-                } catch(e) { console.log("Historien-Daten noch im Aufbau."); }
-
-            } catch (error) {
-                console.error("Fehler beim Laden:", error);
             }
         }
+    </script>
 
-        loadDashboardData();
+    <!-- Leaflet CSS & JS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #090d16;
+            color: #e2e8f0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        #map {
+            height: 480px;
+            width: 100%;
+            border-radius: 0.75rem;
+            z-index: 1;
+        }
+        .leaflet-container {
+            background-color: #0d1322 !important;
+        }
+        .pulse-red {
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            animation: pulse-red-anim 2s infinite;
+        }
+        @keyframes pulse-red-anim {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f293d;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="border-b border-gray-800 bg-cardbg/90 sticky top-0 z-50 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-blue-600/20 rounded-lg border border-blue-500/30 text-accentcyan">
+                    <i class="fa-solid fa-earth-americas text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wider text-white flex items-center gap-2">
+                        GeoPuls <span class="text-xs font-normal px-2 py-0.5 rounded bg-blue-900/60 text-blue-300 border border-blue-700/50">Palantir Light</span>
+                    </h1>
+                    <p class="text-xs text-gray-400">Automatisierte OSINT & Makro Intelligence Engine</p>
+                </div>
+            </div>
+
+            <!-- CLAUDE & SOURCES BADGES -->
+            <div class="flex flex-wrap items-center gap-3 text-xs">
+                <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300">
+                    <i class="fa-solid fa-brain text-amber-400"></i>
+                    <span>AI Engine: <strong>Anthropic Claude 3.5 Sonnet</strong></span>
+                </div>
+                <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <span><strong>68+</strong> gewichtete Feeds</span>
+                </div>
+                <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-800 border border-gray-700 text-gray-300">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="timestamp-display">Lade Daten...</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 mt-6 space-y-6">
+
+        <!-- EXECUTIVE SUMMARY BANNER -->
+        <section class="glass-card rounded-xl p-5 border-l-4 border-l-accentcyan shadow-lg">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-sm font-semibold uppercase tracking-wider text-accentcyan flex items-center gap-2">
+                    <i class="fa-solid fa-bolt"></i> Globales Synthese-Briefing
+                </h2>
+                <span id="market-regime-tag" class="px-2.5 py-1 rounded bg-gray-800 border border-gray-700 text-xs font-medium text-gray-300">
+                    Marktregime: --
+                </span>
+            </div>
+            <p id="executive-summary" class="text-gray-200 text-sm leading-relaxed">
+                Synthesisiere Live-Daten aus Militär-OSINT, Zentralbanken und Rohstoffmärkten...
+            </p>
+        </section>
+
+        <!-- KPI GRID: GEOSCORE, DEFCON, RISIKEN -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <!-- GEOSCORE CARD -->
+            <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center text-xs text-gray-400 mb-1">
+                        <span>GEOSCORE INDEX</span>
+                        <span id="geoscore-status" class="text-amber-400 font-medium">NEUTRAL</span>
+                    </div>
+                    <div class="flex items-baseline gap-3 my-2">
+                        <span id="geoscore-val" class="text-4xl font-extrabold text-white">--</span>
+                        <span id="geoscore-diff" class="text-xs px-2 py-0.5 rounded bg-gray-800 text-gray-300">--</span>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <canvas id="geoscoreHistoryChart" class="w-full h-12"></canvas>
+                </div>
+            </div>
+
+            <!-- DEFCON CARD -->
+            <div class="glass-card rounded-xl p-5 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center text-xs text-gray-400 mb-1">
+                        <span>DEFCON STUFE</span>
+                        <i class="fa-solid fa-shield-halved text-red-400"></i>
+                    </div>
+                    <div class="flex items-center gap-3 my-2">
+                        <span id="defcon-level" class="text-4xl font-extrabold text-red-500">3</span>
+                        <div class="text-xs">
+                            <div id="defcon-label" class="font-bold text-white">DEFCON 3</div>
+                            <div id="defcon-nuclear" class="text-gray-400">Nuklear-Risiko: --%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-400 border-t border-gray-800 pt-2 mt-2 truncate" id="defcon-driver">
+                    Treiber: Lade...
+                </div>
+            </div>
+
+            <!-- TOP OVERWEIGHT / GEWINNER -->
+            <div class="glass-card rounded-xl p-5 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center text-xs text-emerald-400 mb-1">
+                        <span>TOP ASSET-FOKUS</span>
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                    </div>
+                    <div id="top-overweight-val" class="text-lg font-bold text-white my-2">
+                        --
+                    </div>
+                </div>
+                <div class="text-xs text-gray-400 border-t border-gray-800 pt-2">
+                    Makro-Rückenwind durch Liquidität & Rohstoffnachfrage
+                </div>
+            </div>
+
+            <!-- TOP RISK / HAUPTRISIKO -->
+            <div class="glass-card rounded-xl p-5 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center text-xs text-red-400 mb-1">
+                        <span>HAUPTRISIKO-TREIBER</span>
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div id="top-risk-val" class="text-lg font-bold text-white my-2">
+                        --
+                    </div>
+                </div>
+                <div class="text-xs text-gray-400 border-t border-gray-800 pt-2">
+                    Höchster Kaskaden-Einfluss auf globale Lieferketten
+                </div>
+            </div>
+        </div>
+
+        <!-- WORLD HOTSPOT MAP -->
+        <section class="glass-card rounded-xl p-4">
+            <div class="flex flex-wrap justify-between items-center mb-3 px-2 gap-2">
+                <h2 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-map-location-dot text-accentcyan"></i> Taktische Krisen- & Konfliktherde
+                </h2>
+                <div class="flex gap-4 text-xs">
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span> Kritisch</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> Hoch</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"></span> Mittel</span>
+                </div>
+            </div>
+            <div id="map"></div>
+        </section>
+
+        <!-- EVENT GRAPH & KAUSALITÄTSKETTEN (2-COL) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- EVENT GRAPH / DEDUPLIZIERTE EREIGNISSE -->
+            <section class="glass-card rounded-xl p-5 space-y-4">
+                <h2 class="text-base font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-3">
+                    <i class="fa-solid fa-diagram-project text-accentblue"></i> Deduplizierter Event-Graph
+                </h2>
+                <div id="event-graph-container" class="space-y-3">
+                    <!-- Dynamic Items -->
+                </div>
+            </section>
+
+            <!-- KAUSALITÄTSKETTEN / IMPACT CHAINS -->
+            <section class="glass-card rounded-xl p-5 space-y-4">
+                <h2 class="text-base font-bold text-white flex items-center gap-2 border-b border-gray-800 pb-3">
+                    <i class="fa-solid fa-cubes-stacked text-accentamber"></i> Kausalitätsketten & Kaskadeneffekte
+                </h2>
+                <div id="impact-chains-container" class="space-y-4">
+                    <!-- Dynamic Items -->
+                </div>
+            </section>
+        </div>
+
+        <!-- NARRATIV-MATRIX (MAINSTREAM VS BRICS VS ALTERNATIV) -->
+        <section class="glass-card rounded-xl p-5">
+            <h2 class="text-base font-bold text-white flex items-center gap-2 mb-4 border-b border-gray-800 pb-3">
+                <i class="fa-solid fa-masks-theater text-purple-400"></i> Triangulierte Narrativ-Matrix
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-gray-300">
+                    <thead class="bg-gray-800/60 uppercase text-gray-400">
+                        <tr>
+                            <th class="p-3 rounded-l">Schauplatz / Thema</th>
+                            <th class="p-3 text-blue-300">Mainstream & Agenturen (0.95)</th>
+                            <th class="p-3 text-amber-300">BRICS & Diplomatie (0.85)</th>
+                            <th class="p-3 text-emerald-300 rounded-r">Alternativ & OSINT (0.55)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="narrative-tbody" class="divide-y divide-gray-800">
+                        <!-- Dynamic Rows -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MARKTSIGNALE & AKTIEN-PICKS (2-COL) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- ASSET ALLOKATION -->
+            <section class="glass-card rounded-xl p-5">
+                <h2 class="text-base font-bold text-white flex items-center gap-2 mb-4 border-b border-gray-800 pb-3">
+                    <i class="fa-solid fa-chart-pie text-emerald-400"></i> Asset-Klassen & Signale
+                </h2>
+                <div id="assets-container" class="space-y-2">
+                    <!-- Dynamic List -->
+                </div>
+            </section>
+
+            <!-- STOCK PICKS / AKTIEN TOP 5 BUYS & SELLS -->
+            <section class="glass-card rounded-xl p-5">
+                <h2 class="text-base font-bold text-white flex items-center gap-2 mb-4 border-b border-gray-800 pb-3">
+                    <i class="fa-solid fa-money-bill-trend-up text-accentcyan"></i> Geopolitische Aktien-Setups
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="text-xs font-bold text-emerald-400 mb-2 uppercase tracking-wider">Top 5 Profiteure (Long)</h3>
+                        <div id="stock-buys" class="space-y-2"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-red-400 mb-2 uppercase tracking-wider">Top 5 Verlierer (Short/Meiden)</h3>
+                        <div id="stock-sells" class="space-y-2"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- FOOTER WITH ANTHROPIC & QUELLEN ACKNOWLEDGEMENT -->
+    <footer class="max-w-7xl mx-auto px-4 mt-12 border-t border-gray-800 pt-6 text-center text-xs text-gray-500 space-y-2">
+        <p class="flex items-center justify-center gap-2">
+            <span>GeoPuls Intelligence Engine &copy; 2026</span> •
+            <span>Synthese via <strong class="text-amber-400">Anthropic Claude 3.5 Sonnet</strong></span> •
+            <span>Hosted via GitHub Pages</span>
+        </p>
+        <p class="text-gray-600 max-w-3xl mx-auto">
+            Datenbasis: 68 gewichtete Primärquellen (Federal Reserve, EZB, BIS, Reuters, AP, ISW, USNI Marine-OSINT, Kremlin, MFA China, CSIS, Reddit OSINT, ZeroHedge u.v.m.). Ersetzung durch automatischen 48h-Cronjob.
+        </p>
+    </footer>
+
+    <!-- JAVASCRIPT FOR DATA FETCHING & UI RENDERING -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 1. Leaflet Map Init
+            const map = L.map('map').setView([25.0, 30.0], 2);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
+
+            // 2. Fetch data.json
+            fetch('data.json')
+                .then(res => res.json())
+                .then(data => {
+                    renderDashboard(data);
+                })
+                .catch(err => {
+                    console.error("Fehler beim Laden von data.json:", err);
+                    document.getElementById('executive-summary').innerText = "Fehler beim Laden der Lagedaten. Bitte stelle sicher, dass data.json existiert.";
+                });
+
+            // 3. Fetch history.json for GeoScore Chart
+            fetch('history.json')
+                .then(res => res.json())
+                .then(history => {
+                    renderHistoryChart(history);
+                })
+                .catch(err => console.log("Keine history.json gefunden."));
+
+            function renderDashboard(data) {
+                // Header & Summary
+                document.getElementById('timestamp-display').innerText = data.timestamp || "Aktuell";
+                document.getElementById('executive-summary').innerText = data.daily_executive_summary || "Keine Zusammenfassung verfügbar.";
+                document.getElementById('market-regime-tag').innerText = "Regime: " + (data.market_regime || "Stabil");
+
+                // GeoScore
+                const geoscore = data.geoscore || {};
+                const scoreVal = geoscore.current_score || data.global_risk_score || 75;
+                document.getElementById('geoscore-val').innerText = scoreVal;
+                document.getElementById('geoscore-status').innerText = geoscore.status_label || "STABIL";
+                
+                const prevScore = geoscore.previous_48h || scoreVal;
+                const diff = (scoreVal - prevScore).toFixed(1);
+                const diffElem = document.getElementById('geoscore-diff');
+                diffElem.innerText = (diff >= 0 ? "+" : "") + diff + " vs. 48h";
+                if (diff > 0) diffElem.className = "text-xs px-2 py-0.5 rounded bg-red-900/50 text-red-300 border border-red-700/50";
+                else if (diff < 0) diffElem.className = "text-xs px-2 py-0.5 rounded bg-emerald-900/50 text-emerald-300 border border-emerald-700/50";
+
+                // DEFCON
+                const defcon = data.defcon_status || {};
+                document.getElementById('defcon-level').innerText = defcon.level || 3;
+                document.getElementById('defcon-label').innerText = defcon.label || "DEFCON 3";
+                document.getElementById('defcon-nuclear').innerText = "Nuklear-Risiko: " + (defcon.nuclear_risk_percent || 15) + "%";
+                document.getElementById('defcon-driver').innerText = "Treiber: " + (defcon.primary_driver || "Regionale Spannungen");
+
+                // Overweight / Risk
+                document.getElementById('top-overweight-val').innerText = data.top_overweight || "Gold & Energie";
+                document.getElementById('top-risk-val').innerText = data.top_risk || "Lieferketten-Unterbrechung";
+
+                // Map Hotspots
+                if (data.conflict_hotspots) {
+                    data.conflict_hotspots.forEach(spot => {
+                        let color = '#3b82f6';
+                        if (spot.escalation_level === 'KRITISCH') color = '#ef4444';
+                        else if (spot.escalation_level === 'HOCH') color = '#f59e0b';
+
+                        const marker = L.circleMarker([spot.lat, spot.lng], {
+                            radius: 8,
+                            fillColor: color,
+                            color: '#ffffff',
+                            weight: 1.5,
+                            opacity: 1,
+                            fillOpacity: 0.8
+                        }).addTo(map);
+
+                        marker.bindPopup(`
+                            <div class="text-xs text-gray-900 font-sans p-1">
+                                <strong class="text-sm font-bold block border-b pb-1 mb-1">${spot.region}</strong>
+                                <div><strong>Akteure:</strong> ${spot.actors}</div>
+                                <div><strong>Eskalation:</strong> <span style="color:${color}">${spot.escalation_level}</span></div>
+                                <div><strong>Katalysator:</strong> ${spot.catalyst}</div>
+                                <div><strong>Auswirkung:</strong> ${spot.impact}</div>
+                            </div>
+                        `);
+                    });
+                }
+
+                // Event Graph
+                const eventContainer = document.getElementById('event-graph-container');
+                eventContainer.innerHTML = '';
+                (data.event_graph || []).forEach(evt => {
+                    const item = document.createElement('div');
+                    item.className = "p-3 rounded-lg bg-gray-800/50 border border-gray-700/60 hover:border-blue-500/50 transition";
+                    item.innerHTML = `
+                        <div class="flex justify-between items-start gap-2 mb-1">
+                            <span class="font-semibold text-white text-xs">${evt.headline}</span>
+                            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-900/50 text-blue-300 border border-blue-700/50">${evt.category}</span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3 text-[11px] text-gray-400 mt-2">
+                            <span><i class="fa-solid fa-users text-gray-500"></i> ${evt.actors ? evt.actors.join(', ') : 'Global'}</span>
+                            <span><i class="fa-solid fa-shield text-gray-500"></i> Severity: ${evt.severity}/100</span>
+                            <span><i class="fa-solid fa-newspaper text-gray-500"></i> ${evt.sources_count || 1} Quellen</span>
+                        </div>
+                    `;
+                    eventContainer.appendChild(item);
+                });
+
+                // Impact Chains
+                const impactContainer = document.getElementById('impact-chains-container');
+                impactContainer.innerHTML = '';
+                (data.impact_chains || []).forEach(chain => {
+                    const item = document.createElement('div');
+                    item.className = "p-3 rounded-lg bg-gray-800/40 border border-gray-700/50";
+                    const steps = (chain.steps || []).map((step, idx) => `
+                        <div class="flex items-start gap-2 text-xs text-gray-300">
+                            <span class="text-accentcyan font-mono font-bold">${idx + 1}.</span>
+                            <span>${step}</span>
+                        </div>
+                    `).join('');
+
+                    item.innerHTML = `
+                        <div class="text-xs font-bold text-amber-300 mb-2 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-play text-amber-400"></i> ${chain.trigger}
+                        </div>
+                        <div class="space-y-1.5 pl-2 border-l-2 border-gray-700 my-2">
+                            ${steps}
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-[10px] mt-2 pt-2 border-t border-gray-800">
+                            <span class="text-emerald-400">Profiteure: ${(chain.primary_beneficiaries || []).join(', ')}</span>
+                            <span class="text-red-400">Verlierer: ${(chain.primary_detractors || []).join(', ')}</span>
+                        </div>
+                    `;
+                    impactContainer.appendChild(item);
+                });
+
+                // Narrative Matrix
+                const narrativeTbody = document.getElementById('narrative-tbody');
+                narrativeTbody.innerHTML = '';
+                (data.narrative_divergence || []).forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-gray-800/30 transition";
+                    tr.innerHTML = `
+                        <td class="p-3 font-semibold text-white border-r border-gray-800">${row.topic}</td>
+                        <td class="p-3 border-r border-gray-800 text-gray-300">${row.mainstream_view}</td>
+                        <td class="p-3 border-r border-gray-800 text-gray-300">${row.brics_view}</td>
+                        <td class="p-3 text-gray-300">${row.alternative_view}</td>
+                    `;
+                    narrativeTbody.appendChild(tr);
+                });
+
+                // Assets Signal
+                const assetsContainer = document.getElementById('assets-container');
+                assetsContainer.innerHTML = '';
+                (data.assets || []).forEach(asset => {
+                    const item = document.createElement('div');
+                    item.className = "flex items-center justify-between p-2.5 rounded bg-gray-800/40 border border-gray-800 text-xs";
+                    item.innerHTML = `
+                        <span class="font-medium text-white">${asset.name}</span>
+                        <span class="px-2 py-0.5 rounded ${asset.signal === 'GREEN' ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-700/50' : asset.signal === 'RED' ? 'bg-red-900/40 text-red-300 border border-red-700/50' : 'bg-amber-900/40 text-amber-300 border border-amber-700/50'}">
+                            ${asset.signal_text || asset.signal}
+                        </span>
+                    `;
+                    assetsContainer.appendChild(item);
+                });
+
+                // Stock Picks
+                const stockBuys = document.getElementById('stock-buys');
+                const stockSells = document.getElementById('stock-sells');
+                stockBuys.innerHTML = '';
+                stockSells.innerHTML = '';
+
+                const buys = (data.stock_picks && data.stock_picks.top_5_buys) || [];
+                const sells = (data.stock_picks && data.stock_picks.flop_5_sells) || [];
+
+                buys.forEach(pick => {
+                    stockBuys.innerHTML += `
+                        <div class="p-2 rounded bg-emerald-950/20 border border-emerald-800/40 text-xs">
+                            <div class="font-bold text-emerald-300">${pick.ticker} — ${pick.name}</div>
+                            <div class="text-[11px] text-gray-400">${pick.reason}</div>
+                        </div>
+                    `;
+                });
+
+                sells.forEach(pick => {
+                    stockSells.innerHTML += `
+                        <div class="p-2 rounded bg-red-950/20 border border-red-800/40 text-xs">
+                            <div class="font-bold text-red-300">${pick.ticker} — ${pick.name}</div>
+                            <div class="text-[11px] text-gray-400">${pick.reason}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            function renderHistoryChart(historyData) {
+                const ctx = document.getElementById('geoscoreHistoryChart').getContext('2d');
+                const labels = historyData.map(h => h.date);
+                const scores = historyData.map(h => h.score);
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: scores,
+                            borderColor: '#00f2fe',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            tension: 0.3,
+                            fill: true,
+                            backgroundColor: 'rgba(0, 242, 254, 0.08)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { display: false },
+                            y: { display: false }
+                        }
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
