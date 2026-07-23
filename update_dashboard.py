@@ -50,91 +50,91 @@ def get_live_market_data():
 
 live_market_context = get_live_market_data()
 
-# B. VOLLSTÄNDIGER VOLL-QUELLENPOOL (ALLE ALTEN + NEUEN QUELLEN GEWICHTET)
+# B. VOLLSTÄNDIGER VOLL-QUELLENPOOL (68 QUELLEN GEWICHTET)
 SOURCES = [
     # 🏛️ 1. ZENTRALBANKEN & MAKRO-INSTITUTIONEN (Gewicht: 1.0)
-    {"name": "Federal Reserve Press", "url": "https://www.federalreserve.gov/feeds/press_all.xml", "cat": "Zentralbank", "weight": 1.00, "bias": "OFFIZIELL"},
-    {"name": "EZB (Europäische Zentralbank)", "url": "https://www.ecb.europa.eu/rss/press.html", "cat": "Zentralbank", "weight": 1.00, "bias": "OFFIZIELL"},
-    {"name": "BIS (Bank f. Intl. Zahlungsausgleich)", "url": "https://www.bis.org/doclist/all.rss", "cat": "Zentralbank", "weight": 1.00, "bias": "OFFIZIELL"},
-    {"name": "IMF News", "url": "https://www.imf.org/en/News/rss", "cat": "Intl. Org", "weight": 0.95, "bias": "OFFIZIELL"},
-    {"name": "Weltbank News", "url": "https://www.worldbank.org/en/news/rss", "cat": "Intl. Org", "weight": 0.95, "bias": "OFFIZIELL"},
-    {"name": "OECD Newsroom", "url": "https://www.oecd.org/newsroom/index.xml", "cat": "Intl. Org", "weight": 0.95, "bias": "OFFIZIELL"},
-    {"name": "EU-Kommission Press", "url": "https://ec.europa.eu/commission/presscorner/api/rss", "cat": "Regierung/EU", "weight": 1.00, "bias": "WESTERN"},
-    {"name": "Europäischer Rat", "url": "https://www.consilium.europa.eu/en/rss/", "cat": "Regierung/EU", "weight": 1.00, "bias": "WESTERN"},
-    {"name": "White House Briefing", "url": "https://www.whitehouse.gov/briefing-room/feed/", "cat": "Regierung", "weight": 1.00, "bias": "WESTERN"},
-    {"name": "US Department of State", "url": "https://www.state.gov/rss-feed/press-releases/feed/", "cat": "Diplomatie", "weight": 1.00, "bias": "WESTERN"},
-    {"name": "Schweizer Bundesrat", "url": "https://www.admin.ch/gov/de/start/dokumentation/medienmitteilungen.rss.html", "cat": "Regierung", "weight": 1.00, "bias": "WESTERN"},
+    {"name": "Federal Reserve Press", "url": "[https://www.federalreserve.gov/feeds/press_all.xml](https://www.federalreserve.gov/feeds/press_all.xml)", "cat": "Zentralbank", "weight": 1.00, "bias": "OFFIZIELL"},
+    {"name": "EZB (Europäische Zentralbank)", "url": "[https://www.ecb.europa.eu/rss/press.html](https://www.ecb.europa.eu/rss/press.html)", "cat": "Zentralbank", "weight": 1.00, "bias": "OFFIZIELL"},
+    {"name": "BIS (Bank f. Intl. Zahlungsausgleich)", "url": "[https://www.bis.org/doclist/all.rss](https://www.bis.org/doclist/all.rss)", "cat": "Zentralbank", "weight": 1.00, "bias": "OFFIZIELL"},
+    {"name": "IMF News", "url": "[https://www.imf.org/en/News/rss](https://www.imf.org/en/News/rss)", "cat": "Intl. Org", "weight": 0.95, "bias": "OFFIZIELL"},
+    {"name": "Weltbank News", "url": "[https://www.worldbank.org/en/news/rss](https://www.worldbank.org/en/news/rss)", "cat": "Intl. Org", "weight": 0.95, "bias": "OFFIZIELL"},
+    {"name": "OECD Newsroom", "url": "[https://www.oecd.org/newsroom/index.xml](https://www.oecd.org/newsroom/index.xml)", "cat": "Intl. Org", "weight": 0.95, "bias": "OFFIZIELL"},
+    {"name": "EU-Kommission Press", "url": "[https://ec.europa.eu/commission/presscorner/api/rss](https://ec.europa.eu/commission/presscorner/api/rss)", "cat": "Regierung/EU", "weight": 1.00, "bias": "WESTERN"},
+    {"name": "Europäischer Rat", "url": "[https://www.consilium.europa.eu/en/rss/](https://www.consilium.europa.eu/en/rss/)", "cat": "Regierung/EU", "weight": 1.00, "bias": "WESTERN"},
+    {"name": "White House Briefing", "url": "[https://www.whitehouse.gov/briefing-room/feed/](https://www.whitehouse.gov/briefing-room/feed/)", "cat": "Regierung", "weight": 1.00, "bias": "WESTERN"},
+    {"name": "US Department of State", "url": "[https://www.state.gov/rss-feed/press-releases/feed/](https://www.state.gov/rss-feed/press-releases/feed/)", "cat": "Diplomatie", "weight": 1.00, "bias": "WESTERN"},
+    {"name": "Schweizer Bundesrat", "url": "[https://www.admin.ch/gov/de/start/dokumentation/medienmitteilungen.rss.html](https://www.admin.ch/gov/de/start/dokumentation/medienmitteilungen.rss.html)", "cat": "Regierung", "weight": 1.00, "bias": "WESTERN"},
 
     # 📰 2. NACHRICHTENAGENTUREN (Gewicht: 0.95)
-    {"name": "AP News World", "url": "https://news.google.com/rss/search?q=when:24h+source:Associated+Press&hl=en-US&gl=US&ceid=US:en", "cat": "Agentur", "weight": 0.95, "bias": "MAINSTREAM"},
-    {"name": "Reuters World", "url": "https://news.google.com/rss/search?q=when:24h+source:Reuters&hl=en-US&gl=US&ceid=US:en", "cat": "Agentur", "weight": 0.95, "bias": "MAINSTREAM"},
-    {"name": "AFP World", "url": "https://news.google.com/rss/search?q=when:24h+source:Agence+France-Presse&hl=en-US&gl=US&ceid=US:en", "cat": "Agentur", "weight": 0.95, "bias": "MAINSTREAM"},
-    {"name": "Kyodo News (Japan)", "url": "https://english.kyodonews.net/rss/news.xml", "cat": "Agentur", "weight": 0.95, "bias": "MAINSTREAM"},
+    {"name": "AP News World", "url": "[https://news.google.com/rss/search?q=when:24h+source:Associated+Press&hl=en-US&gl=US&ceid=US:en](https://news.google.com/rss/search?q=when:24h+source:Associated+Press&hl=en-US&gl=US&ceid=US:en)", "cat": "Agentur", "weight": 0.95, "bias": "MAINSTREAM"},
+    {"name": "Reuters World", "url": "[https://news.google.com/rss/search?q=when:24h+source:Reuters&hl=en-US&gl=US&ceid=US:en](https://news.google.com/rss/search?q=when:24h+source:Reuters&hl=en-US&gl=US&ceid=US:en)", "cat": "Agentur", "weight": 0.95, "bias": "MAINSTREAM"},
+    {"name": "AFP World", "url": "[https://news.google.com/rss/search?q=when:24h+source:Agence+France-Presse&hl=en-US&gl=US&ceid=US:en](https://news.google.com/rss/search?q=when:24h+source:Agence+France-Presse&hl=en-US&gl=US&ceid=US:en)", "cat": "Agentur", "weight": 0.95, "bias": "MAINSTREAM"},
+    {"name": "Kyodo News (Japan)", "url": "[https://english.kyodonews.net/rss/news.xml](https://english.kyodonews.net/rss/news.xml)", "cat": "Agentur", "weight": 0.95, "bias": "MAINSTREAM"},
 
     # 🛡️ 3. OSINT, VERTEIDIGUNG & SATELLITEN (Gewicht: 0.85)
-    {"name": "ISW (Institute f. Study of War)", "url": "https://www.understandingwar.org/rss.xml", "cat": "OSINT / Militär", "weight": 0.85, "bias": "WESTERN"},
-    {"name": "US Naval Institute News", "url": "https://news.usni.org/feed", "cat": "Marine / AIS OSINT", "weight": 0.85, "bias": "WESTERN"},
-    {"name": "Naval News", "url": "https://www.navalnews.com/feed/", "cat": "Schifffahrt & Marine", "weight": 0.85, "bias": "WESTERN"},
-    {"name": "War on the Rocks", "url": "https://warontherocks.com/feed/", "cat": "Militäranalyse", "weight": 0.85, "bias": "WESTERN"},
-    {"name": "Bellingcat OSINT", "url": "https://www.bellingcat.com/feed/", "cat": "OSINT / Satellit", "weight": 0.85, "bias": "ALTERNATIVE"},
-    {"name": "Münchner Sicherheitskonferenz", "url": "https://securityconference.org/news/rss/", "cat": "Sicherheit", "weight": 0.85, "bias": "WESTERN"},
+    {"name": "ISW (Institute f. Study of War)", "url": "[https://www.understandingwar.org/rss.xml](https://www.understandingwar.org/rss.xml)", "cat": "OSINT / Militär", "weight": 0.85, "bias": "WESTERN"},
+    {"name": "US Naval Institute News", "url": "[https://news.usni.org/feed](https://news.usni.org/feed)", "cat": "Marine / AIS OSINT", "weight": 0.85, "bias": "WESTERN"},
+    {"name": "Naval News", "url": "[https://www.navalnews.com/feed/](https://www.navalnews.com/feed/)", "cat": "Schifffahrt & Marine", "weight": 0.85, "bias": "WESTERN"},
+    {"name": "War on the Rocks", "url": "[https://warontherocks.com/feed/](https://warontherocks.com/feed/)", "cat": "Militäranalyse", "weight": 0.85, "bias": "WESTERN"},
+    {"name": "Bellingcat OSINT", "url": "[https://www.bellingcat.com/feed/](https://www.bellingcat.com/feed/)", "cat": "OSINT / Satellit", "weight": 0.85, "bias": "ALTERNATIVE"},
+    {"name": "Münchner Sicherheitskonferenz", "url": "[https://securityconference.org/news/rss/](https://securityconference.org/news/rss/)", "cat": "Sicherheit", "weight": 0.85, "bias": "WESTERN"},
 
     # 🌍 4. BRICS, DIPLOMATIE & GLOBALER SÜDEN (Gewicht: 0.85 - 1.00)
-    {"name": "Kremlin News", "url": "http://en.kremlin.ru/rss/news", "cat": "Regierung", "weight": 1.00, "bias": "BRICS"},
-    {"name": "Russisches Außenministerium", "url": "https://mid.ru/en/rss.php", "cat": "Diplomatie", "weight": 1.00, "bias": "BRICS"},
-    {"name": "Chinesisches Außenministerium", "url": "https://www.fmprc.gov.cn/eng/zxmz/rss.xml", "cat": "Diplomatie", "weight": 1.00, "bias": "BRICS"},
-    {"name": "Indisches Außenministerium", "url": "https://www.mea.gov.in/rss.xml", "cat": "Diplomatie", "weight": 1.00, "bias": "BRICS"},
-    {"name": "CGTN World", "url": "https://news.cgtn.com/rss/World.xml", "cat": "Staatsmedien", "weight": 0.85, "bias": "BRICS"},
-    {"name": "TASS World", "url": "https://tass.com/rss/v2.xml", "cat": "Staatsmedien", "weight": 0.85, "bias": "BRICS"},
-    {"name": "Economic Times (Indien)", "url": "https://economictimes.indiatimes.com/rssfeedstopstories.cms", "cat": "Medien", "weight": 0.85, "bias": "BRICS"},
-    {"name": "Al Jazeera", "url": "https://www.aljazeera.com/xml/rss/all.xml", "cat": "Medien", "weight": 0.85, "bias": "BRICS"},
-    {"name": "South China Morning Post", "url": "https://www.scmp.com/rss/91/feed", "cat": "Medien", "weight": 0.85, "bias": "BRICS"},
-    {"name": "The Cradle", "url": "https://thecradle.co/feed", "cat": "Fachmedien", "weight": 0.85, "bias": "BRICS"},
-    {"name": "Asia Times", "url": "https://asiatimes.com/feed/", "cat": "Fachmedien", "weight": 0.85, "bias": "BRICS"},
+    {"name": "Kremlin News", "url": "[http://en.kremlin.ru/rss/news](http://en.kremlin.ru/rss/news)", "cat": "Regierung", "weight": 1.00, "bias": "BRICS"},
+    {"name": "Russisches Außenministerium", "url": "[https://mid.ru/en/rss.php](https://mid.ru/en/rss.php)", "cat": "Diplomatie", "weight": 1.00, "bias": "BRICS"},
+    {"name": "Chinesisches Außenministerium", "url": "[https://www.fmprc.gov.cn/eng/zxmz/rss.xml](https://www.fmprc.gov.cn/eng/zxmz/rss.xml)", "cat": "Diplomatie", "weight": 1.00, "bias": "BRICS"},
+    {"name": "Indisches Außenministerium", "url": "[https://www.mea.gov.in/rss.xml](https://www.mea.gov.in/rss.xml)", "cat": "Diplomatie", "weight": 1.00, "bias": "BRICS"},
+    {"name": "CGTN World", "url": "[https://news.cgtn.com/rss/World.xml](https://news.cgtn.com/rss/World.xml)", "cat": "Staatsmedien", "weight": 0.85, "bias": "BRICS"},
+    {"name": "TASS World", "url": "[https://tass.com/rss/v2.xml](https://tass.com/rss/v2.xml)", "cat": "Staatsmedien", "weight": 0.85, "bias": "BRICS"},
+    {"name": "Economic Times (Indien)", "url": "[https://economictimes.indiatimes.com/rssfeedstopstories.cms](https://economictimes.indiatimes.com/rssfeedstopstories.cms)", "cat": "Medien", "weight": 0.85, "bias": "BRICS"},
+    {"name": "Al Jazeera", "url": "[https://www.aljazeera.com/xml/rss/all.xml](https://www.aljazeera.com/xml/rss/all.xml)", "cat": "Medien", "weight": 0.85, "bias": "BRICS"},
+    {"name": "South China Morning Post", "url": "[https://www.scmp.com/rss/91/feed](https://www.scmp.com/rss/91/feed)", "cat": "Medien", "weight": 0.85, "bias": "BRICS"},
+    {"name": "The Cradle", "url": "[https://thecradle.co/feed](https://thecradle.co/feed)", "cat": "Fachmedien", "weight": 0.85, "bias": "BRICS"},
+    {"name": "Asia Times", "url": "[https://asiatimes.com/feed/](https://asiatimes.com/feed/)", "cat": "Fachmedien", "weight": 0.85, "bias": "BRICS"},
 
     # 🏛️ 5. THINK TANKS & AKADEMIE (Gewicht: 0.75)
-    {"name": "CSIS Org", "url": "https://www.csis.org/rss.xml", "cat": "Think Tank", "weight": 0.75, "bias": "WESTERN"},
-    {"name": "CFR (Council Foreign Relations)", "url": "https://www.cfr.org/rss.xml", "cat": "Think Tank", "weight": 0.75, "bias": "WESTERN"},
-    {"name": "ECFR Europe", "url": "https://ecfr.eu/feed/", "cat": "Think Tank", "weight": 0.75, "bias": "WESTERN"},
-    {"name": "SWP Berlin", "url": "https://www.swp-berlin.org/rss.xml", "cat": "Think Tank", "weight": 0.75, "bias": "WESTERN"},
-    {"name": "World Economic Forum", "url": "https://www.weforum.org/agenda/feed/", "cat": "Think Tank", "weight": 0.75, "bias": "WESTERN"},
+    {"name": "CSIS Org", "url": "[https://www.csis.org/rss.xml](https://www.csis.org/rss.xml)", "cat": "Think Tank", "weight": 0.75, "bias": "WESTERN"},
+    {"name": "CFR (Council Foreign Relations)", "url": "[https://www.cfr.org/rss.xml](https://www.cfr.org/rss.xml)", "cat": "Think Tank", "weight": 0.75, "bias": "WESTERN"},
+    {"name": "ECFR Europe", "url": "[https://ecfr.eu/feed/](https://ecfr.eu/feed/)", "cat": "Think Tank", "weight": 0.75, "bias": "WESTERN"},
+    {"name": "SWP Berlin", "url": "[https://www.swp-berlin.org/rss.xml](https://www.swp-berlin.org/rss.xml)", "cat": "Think Tank", "weight": 0.75, "bias": "WESTERN"},
+    {"name": "World Economic Forum", "url": "[https://www.weforum.org/agenda/feed/](https://www.weforum.org/agenda/feed/)", "cat": "Think Tank", "weight": 0.75, "bias": "WESTERN"},
 
     # 📈 6. MAINSTREAM FINANZEN & POLITIK (Gewicht: 0.85)
-    {"name": "CNBC Finance", "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html", "cat": "Finanzen", "weight": 0.85, "bias": "MAINSTREAM"},
-    {"name": "Foreign Policy", "url": "https://foreignpolicy.com/feed/", "cat": "Politik", "weight": 0.85, "bias": "MAINSTREAM"},
-    {"name": "Nikkei Asia", "url": "https://asia.nikkei.com/rss/feed/nar", "cat": "Finanzen", "weight": 0.85, "bias": "MAINSTREAM"},
-    {"name": "Handelsblatt", "url": "https://www.handelsblatt.com/contentexport/feed/finanzen", "cat": "Finanzen", "weight": 0.85, "bias": "MAINSTREAM"},
-    {"name": "Finanzmarktwelt", "url": "https://finanzmarktwelt.de/feed/", "cat": "Finanzen", "weight": 0.85, "bias": "MAINSTREAM"},
-    {"name": "NZZ", "url": "https://www.nzz.ch/international.rss", "cat": "Medien", "weight": 0.85, "bias": "MAINSTREAM"},
-    {"name": "FAZ", "url": "https://www.faz.net/rss/aktuell/politik/ausland/", "cat": "Medien", "weight": 0.85, "bias": "MAINSTREAM"},
-    {"name": "Tagesschau", "url": "https://www.tagesschau.de/ausland/index.xml", "cat": "Medien", "weight": 0.85, "bias": "MAINSTREAM"},
-    {"name": "BBC World", "url": "http://feeds.bbci.co.uk/news/world/rss.xml", "cat": "Medien", "weight": 0.85, "bias": "MAINSTREAM"},
+    {"name": "CNBC Finance", "url": "[https://www.cnbc.com/id/100003114/device/rss/rss.html](https://www.cnbc.com/id/100003114/device/rss/rss.html)", "cat": "Finanzen", "weight": 0.85, "bias": "MAINSTREAM"},
+    {"name": "Foreign Policy", "url": "[https://foreignpolicy.com/feed/](https://foreignpolicy.com/feed/)", "cat": "Politik", "weight": 0.85, "bias": "MAINSTREAM"},
+    {"name": "Nikkei Asia", "url": "[https://asia.nikkei.com/rss/feed/nar](https://asia.nikkei.com/rss/feed/nar)", "cat": "Finanzen", "weight": 0.85, "bias": "MAINSTREAM"},
+    {"name": "Handelsblatt", "url": "[https://www.handelsblatt.com/contentexport/feed/finanzen](https://www.handelsblatt.com/contentexport/feed/finanzen)", "cat": "Finanzen", "weight": 0.85, "bias": "MAINSTREAM"},
+    {"name": "Finanzmarktwelt", "url": "[https://finanzmarktwelt.de/feed/](https://finanzmarktwelt.de/feed/)", "cat": "Finanzen", "weight": 0.85, "bias": "MAINSTREAM"},
+    {"name": "NZZ", "url": "[https://www.nzz.ch/international.rss](https://www.nzz.ch/international.rss)", "cat": "Medien", "weight": 0.85, "bias": "MAINSTREAM"},
+    {"name": "FAZ", "url": "[https://www.faz.net/rss/aktuell/politik/ausland/](https://www.faz.net/rss/aktuell/politik/ausland/)", "cat": "Medien", "weight": 0.85, "bias": "MAINSTREAM"},
+    {"name": "Tagesschau", "url": "[https://www.tagesschau.de/ausland/index.xml](https://www.tagesschau.de/ausland/index.xml)", "cat": "Medien", "weight": 0.85, "bias": "MAINSTREAM"},
+    {"name": "BBC World", "url": "[http://feeds.bbci.co.uk/news/world/rss.xml](http://feeds.bbci.co.uk/news/world/rss.xml)", "cat": "Medien", "weight": 0.85, "bias": "MAINSTREAM"},
 
     # 👥 7. REDDIT COMMUNITIES (Gewicht: 0.60)
-    {"name": "Reddit r/geopolitics", "url": "https://www.reddit.com/r/geopolitics/hot.rss?limit=5", "cat": "Community OSINT", "weight": 0.60, "bias": "MIXED"},
-    {"name": "Reddit r/OSINT", "url": "https://www.reddit.com/r/OSINT/hot.rss?limit=5", "cat": "Community OSINT", "weight": 0.60, "bias": "MIXED"},
-    {"name": "Reddit r/Economics", "url": "https://www.reddit.com/r/Economics/hot.rss?limit=5", "cat": "Makro Community", "weight": 0.60, "bias": "MIXED"},
+    {"name": "Reddit r/geopolitics", "url": "[https://www.reddit.com/r/geopolitics/hot.rss?limit=5](https://www.reddit.com/r/geopolitics/hot.rss?limit=5)", "cat": "Community OSINT", "weight": 0.60, "bias": "MIXED"},
+    {"name": "Reddit r/OSINT", "url": "[https://www.reddit.com/r/OSINT/hot.rss?limit=5](https://www.reddit.com/r/OSINT/hot.rss?limit=5)", "cat": "Community OSINT", "weight": 0.60, "bias": "MIXED"},
+    {"name": "Reddit r/Economics", "url": "[https://www.reddit.com/r/Economics/hot.rss?limit=5](https://www.reddit.com/r/Economics/hot.rss?limit=5)", "cat": "Makro Community", "weight": 0.60, "bias": "MIXED"},
 
     # 🔓 8. INVESTIGATIV, BLOGS & ALTERNATIVE ANALYSTEN (Gewicht: 0.40 - 0.55)
-    {"name": "Multipolar Magazin", "url": "https://multipolar-magazin.de/feed", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "Manova / Rubikon", "url": "https://www.manova.news/feed", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "Berliner Tageszeitung", "url": "https://www.berlinertageszeitung.de/rss.xml", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "Hintergrund Magazin", "url": "https://www.hintergrund.de/feed/", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "Republik (Schweiz)", "url": "https://www.republik.ch/feed", "cat": "Investigativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "The Grayzone", "url": "https://thegrayzone.com/feed/", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "The Intercept", "url": "https://theintercept.com/feed/?lang=en", "cat": "Investigativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "MintPress News", "url": "https://www.mintpressnews.com/feed/", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "ZeroHedge", "url": "http://feeds.feedburner.com/zerohedge/feed", "cat": "Alternativ / Makro", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "UnHerd", "url": "https://unherd.com/feed/", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "Antiwar.com", "url": "https://news.antiwar.com/feed/", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "NachDenkSeiten", "url": "https://www.nachdenkseiten.de/?feed=rss2", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "Apolut", "url": "https://apolut.net/feed/", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "Anti-Spiegel", "url": "https://anti-spiegel.ru/feed/", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "Telepolis", "url": "https://www.telepolis.de/index.rss", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "Tichys Einblick", "url": "https://www.tichyseinblick.de/feed/", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "Overton Magazin", "url": "https://overton-magazin.de/feed/", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
-    {"name": "Moon of Alabama", "url": "https://www.moonofalabama.org/atom.xml", "cat": "Blogger", "weight": 0.40, "bias": "ALTERNATIVE"},
-    {"name": "Caitlin Johnstone", "url": "https://caitlinjohnstone.com.au/feed/", "cat": "Blogger", "weight": 0.40, "bias": "ALTERNATIVE"}
+    {"name": "Multipolar Magazin", "url": "[https://multipolar-magazin.de/feed](https://multipolar-magazin.de/feed)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "Manova / Rubikon", "url": "[https://www.manova.news/feed](https://www.manova.news/feed)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "Berliner Tageszeitung", "url": "[https://www.berlinertageszeitung.de/rss.xml](https://www.berlinertageszeitung.de/rss.xml)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "Hintergrund Magazin", "url": "[https://www.hintergrund.de/feed/](https://www.hintergrund.de/feed/)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "Republik (Schweiz)", "url": "[https://www.republik.ch/feed](https://www.republik.ch/feed)", "cat": "Investigativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "The Grayzone", "url": "[https://thegrayzone.com/feed/](https://thegrayzone.com/feed/)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "The Intercept", "url": "[https://theintercept.com/feed/?lang=en](https://theintercept.com/feed/?lang=en)", "cat": "Investigativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "MintPress News", "url": "[https://www.mintpressnews.com/feed/](https://www.mintpressnews.com/feed/)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "ZeroHedge", "url": "[http://feeds.feedburner.com/zerohedge/feed](http://feeds.feedburner.com/zerohedge/feed)", "cat": "Alternativ / Makro", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "UnHerd", "url": "[https://unherd.com/feed/](https://unherd.com/feed/)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "Antiwar.com", "url": "[https://news.antiwar.com/feed/](https://news.antiwar.com/feed/)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "NachDenkSeiten", "url": "[https://www.nachdenkseiten.de/?feed=rss2](https://www.nachdenkseiten.de/?feed=rss2)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "Apolut", "url": "[https://apolut.net/feed/](https://apolut.net/feed/)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "Anti-Spiegel", "url": "[https://anti-spiegel.ru/feed/](https://anti-spiegel.ru/feed/)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "Telepolis", "url": "[https://www.telepolis.de/index.rss](https://www.telepolis.de/index.rss)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "Tichys Einblick", "url": "[https://www.tichyseinblick.de/feed/](https://www.tichyseinblick.de/feed/)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "Overton Magazin", "url": "[https://overton-magazin.de/feed/](https://overton-magazin.de/feed/)", "cat": "Alternativ", "weight": 0.55, "bias": "ALTERNATIVE"},
+    {"name": "Moon of Alabama", "url": "[https://www.moonofalabama.org/atom.xml](https://www.moonofalabama.org/atom.xml)", "cat": "Blogger", "weight": 0.40, "bias": "ALTERNATIVE"},
+    {"name": "Caitlin Johnstone", "url": "[https://caitlinjohnstone.com.au/feed/](https://caitlinjohnstone.com.au/feed/)", "cat": "Blogger", "weight": 0.40, "bias": "ALTERNATIVE"}
 ]
 
 browser_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 GeoPulsOSINTBot/1.0"
@@ -154,18 +154,69 @@ for src in SOURCES:
     except Exception as e:
         print(f"Hinweis bei Feed {src['name']}: {e}")
 
-# Dank Claudes großem Fenster kappen wir erst bei 35.000 Zeichen (falls nötig)
 if len(feed_context) > 35000:
     feed_context = feed_context[:35000] + "\n... [Quellenkontext zur Token-Schonung leicht gekürzt]"
 
+# ERWEITERTES SCHEMAS FÜR GEOSCORE, EVENT-GRAPH & KAUSALITÄTSKETTEN (PALANTIR LIGHT STAGE 2-7)
 json_template_desc = """
 {
+  "geoscore": {
+    "current_score": 78.4,
+    "previous_48h": 74.1,
+    "status_label": "ERHÖHTES ANSTECKUNGSRISIKO",
+    "vectors": {
+      "military": 82,
+      "energy": 70,
+      "geopolitics": 85,
+      "financial_stress": 62,
+      "trade_conflicts": 75,
+      "supply_chains": 68,
+      "liquidity": 50
+    }
+  },
+  "event_graph": [
+    {
+      "event_id": "EVT-2026-001",
+      "headline": "Kurze, prägnante Überschrift des gebündelten Ereignisses",
+      "actors": ["USA", "China", "TSMC"],
+      "category": "Handelskrieg / Technologie",
+      "confidence_score": 0.92,
+      "severity": 85,
+      "sources_count": 12
+    },
+    {
+      "event_id": "EVT-2026-002",
+      "headline": "Schifffahrts-Einschränkungen und Tankerversicherungen steigen",
+      "actors": ["Houthi", "USA", "UK"],
+      "category": "Lieferketten / Energie",
+      "confidence_score": 0.88,
+      "severity": 78,
+      "sources_count": 9
+    }
+  ],
+  "impact_chains": [
+    {
+      "trigger": "Auslösendes Ereignis aus den Feeds",
+      "steps": [
+        "Erstfolge (z.B. Transportkosten steigen um +25%)",
+        "Zweitfolge (z.B. Raffinerie-Margen verengen sich in Europa)",
+        "Drittfolge (z.B. Inflationserwartung steigt, Zinssenkungen verzögert)"
+      ],
+      "primary_beneficiaries": ["WTI Öl", "Gold", "Rüstung"],
+      "primary_detractors": ["Airlines", "Chemie", "Staatsanleihen"]
+    }
+  ],
+  "probability_matrix": [
+    { "scenario": "Eskalation Nahost-Schifffahrt", "probability_pct": 68, "trend": "RISING" },
+    { "scenario": "Fed-Zinssenkung im nächsten Quartal", "probability_pct": 42, "trend": "FALLING" },
+    { "scenario": "Sanktionsausweitung auf Halbleiter-Lieferanten", "probability_pct": 81, "trend": "STABLE" }
+  ],
   "daily_executive_summary": "Detaillierte Synthese der geopolitischen Lage...",
-  "global_risk_score": 75,
-  "market_regime": "Marktregime",
+  "global_risk_score": 78,
+  "market_regime": "Marktregime (z.B. Stagflations-Skepsis & Risiko-Aversion)",
   "top_overweight": "Gewinner-Assets",
   "top_risk": "Hauptrisiko",
-  "defcon_status": {"level": 3, "label": "Label", "nuclear_risk_percent": 15, "primary_driver": "Treiber"},
+  "defcon_status": {"level": 3, "label": "DEFCON 3 - Erhöhte Wachsamkeit", "nuclear_risk_percent": 18, "primary_driver": "Treiber"},
   "narrative_divergence": [
     {"topic": "Schauplatz 1", "mainstream_view": "Mainstream/Agenturen", "brics_view": "BRICS/Diplomatie", "alternative_view": "Unabhängig/Alternativ"},
     {"topic": "Schauplatz 2", "mainstream_view": "Mainstream/Agenturen", "brics_view": "BRICS/Diplomatie", "alternative_view": "Unabhängig/Alternativ"},
@@ -214,22 +265,22 @@ generator_used = "Claude 3.5 Sonnet"
 
 anth_key = os.environ.get("ANTHROPIC_API_KEY")
 if not anth_key:
-    raise ValueError("ANTHROPIC_API_KEY wurde nicht in den GitHub-Umgebungsvariablen gefunden!")
+    raise ValueError("ANTHROPIC_API_KEY wurde nicht in den Umgebungsvariablen gefunden!")
 
 client_anthropic = anthropic.Anthropic(api_key=anth_key)
 
 system_instruction = (
-    "Du bist der Chef-Strategist und OSINT-Spezialist eines geopolitischen Lagezentrums. "
+    "Du bist der Chef-Analyst und OSINT-Spezialist eines hochmodernen Geopolitik-Lagezentrums ('Palantir Light'). "
+    "DEINE AUFGABE: Berechne den synthetischen GeoScore (0-100), erstelle aus den Rohnachrichten einen deduplizierten Event-Graphen, berechne mehrstufige Kausalitätsketten (Impact Chains) und gewichte alle Erkenntnisse anhand der Quellenprioritäten. "
     "STRIKTE GEWICHTUNGSRULE: Stütze deine Faktenanalyse primär auf Quellen mit hohem Gewicht (0.85 bis 1.0, z.B. Zentralbanken, Regierungen, Agenturen, USNI Marine-OSINT, ISW). "
     "Nutze Blogs & Community-Quellen (0.40 bis 0.60) ausschließlich für die 'alternative_view' in der Narrativ-Matrix und zur Erfassung von Gegen-Narrativen. "
     "Antworte AUSSCHLIESSLICH im rein validen JSON-Format basierend auf diesem Schema:\n" + json_template_desc
 )
 
-# Teste Claude Sonnet, Fallback auf Haiku
 claude_models = ["claude-3-5-sonnet-latest", "claude-3-5-haiku-latest"]
 for model_name in claude_models:
     try:
-        print(f"Generiere Lagebild mit Anthropic {model_name}...")
+        print(f"Generiere Palantir Light Lagebild mit Anthropic {model_name}...")
         response = client_anthropic.messages.create(
             model=model_name,
             max_tokens=4000,
@@ -297,7 +348,7 @@ for h in data.get("conflict_hotspots", []):
 
 data["timestamp"] = datetime.utcnow().strftime("%d.%m.%Y - %H:%M UTC")
 
-# Historie tracken
+# Historie tracken (inkl. GeoScore)
 history_file = "history.json"
 history_data = []
 if os.path.exists(history_file):
@@ -308,10 +359,12 @@ if os.path.exists(history_file):
         history_data = []
 
 today_str = datetime.utcnow().strftime("%d.%m")
+geoscore_val = data.get("geoscore", {}).get("current_score") or data.get("global_risk_score", 75)
+
 if not history_data or history_data[-1].get("date") != today_str:
     history_data.append({
         "date": today_str,
-        "score": data.get("global_risk_score", 75),
+        "score": geoscore_val,
         "defcon": data.get("defcon_status", {}).get("level", 3)
     })
     history_data = history_data[-30:]
@@ -321,4 +374,4 @@ if not history_data or history_data[-1].get("date") != today_str:
 with open("data.json", "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
 
-print(f"GeoPuls Dashboard erfolgreich mit Claude ({generator_used}) aktualisiert!")
+print(f"OSINT Lagezentrum erfolgreich mit GeoScore & Event-Graph (Claude {generator_used}) aktualisiert!")
