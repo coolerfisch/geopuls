@@ -6,7 +6,7 @@
   <title>ARGUS GRID // Systemic Intelligence Engine</title>
   
   <!-- Leaflet CSS für interaktive Hotspot-Karte -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.css](https://unpkg.com/leaflet@1.9.4/dist/leaflet.css)" />
   
   <style>
     :root {
@@ -345,10 +345,10 @@
 
     /* FLUGZEUG MARKER */
     .plane-icon-div {
-      font-size: 16px;
-      filter: drop-shadow(0 0 4px #38bdf8);
-      transition: transform 0.1s linear;
-      text-shadow: 0 0 6px #38bdf8;
+      font-size: 18px;
+      filter: drop-shadow(0 0 6px #38bdf8);
+      text-shadow: 0 0 8px #38bdf8;
+      display: inline-block;
     }
 
     /* ZWEI-SPALTEN BRENNOFF-LISTE */
@@ -548,14 +548,14 @@
     </div>
 
     <div class="card" style="grid-column: span 2;">
-      <h2>🗺️ Live Tactical Radar & Migrationsbewegungen</h2>
+      <h2>🗺️ Live Tactical Radar & ADS-B Recon tracking</h2>
       <div id="hotspot-map"></div>
       
       <div class="map-legend">
         <div class="legend-item"><div class="legend-dot" style="background: var(--accent-red); box-shadow: 0 0 6px var(--accent-red);"></div> Pulsierend: Aktive Kriegszonen</div>
         <div class="legend-item"><div class="legend-dot" style="background: var(--accent-purple);"></div> Potenzielle Konfliktfelder</div>
         <div class="legend-item"><span style="color: var(--accent-cyan); font-weight: bold;">➔ ➔ ➔</span> Animierte Flüchtlingsströme</div>
-        <div class="legend-item"><span style="color: var(--accent-cyan);">✈️</span> OSINT Aufklärungsflüge (FORTE12 / AWACS)</div>
+        <div class="legend-item"><span style="color: var(--accent-cyan);">✈️</span> Live OpenSky ADS-B Transponder Tracks</div>
       </div>
 
       <div id="hotspots-list-container"></div>
@@ -601,7 +601,7 @@
         <strong>Keine Finanz- oder Anlageberatung:</strong> Die auf diesem Dashboard dargestellten Lageberichte, spieltheoretischen Gutachten, Stress-Test-Szenarien und dynamischen Aktien-Rotationen dienen ausschließlich akademischen, strategischen und Forschungszwecken im Rahmen automatisierter OSINT-Analysen (Open Source Intelligence). Sie stellen zu keinem Zeitpunkt eine Aufforderung, Empfehlung oder Anlageberatung zum Kauf oder Verkauf von Finanzinstrumenten, Wertpapieren oder Rohstoffen dar.
       </p>
       <p>
-        <strong>Automatisierte Datenverarbeitung & Multi-LLM Architecture:</strong> Sämtliche Analysen werden vollautomatisch über eine Pipeline aus über 140 weltweiten Primärquellen und einem Multi-LLM-Komitee (unter anderem <strong>DeepSeek V4 Pro</strong>, <strong>Claude Sonnet 5</strong>, <strong>Gemini 3.6 Flash</strong> sowie <strong>Llama 3.3 70B via Groq</strong>) generiert. Es wird keine Garantie für die Richtigkeit, Vollständigkeit oder Aktualität der abgerufenen Daten übernommen.
+        <strong>Automatisierte Datenverarbeitung & Multi-LLM Architecture:</strong> Sämtliche Analysen werden vollautomatisch über eine Pipeline aus über 140 weltweiten Primärquellen, OpenSky ADS-B Live-Radardaten und einem Multi-LLM-Komitee (unter anderem <strong>DeepSeek V4 Pro</strong>, <strong>Claude Sonnet 5</strong>, <strong>Gemini 3.6 Flash</strong> sowie <strong>Llama 3.3 70B via Groq</strong>) generiert. Es wird keine Garantie für die Richtigkeit, Vollständigkeit oder Aktualität der abgerufenen Daten übernommen.
       </p>
     </div>
     
@@ -611,11 +611,10 @@
     </div>
   </footer>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.js](https://unpkg.com/leaflet@1.9.4/dist/leaflet.js)"></script>
 
   <script>
     let map = null;
-    let planeAnimIntervals = [];
 
     function setMode(mode) {
       if (mode === 'simple') {
@@ -820,7 +819,8 @@
         }
 
         const hotspots = data.conflict_hotspots || [];
-        initMap(hotspots);
+        const flights = data.live_recon_flights || [];
+        initMap(hotspots, flights);
         renderHotspotsList(hotspots);
 
       } catch (e) {
@@ -829,19 +829,17 @@
       }
     }
 
-    function initMap(hotspots) {
-      planeAnimIntervals.forEach(clearInterval);
-      planeAnimIntervals = [];
-
+    function initMap(hotspots, flights) {
       if (map) map.remove();
       
       map = L.map('hotspot-map').setView([35, 25], 3);
       
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      L.tileLayer('https://{s}[.basemaps.cartocdn.com/dark_all/](https://.basemaps.cartocdn.com/dark_all/){z}/{x}/{y}{r}.png', {
         attribution: '&copy; OpenStreetMap &copy; CARTO',
         maxZoom: 18
       }).addTo(map);
 
+      // 1. KRIEGSZONEN & HOTSPOTS RENDERN
       hotspots.forEach(spot => {
         if (spot.lat && spot.lng) {
           const isAktiv = (spot.status_type === 'AKTIV' || spot.escalation_level === 'HOCH');
@@ -885,6 +883,7 @@
         }
       });
 
+      // 2. FLIESSENDE FLÜCHTLINGSSTRÖME (ANIMIERTE SVG-LINIEN)
       const refugeeRoutes = [
         { name: "Fluchtkorridor Ukraine -> EU", coords: [[50.45, 30.52], [52.22, 21.01], [52.52, 13.40]], color: "#ef4444" },
         { name: "Fluchtroute Ost-Mittelmeer", coords: [[31.50, 34.46], [33.89, 35.50], [35.12, 33.42], [37.98, 23.72]], color: "#f97316" },
@@ -902,45 +901,31 @@
         polyline.bindPopup(`<strong>🌊 ${route.name}</strong><br><span style="font-size:0.8rem;">OSINT/UNHCR Migration Tracking</span>`);
       });
 
-      const flightPatrols = [
-        { callsign: "FORTE12 (US Global Hawk)", type: "USAF RQ-4B Surveillance Drone", path: [[44.1, 28.6], [43.5, 31.5], [42.8, 29.5], [44.1, 28.6]], speed: 0.003 },
-        { callsign: "NATO AWACS 01", type: "E-3A Airborne Early Warning", path: [[53.1, 18.0], [54.5, 20.5], [57.0, 24.5], [53.1, 18.0]], speed: 0.002 },
-        { callsign: "USAF C-17 Airlift", type: "Strategic Military Resupply", path: [[49.4, 7.5], [50.0, 19.8], [49.4, 7.5]], speed: 0.004 }
-      ];
+      // 3. ECHTE OPENSKY ADS-B FLUGZEUG-MARKER RENDERN
+      flights.forEach(f => {
+        if (f.lat && f.lng) {
+          const liveBadge = f.is_live ? '<span style="color: #22c55e; font-weight: bold;">📡 LIVE ADS-B</span>' : '<span style="color: #eab308;">🔄 OSINT PATROUILLE</span>';
+          const headingDeg = f.heading || 0;
+          
+          const planeIcon = L.divIcon({
+            className: 'plane-icon-div',
+            html: `<div style="transform: rotate(${headingDeg}deg);">✈️</div>`,
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+          });
 
-      flightPatrols.forEach(plane => {
-        let currentWayIdx = 0;
-        let progress = 0;
-        
-        const planeIcon = L.divIcon({
-          className: 'plane-icon-div',
-          html: '✈️',
-          iconSize: [20, 20],
-          iconAnchor: [10, 10]
-        });
-
-        const startPt = plane.path[0];
-        const planeMarker = L.marker(startPt, { icon: planeIcon }).addTo(map);
-        planeMarker.bindPopup(`<strong>✈️ ${plane.callsign}</strong><br><span style="font-size:0.8rem;">Typ: ${plane.type}</span>`);
-
-        const animTimer = setInterval(() => {
-          const p1 = plane.path[currentWayIdx];
-          const nextIdx = (currentWayIdx + 1) % plane.path.length;
-          const p2 = plane.path[nextIdx];
-
-          progress += plane.speed;
-          if (progress >= 1) {
-            progress = 0;
-            currentWayIdx = nextIdx;
-          }
-
-          const curLat = p1[0] + (p2[0] - p1[0]) * progress;
-          const curLng = p1[1] + (p2[1] - p1[1]) * progress;
-
-          planeMarker.setLatLng([curLat, curLng]);
-        }, 100);
-
-        planeAnimIntervals.push(animTimer);
+          const planeMarker = L.marker([f.lat, f.lng], { icon: planeIcon }).addTo(map);
+          planeMarker.bindPopup(`
+            <div style="color: #000; font-family: sans-serif;">
+              <strong>✈️ ${f.callsign}</strong> (${liveBadge})<br>
+              <span style="font-size: 0.8rem; color: #555;">Land/Regierung: ${f.country}</span><br>
+              <div style="font-size: 0.82rem; margin-top: 4px;">
+                📐 Kurs: ${headingDeg}° | ⚡ Speed: ${f.speed_kmh} km/h<br>
+                🏔️ Flughöhe: ${f.altitude_m} m
+              </div>
+            </div>
+          `);
+        }
       });
     }
 
