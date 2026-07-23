@@ -516,6 +516,24 @@
 
   </div>
 
+  <!-- FOOTER & DISCLAIMER SECTION -->
+  <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.8rem; line-height: 1.5;">
+    <div style="background: #0f172a; border: 1px solid var(--border-color); border-left: 3px solid var(--accent-gold); padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+      <strong style="color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">⚠️ System- & Haftungsausschluss (Disclaimer)</strong>
+      <p style="margin-bottom: 8px;">
+        <strong>Keine Finanz- oder Anlageberatung:</strong> Die auf diesem Dashboard dargestellten Lageberichte, spieltheoretischen Gutachten, Stress-Test-Szenarien und dynamischen Aktien-Rotationen dienen ausschließlich akademischen, strategischen und Forschungszwecken im Rahmen automatisierter OSINT-Analysen (Open Source Intelligence). Sie stellen zu keinem Zeitpunkt eine Aufforderung, Empfehlung oder Anlageberatung zum Kauf oder Verkauf von Finanzinstrumenten, Wertpapieren oder Rohstoffen dar.
+      </p>
+      <p>
+        <strong>Automatisierte Datenverarbeitung:</strong> Sämtliche Analysen werden vollautomatisch über eine Pipeline aus über 99 weltweiten Primärquellen und einem Multi-LLM-Komitee (u. a. DeepSeek-R1, Claude 3.5 Sonnet, Gemini 2.0 Flash, Llama 3.3 70B) generiert. Es wird keine Garantie für die Richtigkeit, Vollständigkeit oder Aktualität der abgerufenen Daten übernommen.
+      </p>
+    </div>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 0.78rem; padding-bottom: 10px;">
+      <div>🌐 <strong>ARGUS GRID</strong> Systemic Intelligence Engine &bull; Multi-LLM Operations</div>
+      <div>Version 2.5 &bull; Autonomous OSINT Pipeline</div>
+    </div>
+  </footer>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
@@ -708,7 +726,6 @@
       }
     }
 
-    // MAP INITIALISIERUNG MIT DETEKTIERTEN STATUS-FARBEN
     function initMap(hotspots) {
       if (map) map.remove();
       
@@ -722,7 +739,7 @@
       hotspots.forEach(spot => {
         if (spot.lat && spot.lng) {
           const isAktiv = (spot.status_type === 'AKTIV' || spot.escalation_level === 'HOCH');
-          const color = isAktiv ? '#ef4444' : '#a855f7'; // Rot für Aktiv, Violett für Potenzielle Felder
+          const color = isAktiv ? '#ef4444' : '#a855f7';
           
           const marker = L.circleMarker([spot.lat, spot.lng], {
             radius: 8,
@@ -744,7 +761,6 @@
       });
     }
 
-    // SAUBERE STRUKTURIERUNG: AKTIV VS. POTENZIELL
     function renderHotspotsList(hotspots) {
       if (!hotspots || hotspots.length === 0) return;
       
