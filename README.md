@@ -9,6 +9,24 @@
 
 Das System kombiniert ein ausbalanciertes Netzwerk aus über 140 weltweiten Primärquellen mit Live-Finanzdaten, OpenSky ADS-B Flugtracking und einem orchestrierten **Multi-LLM-Komitee** (DeepSeek V4 Pro, Claude Sonnet 5, Gemini 3.6 Flash, Llama 3.3 70B via Groq).
 
+
+## 📡 Abgedecktes Quellenspektrum & Data Ingestion
+
+ARGUS GRID aggregiert über 140 weltweite RSS-Feeds in Echtzeit. Um eine unvoreingenommene Lagebeurteilung (No-Bias Policy) zu gewährleisten, ist der Quellenpool ausgewogen über Geografien, politische Ausrichtungen und Fachthemen verteilt:
+
+| Kategorie | Enthaltene Akteure / Portale | Fokus & Nutzen |
+| :--- | :--- | :--- |
+| 🇺🇸 **USA Polit-Spektrum** | CNN, MSNBC, Fox News, WSJ, National Review, Reason | Gegenüberstellung von Left-Liberal, Conservative & Libertarian |
+| 🇪🇺 **DACH & UK Presse** | taz, Der Spiegel, SZ, FAZ, Die Welt, NZZ, Handelsblatt, Guardian, Telegraph | Ausgewogene DACH/UK-Analysen (Progressiv, Konservativ, Business) |
+| 🏛️ **Zentralbanken & Gov** | Fed, EZB, BoE, PBOC (China), BoJ, BIS, IMF, White House, EU-Kommission | Offizielle Geldpolitik, Makro-Daten & Regierungsentscheidungen |
+| 🚶 **Migration & Humanitär** | UNHCR, IOM Displacement Matrix (DTM), ReliefWeb, Frontex | Frühwarnindikatoren für verdeckte Fluchtbewegungen & Krisen |
+| 📊 **Energie & Logistik** | EIA, IEA, OPEC, Baker Hughes, AGSI+ Gas, Freightos, Baltic Dry | Rohstoff-Schocks, Frachtraten & physische Nadelöhre |
+| 🛡️ **OSINT & Militär** | ISW, Oryx, Bellingcat, USNI, UKMTO, CISA Cyber, NASA FIRMS | Satellitenauswertung, Materialverluste, Cyber & EW-Alerts |
+| 🌍 **BRICS & Diplomatisch** | Xinhua, Global Times, TASS, Kremlin, IRNA, SCMP, Al Jazeera | Erfassung der geopolitischen Perspektive von Nicht-NATO-Staaten |
+| 🔍 **Investigativ & Konträr** | The Intercept, Scheerpost, UnHerd, Telepolis, ZeroHedge, Substack-Analysten | Falsifikations-Gegenmodelle & Erkennung alternativer Narrative |
+
+> **Vollständige Transparenz:** Die exakte, tagesaktuelle Liste aller eingebundenen RSS-Endpoints befindet sich direkt im Quellcode unter [`update_dashboard.py`](./update_dashboard.py).
+
 ---
 
 ┌─────────────────────────────────────────────────────────────────────────────┐
