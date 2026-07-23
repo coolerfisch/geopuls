@@ -121,7 +121,7 @@ if len(kg_context_str) > 10000:
     kg_context_str = kg_context_str[:10000] + "\n... [Knowledge Graph Kontext gekürzt]"
 
 # ============================================================
-# C. VOLLSTÄNDIGER QUELLENPOOL (100+ FEEDS)
+# C. VOLLSTÄNDIGER QUELLENPOOL
 # ============================================================
 SOURCES = [
     # Zentralbanken & Makro
@@ -185,89 +185,127 @@ with ThreadPoolExecutor(max_workers=25) as executor:
 if len(feed_context) > 35000:
     feed_context = feed_context[:35000] + "\n... [Quellenkontext gekürzt]"
 
-# Clean API key extraction (Entfernt Zeilenumbrüche/Leerzeichen)
-anth_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+# API Key sauber auslesen
+anth_key = os.environ.get("ANTHROPIC_API_KEY", "").strip().strip('"').strip("'")
 if not anth_key:
     raise ValueError("ANTHROPIC_API_KEY wurde nicht in den Umgebungsvariablen gefunden!")
 
 client_anthropic = anthropic.Anthropic(api_key=anth_key)
 
 # ============================================================
-# D. PHASE 2: INTELLIGENCE ENGINE (SINGLE-PASS CLAUDE CALL)
+# D. SINGLE-PASS INTELLIGENCE ENGINE (EXAKT PASSEND ZUR FRONTEND-HTML)
 # ============================================================
 orchestrator_prompt = """Du bist die 'Argus Grid Intelligence Engine' (Chef-Analyst für Geopolitik, Makro, Rohstoffe & OSINT).
 
-Führe anhand der Eingabedaten eine tiefgehende Synthese mit folgenden 5 Modulen durch:
+Führe anhand der Eingabedaten eine tiefgehende Lageanalyse durch.
 
-1. EVENT FUSION: Bündele bis zu 30 Einzelmeldungen zu deduplizierten Groß-Ereignissen (z. B. 'EVENT #2026-0714-034') mit Titel, Quellenliste, Confidence (%) und betroffenen Märkten/Regionen.
-2. KAUSALITÄTSGRAPH: Erstelle gerichtete Wirkungssketten für Hauptkrisen (Trigger -> Step 1 -> Step 2 -> Step 3 -> Beneficiaries / Detractors).
-3. HISTORISCHER PATTERN-MATCHER: Gleiche neue Schocks (z.B. Seltene Erden, Hormus, GPS-Jamming) mit dem Knowledge Graph ab und zeige vergangene Jahre (z.B. 2010, 2023) sowie Marktreaktionen.
-4. WIDERSPRUCHSERKENNUNG (NARRATIVE DIVERGENCE): Vergleiche offizielle Rhetorik (Fed, Diplomatie) mit harten Sensordaten (Öl, DXY, Baltic Dry, Satelliten).
-5. FRÜHWARNSYSTEM (RISK SCORES): Berechne Risiko-Scores (0-100) für Cyber, Militär, Finanzen, Versorgung und Politik sowie den Gesamt-Argus-Index.
-
-ANTWORTE AUSSCHLIESSLICH IM VALIDEN JSON-FORMAT BASIEREND AUF DIESEM SCHEMA:
+ANTWORTE AUSSCHLIESSLICH IM REIN VALIDEN JSON-FORMAT BASIEREND AUF DIESEM SCHEMA:
 {
-  "argus_risk_index": {
-    "total_score": 68,
-    "cyber_score": 50,
-    "military_score": 74,
-    "financial_score": 58,
-    "supply_score": 69,
-    "political_score": 72
+  "daily_executive_summary": "Kurze prägnante Synthese der aktuellen Lage (max 3 Sätze).",
+  "market_regime": "Risiko-Avers / Inflationär / Geopolitische Anspannung",
+  "geoscore": {
+    "current_score": 76,
+    "status_label": "ERHÖHT",
+    "previous_48h": 72
   },
-  "narrative_divergence": [
-    {
-      "topic": "Fed Zinspfad vs. Rohstoff-Inflation",
-      "official_communication": "Fed meldet: Inflation unter Kontrolle / Dovish.",
-      "hard_market_data": "Kupfer ↑, Brent Öl ↑, Baltic Dry ↑, Freightos ↑.",
-      "divergence_score": "HOCH (85/100)"
-    }
-  ],
+  "defcon_status": {
+    "level": 3,
+    "label": "DEFCON 3",
+    "nuclear_risk_percent": 18,
+    "primary_driver": "Primärer Treiber der Eskalation"
+  },
+  "top_overweight": "Gold & Energie",
+  "top_risk": "Lieferketten-Unterbrechung",
   "pattern_recognition": [
     {
-      "trigger_event": "China beschränkt Seltene Erden",
-      "matched_past_years": [2010, 2023, 2025],
-      "historical_consequences": "2010: Seltene Erden +45%, Japan-Industrie -7% | 2023: Kupfer +8%",
-      "actionable_insight": "Long-Bias auf westliche Rare-Earth Förderer"
+      "trigger_event": "China beschränkt Export kritischer Mineralien",
+      "matched_past_events": ["2010: Seltene Erden Stopp (+45% ETFs)", "2023: Gallium Beschränkung"],
+      "historical_consequences": "+12% Bergbauaktien, +8% Kupfer",
+      "actionable_insight": "Long-Bias auf westliche Förderer (MP, LYC)"
     }
   ],
-  "event_fusion": [
+  "conflict_hotspots": [
+    {
+      "region": "Straße von Hormus",
+      "actors": "Iran vs. USA/Israel",
+      "escalation_level": "KRITISCH",
+      "catalyst": "Marine-Manöver",
+      "impact": "Öl & Frachtraten",
+      "lat": 26.56,
+      "lng": 56.25
+    }
+  ],
+  "systemic_risks": [
+    {
+      "title": "Sanktions-Spirale & Entkopplung",
+      "trend": "Steigend",
+      "risk_level": "HOCH",
+      "description": "Erweiterung der Handels- und Technologieblockaden."
+    }
+  ],
+  "domestic_politics": [
+    {
+      "country": "USA / EU",
+      "topic": "Geldpolitik & Budgetdebatte",
+      "stability_score": "ANGESPANN_T",
+      "details": "Wirtschaftlicher Druck durch hohe Zinsen und Staatsverschuldung."
+    }
+  ],
+  "scenarios": [
+    {
+      "title": "Eskalation im Nahen Osten",
+      "probability_pct": 65,
+      "trigger": "Sperrung von Seestraßen",
+      "market_consequence": "Brent Öl >90$, Gold steigt"
+    }
+  ],
+  "event_graph": [
     {
       "event_id": "EVT-2026-0714-034",
-      "title": "Iran droht mit Sperrung der Straße von Hormus",
-      "sources": ["Reuters", "AP", "UKMTO", "Al Jazeera", "USNI"],
-      "confidence_pct": 93,
+      "title": "Militärische Drohgebärden an maritimen Nadelöhren",
+      "sources": ["Reuters", "AP", "UKMTO"],
+      "confidence": 92,
       "affected_regions": ["Naher Osten"],
-      "affected_markets": ["Öl", "LNG", "Versicherungen", "Schifffahrt", "Gold"]
+      "affected_markets": ["Öl", "Gold", "Schifffahrt"]
     }
   ],
-  "causal_graph": [
+  "impact_chains": [
     {
-      "trigger": "Hormus blockiert / bedroht",
-      "steps": ["Ölangebot sinkt", "Brent steigt", "Inflation steigt", "Fed bleibt restriktiv", "Nasdaq unter Druck", "Gold steigt"],
+      "trigger": "Hormus / Bab al-Mandab Blockade",
+      "chain": ["Tanker-Passagen sinken", "Brent Öl steigt", "Inflation steigt", "Fed bleibt restriktiv", "Gold steigt"],
       "beneficiaries": ["Brent Öl", "Gold", "Tanker-Reeder"],
-      "detractors": ["Nasdaq", "Airlines", "Chemie"]
+      "detractors": ["Airlines", "Chemie", "Konsumgüter"]
     }
   ],
+  "narrative_matrix": [
+    {
+      "topic": "Inflation & Zinspfad",
+      "mainstream": "Fed hält Zinsen stabil, Inflation rückläufig",
+      "brics": "Fokus auf Entdollarisierung und Rohstoffabsicherung",
+      "alternative": "Stagflationsrisiko durch anhaltende Frachtkosten"
+    }
+  ],
+  "assets": [
+    {
+      "name": "Gold & Silber",
+      "signal": "GREEN",
+      "signal_text": "🟢 Attraktiv",
+      "trend": "Steigend",
+      "driver": "Geopolitik & Währungsunsicherheit"
+    }
+  ],
+  "stock_picks": {
+    "top_5_buys": [
+      {"ticker": "MP", "name": "MP Materials", "sector": "Bergbau", "reason": "Unabhängigkeit von China bei Seltenen Erden"}
+    ],
+    "flop_5_sells": [
+      {"ticker": "DAL", "name": "Delta Air Lines", "sector": "Luftfahrt", "reason": "Hohe Treibstoffkosten und Flugumleitungen"}
+    ]
+  },
   "knowledge_graph_updates": {
     "new_entities": [{"id": "E1", "name": "Straße von Hormus", "type": "CHOKEPOINT"}],
     "new_relations": [{"subject": "Iran", "predicate": "THREATENS_CLOSURE_OF", "object": "Straße von Hormus", "severity": 90}]
-  },
-  "daily_executive_summary": "Kurze prägnante Synthese der aktuellen Gesamtlage (max 3 Sätze).",
-  "market_regime": "Marktregime",
-  "top_overweight": "Gewinner Assets",
-  "top_risk": "Hauptrisiko",
-  "defcon_status": {"level": 3, "label": "DEFCON 3", "nuclear_risk_percent": 18, "primary_driver": "Treiber"},
-  "stock_picks": {
-    "top_5_buys": [{"ticker": "MP", "name": "MP Materials", "sector": "Bergbau", "reason": "Kurze Begründung"}],
-    "flop_5_sells": [{"ticker": "DAL", "name": "Delta Air Lines", "sector": "Luftfahrt", "reason": "Kurze Begründung"}]
-  },
-  "conflict_hotspots": [
-    {"region": "R1", "actors": "A1", "escalation_level": "KRITISCH", "catalyst": "C1", "impact": "I1", "lat": 31.5, "lng": 34.75}
-  ],
-  "assets": [
-    {"name": "Gold & Silber", "signal": "GREEN", "signal_text": "🟢 Attraktiv", "trend": "Steigend", "driver": "Geopolitik & DXY"}
-  ]
+  }
 }
 """
 
@@ -310,7 +348,7 @@ if not raw_text:
 
 data = repair_and_parse_json(raw_text)
 
-# Normalisierung von Geodaten für Karte
+# Geodaten-Normalisierung für Karte
 GEO_LOOKUP = {
     "nah": (31.5, 34.75), "iran": (32.42, 53.68), "israel": (31.04, 34.85),
     "ukraine": (48.37, 31.16), "taiwan": (23.69, 120.96), "rot": (12.58, 43.33)
@@ -348,7 +386,7 @@ knowledge_graph["relations"] = knowledge_graph["relations"][-500:]
 with open(memory_file, "w", encoding="utf-8") as f:
     json.dump(knowledge_graph, f, ensure_ascii=False, indent=2)
 
-# SPEICHERN FÜR FRONTEND
+# SPEICHERN FÜR FRONTEND (data.json & history.json)
 history_file = "history.json"
 history_data = []
 if os.path.exists(history_file):
@@ -359,12 +397,13 @@ if os.path.exists(history_file):
         history_data = []
 
 today_str = datetime.utcnow().strftime("%d.%m")
-total_score = data.get("argus_risk_index", {}).get("total_score") or 68
+geoscore_obj = data.get("geoscore", {})
+current_score = geoscore_obj.get("current_score") if isinstance(geoscore_obj, dict) else 75
 
 if not history_data or history_data[-1].get("date") != today_str:
     history_data.append({
         "date": today_str,
-        "score": total_score,
+        "score": current_score,
         "defcon": data.get("defcon_status", {}).get("level", 3)
     })
     history_data = history_data[-30:]
