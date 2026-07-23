@@ -1,95 +1,200 @@
 {
-  "daily_executive_summary": "Marktregime stabil, Gold und Silber attraktiv. Quellen: Marktdaten und Wirtschaftsindikatoren (Gewicht: 0.8). Beachte: Unbestätigte Behauptungen aus Reddit/Blogs wurden berücksichtigt, aber mit geringerem Gewicht (0.2) bewertet.",
-  "global_risk_score": 70,
-  "market_regime": "Bullenmarkt",
+  "daily_executive_summary": "Globalwirtschaftliche Instabilität durch Anleiherückgang und Stimmungsumschwung in Kapitalmärkten.",
+  "global_risk_score": 72,
+  "market_regime": "Marktrisikos",
   "top_overweight": [
     "Gold",
-    "Silber"
+    "Silber",
+    "Kupfer",
+    "Weizen",
+    "S&P 500 Index",
+    "Bitcoin"
   ],
   "top_risk": [
-    "S&P 500"
+    "US 10Y Anleihe",
+    "VIX"
   ],
   "defcon_status": {
-    "level": 2,
-    "label": "Stabil",
-    "nuclear_risk_percent": 5,
+    "level": 4,
+    "label": "Alertlevel",
+    "nuclear_risk_percent": 20,
     "primary_driver": "Marktregime"
   },
   "narrative_divergence": [
     {
-      "topic": "GEO-STRATEGISCHE Situation",
-      "mainstream_view": "Agenturen",
-      "brics_view": "Diplomatie",
-      "alternative_view": "Alternativ"
+      "topic": "Internationale Zentralbankpolitik",
+      "mainstream_view": "Fed und EZB stabilisieren Märkte durch geldpolitische Lockerung",
+      "brics_view": "BRICS-Staaten sehen geldpolitische Lockerung auch als Chance für eine Wachstumsförderung",
+      "alternative_view": "Alternativer Ansatz: Geldpolitik muss sich an Wechselkurseffekten und Wahrungen anpassen"
+    },
+    {
+      "topic": "Ukraine und Russland konfrontiert mit Konfliktscharen auf mehreren Fronten",
+      "mainstream_view": "Internationale Stabesitzung in Paris zum Ausgleich zwischen Wirtschafts- und Sicherheitsinteressen",
+      "brics_view": "BRICS-Staaten unterstützen Russland und Ukraine in ihren Bemühungen, Konflikt eskalieren zu lassen",
+      "alternative_view": "Alternativer Ansatz: Bemühungen konstruktiver Kompromisse zur Eskalation des Konflikts beizukommen"
+    },
+    {
+      "topic": "USA, Westeuropa und BRICS-Staaten müssen sich über Wirtschaftsbeziehungen und geopolitische Interessen einigen",
+      "mainstream_view": "USA und Westeuropa wollen Wirtschaftsbeziehungen mit BRICS-Staaten stärken, aber auch ihre geopolitischen Interessen durchsetzen",
+      "brics_view": "BRICS-Staaten streben nach einer größeren Wirtschaftsautonomie und wollen ihre geopolitischen Interessen in der Welt durchsetzen",
+      "alternative_view": "Alternativer Ansatz: Kooperative Anstrengungen, um Wirtschaftsbeziehungen und politische Interessen zu fördern"
     }
   ],
   "domestic_politics": [
     {
-      "country_region": "Saudi-Arabien",
-      "topic": "Uran-Bereich",
-      "status": "Hohe Risikolage",
-      "impact": "Schwere Auswirkungen auf Globalwirtschaft",
-      "source_reliability": 0.8
+      "country_region": "USA",
+      "topic": "Präsidentschaftswahlen 2024",
+      "status": "In Bewegung",
+      "impact": "Hohe politische Spannungen und mögliche Instabilität"
+    },
+    {
+      "country_region": "China",
+      "topic": "Stellvertreter des Ministerpräsidenten",
+      "status": "In Verhandlungen",
+      "impact": "Weitere Verhandlungen über Wirtschafts- und Handelsfragen mit USA"
+    },
+    {
+      "country_region": "Russland",
+      "topic": "Regierungskrise",
+      "status": "In Bewegung",
+      "impact": "Mögliche Instabilität in der Region"
     }
   ],
   "stock_picks": {
     "top_5_buys": [
       {
-        "ticker": "GC=F",
+        "ticker": "Gold",
         "name": "Gold",
-        "sector": "Edelmetalle",
-        "reason": "Stabile Marktlage"
+        "sector": "Metalle",
+        "reason": "Zentralbanker sehen Anleihe als Möglichkeit, Gold zu kaufen."
       },
       {
-        "ticker": "SI=F",
+        "ticker": "Silber",
         "name": "Silber",
-        "sector": "Edelmetalle",
-        "reason": "Stabile Marktlage"
+        "sector": "Metalle",
+        "reason": "Zentralbanken sehen Silber als Möglichkeit, Wechselkurseffekte zu begleiten."
+      },
+      {
+        "ticker": "Weizen",
+        "name": "Weizen",
+        "sector": "Landwirtschaft",
+        "reason": "Landwirtschaft hat mit Wetterbedingungen zu kämpfen, was die Ernte und Preise beeinflusst."
+      },
+      {
+        "ticker": "S&P 500 Index",
+        "name": "S&P 500 Index",
+        "sector": "Finanzen",
+        "reason": "Bisher hat der S&P 500 Index trotz der Marktunsicherheit noch nicht viel abgewonnen."
+      },
+      {
+        "ticker": "Bitcoin",
+        "name": "Bitcoin",
+        "sector": "Kryptowährung",
+        "reason": "Kryptowährungen sind in Bewegung und sehen nach oben aus."
       }
     ],
     "flop_5_sells": [
       {
-        "ticker": "SPY",
-        "name": "S&P 500",
-        "sector": "Index/ETF",
-        "reason": "Niedrige Zinssätze"
+        "ticker": "US 10Y Anleihe",
+        "name": "US 10Y Anleihe",
+        "sector": "Finanzen",
+        "reason": "Zentralbanker sehen Anleihe als Möglichkeit, Gold zu kaufen."
+      },
+      {
+        "ticker": "VIX",
+        "name": "VIX",
+        "sector": "Finanzen",
+        "reason": "VIX ist ein Indikator für die Stimmung und hat momentan eine hohe Spannweite."
+      },
+      {
+        "ticker": "Goldminen-Unternehmen",
+        "name": "Goldminen-Unternehmen",
+        "sector": "Metalle",
+        "reason": "Goldminen-Unternehmen haben mit Schwierigkeiten und Kosten zu kämpfen."
+      },
+      {
+        "ticker": "Kryptowährung-Unternehmen",
+        "name": "Kryptowährung-Unternehmen",
+        "sector": "Kryptowährung",
+        "reason": "Kryptowährung-Unternehmen haben mit Schwierigkeiten und Kosten zu kämpfen."
+      },
+      {
+        "ticker": "High-Yield-Bonds",
+        "name": "High-Yield-Bonds",
+        "sector": "Finanzen",
+        "reason": "High-Yield-Bonds haben mit hoher Kreditkosten und möglicherweise hoher Zinseszins zu kämpfen."
       }
     ]
   },
   "conflict_hotspots": [
     {
-      "region": "Vorderer Orient",
-      "actors": "Saudi-Arabien, Iran",
+      "region": "Nordkorea",
+      "actors": "Nordkorea, USA/Südkorea",
       "escalation_level": "KRITISCH",
-      "catalyst": "Uran-Bereich",
-      "impact": "Schwere Auswirkungen auf Globalwirtschaft",
-      "lat": 24.5,
-      "lng": 39.5
+      "catalyst": "Koreanische Bucht",
+      "impact": "Hohe politische Spannungen und mögliche Eskalation",
+      "lat": 40.17,
+      "lng": 127.37
+    },
+    {
+      "region": "Ukraine/Russland",
+      "actors": "Ukraine, Russland",
+      "escalation_level": "KRITISCH",
+      "catalyst": "Donbass",
+      "impact": "Hohe politische Spannungen und mögliche Eskalation",
+      "lat": 48.37,
+      "lng": 31.16
+    },
+    {
+      "region": "UAE/Iran",
+      "actors": "Vereinigte Arabische Emirate, Iran",
+      "escalation_level": "MITTEL",
+      "catalyst": "Persischer Golf",
+      "impact": "Mögliche Spannungen und Konflikte aufgrund wirtschaftlicher und Sicherheitsfragen",
+      "lat": 26.05,
+      "lng": 56.22
+    },
+    {
+      "region": "Pakistan/Indien",
+      "actors": "Pakistan, Indien",
+      "escalation_level": "MITTEL",
+      "catalyst": "Kashmir",
+      "impact": "Mögliche Spannungen und Konflikte aufgrund territorialer und wirtschaftlicher Fragen",
+      "lat": 34.8,
+      "lng": 74.58
     }
   ],
   "systemic_risks": [
     {
-      "topic": "Niedrige Zinssätze",
-      "category": "Monetäre Politik",
-      "risk_level": "MITTEL",
-      "status": "Steigerung der geldpolitischen Risikolage",
-      "impact": "Schwere Auswirkungen auf Globalwirtschaft"
+      "topic": "Globalwirtschaftliche Instabilität",
+      "category": "Wirtschaft",
+      "risk_level": "KRITISCH",
+      "status": "In Bewegung",
+      "impact": "Hohe politische Spannungen und mögliche Eskalation"
+    },
+    {
+      "topic": "Finanzkrise 2024",
+      "category": "Finanzen",
+      "risk_level": "KRITISCH",
+      "status": "In Vorbereitung",
+      "impact": "Hohe politische Spannungen und mögliche Eskalation"
+    },
+    {
+      "topic": "Nuklearkonflikt",
+      "category": "Sicherheit",
+      "risk_level": "KRITISCH",
+      "status": "In Vorbereitung",
+      "impact": "Hohe politische Spannungen und mögliche Eskalation"
     }
   ],
   "assets": [
     {
-      "name": "Gold und Silber",
+      "name": "Gold & Silber",
       "signal": "GREEN",
-      "signal_text": " Attraktiv",
-      "trend": "Steigender Trend",
-      "driver": "Marktregime"
+      "signal_text": "",
+      "trend": "T",
+      "driver": "D"
     }
   ],
-  "scenarios": [
-    {
-      "title": "Mittelalterliche Marktphase",
-      "prob": 0.45
-    }
-  ],
-  "timestamp": "23.07.2026 - 01:04 UTC"
+  "timestamp": "23.07.2026 - 01:16 UTC"
 }
