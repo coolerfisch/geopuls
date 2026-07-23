@@ -1,69 +1,96 @@
-ARGUS GRID // Systemic Intelligence Engine (v3.0)
+# 🌐 ARGUS GRID // Systemic Intelligence Engine (v3.0)
 
-ARGUS GRID ist eine hochgradig automatisierte, unvoreingenommene Systemic Intelligence Engine, die globale Geopolitik, Makroökonomie, Konfliktherde, Fluchtbewegungen und Militäroperationen in Echtzeit analysiert.
+![Architecture](https://img.shields.io/badge/Architecture-Multi--LLM%20Ensemble-38bdf8?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active%20OSINT%20Pipeline-22c55e?style=for-the-badge)
+![Feeds](https://img.shields.io/badge/Feeds-140%2B%20Global%20Sources-a855f7?style=for-the-badge)
+![ADS-B](https://img.shields.io/badge/Tracking-OpenSky%20Live%20ADS--B-eab308?style=for-the-badge)
 
-Das System kombiniert ein ausbalanciertes Netzwerk aus über 140 weltweiten Primärquellen mit Live-Finanzdaten, OpenSky ADS-B Flugtracking und einem orchestrierten Multi-LLM-Komitee (DeepSeek V4 Pro, Claude Sonnet 5, Gemini 3.6 Flash, Llama 3.3 70B via Groq).
+**ARGUS GRID** ist eine hochgradig automatisierte, unvoreingenommene **Systemic Intelligence Engine**, die globale Geopolitik, Makroökonomie, Konfliktherde, Fluchtbewegungen und Militäroperationen in Echtzeit analysiert.
 
+Das System kombiniert ein ausbalanciertes Netzwerk aus über 140 weltweiten Primärquellen mit Live-Finanzdaten, OpenSky ADS-B Flugtracking und einem orchestrierten **Multi-LLM-Komitee** (DeepSeek V4 Pro, Claude Sonnet 5, Gemini 3.6 Flash, Llama 3.3 70B via Groq).
 
-Systemarchitektur & Pipeline
+---
 
-Die Datenverarbeitung verläuft vollautomatisch in einer mehrstufigen High-Performance Pipeline:
-
-1. 140+ RSS Feeds (Politik, OSINT, Makro) + yFinance Live-Märkte + OpenSky ADS-B
-   (Parallel Fetching via ThreadPool)
-
-2. STUFE 1: Groq LPU (Llama 3.3 70B)
-   Extreme Datenkomprimierung & Entrauschung (~90.000 Zeichen -> ~3.000 Wörter)
-
-3. STUFE 2a: DeepSeek V4 Pro
-   Spieltheoretisches Gutachten (Fraktionen, Payoffs, Counter-Model)
-
-4. STUFE 2b: Gemini 3.6 Flash
-   Makro-Schocks, Rohstoffe, Vertreibung & Digitale Souveränität
-
-5. STUFE 3: Claude Sonnet 5 (Chef-Synthesizer)
-   Validierung, Balancierung aller Narrative (Dem/GOP/Left/Right/BRICS) & JSON-Bau -> data.json -> Frontend (index.html + Leaflet.js)
-
-
-Kernfunktionen & Features
-
-Taktische Live-Radar-Karte:
-- Pulsierende Kriegszonen: Automatische Hervorhebung aktiver Konflikt- und Fluchtherde.
-- Animierte Fluchtkorridore: Visuelle Vektoren für weltweite Migration (UNHCR/IOM DTM).
-- Live OpenSky ADS-B Tracking: Ausgerichtete Flugspuren aktiver Aufklärungs- und Militärmaschinen (FORTE, NATO AWACS, Strategic Airlift).
-
-Spieltheoretisches Gutachten (DeepSeek Engine):
-- Zerlegung von Staaten in interne Fraktionen (Militär, Parteiflügel, Exekutive).
-- Trennung von Kurzfrist- (4-8 Wochen) und Langfrist-Horizonten.
-- Quantifizierte Payoff-Matrix (Skala -3 bis +3) inkl. Falsifikations-Gegenmodell.
-
-Innenpolitik & Regimestabilität:
-- Systematische Erfassung von Wahlzyklen, Parteienkämpfen und Gesetzgebungsdruck in den USA, der EU, Großbritannien, den BRICS-Staaten, Nahost und Afrika.
-
-Vollständig ausbalanciertes Quellenspektrum (No-Bias Policy):
-- Gegenüberstellung von Links/Progressiv, Konservativ/Rechts und Liberal/Mitte bei allen Großmächten zur Vermeidung von Confirmation Bias.
-
-Dynamische Aktien-Rotation:
-- Lageabhängige Gewichtung von Sektoren (Shipping, Defense, Rohstoffe, Tech, Energie).
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 📡 INGESTION: 140+ RSS Feeds • yFinance Live-Märkte • OpenSky ADS-B        │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │  (Parallel Fetching via ThreadPool)
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ⚡ STUFE 1: Groq LPU (Llama 3.3 70B)                                        │
+│    Extreme Datenkomprimierung & Entrauschung (~90.000 Zeichen ➔ ~3.000 W.)   │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                 ┌─────────────────────┴─────────────────────┐
+                 ▼                                           ▼
+┌───────────────────────────────────┐     ┌───────────────────────────────────┐
+│ ♟️ STUFE 2a: DeepSeek V4 Pro       │     │ 🌐 STUFE 2b: Gemini 3.6 Flash     │
+│    Spieltheoretisches Gutachten   │     │    Makro-Schocks, Rohstoffe,      │
+│    (6-Säulen-Konfliktanalyse)    │     │    Vertreibung & Souveränität     │
+└─────────────────┬─────────────────┘     └─────────────────┬─────────────────┘
+                  │                                         │
+                  └────────────────────┬────────────────────┘
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 🧠 STUFE 3: Claude Sonnet 5 (Chef-Synthesizer)                              │
+│    Validierung, Balancierung aller Narrative (Dem/GOP/BRICS) & JSON-Bau    │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+                        📄 data.json ➔ 🌐 Frontend (Leaflet.js)
 
 
-Required Environment Variables (GitHub Secrets)
+---
 
-- GROQ_API_KEY: Fast Filtering & Summarization (Llama 3.3 70B)
-- ANTHROPIC_API_KEY: Final Synthesis & JSON Generation (Claude Sonnet 5)
-- GEMINI_API_KEY: Macro & Migration Intelligence (Gemini 3.6 Flash)
-- DEEPSEEK_API_KEY: Game Theory Deep Dive (DeepSeek V4 Pro)
-- OPENSKY_USER: (Optional) Account für höhere ADS-B Rate-Limits
-- OPENSKY_PASSWORD: (Optional) OpenSky Passwort
+## ♟️ Spieltheoretisches Gutachten (DeepSeek Engine)
 
+Das Dashboard beinhaltet eine wissenschaftlich fundierte, spieltheoretische Deep-Dive-Analyse akuter Krisenherde, die über 6 methodische Säulen aufgebaut ist:
 
-GitHub Actions Automation (.github/workflows/update.yml)
+1. **Akteur-Granularität:** Zerlegung von Nationalstaaten in interne Fraktionen (Exekutive, Militärführung, Parteiflügel, Lobbies), um monolitische Fehlannahmen zu vermeiden.
+2. **Zeithorizont-Konflikt:** Strikt getrennte Evaluierung von Kurzfrist-Anreizen (4–8 Wochen / Ein-Runden-Spiel) versus Langfrist-Anreizen (*Schatten der Zukunft*).
+3. **Quantifizierte Payoff-Matrix:** Bipolare Nutzenbewertung auf einer Skala von **-3** *(existenzieller Verlust)* bis **+3** *(maximaler Gewinn)* mit visueller Balkendiagramm-Darstellung.
+4. **Signaltheorie & Information:** Beseitigung von Informationsasymmetrien durch die Trennung von **Cheap Talk** *(Rhetorik, Bluffs)* und **Costly Signals** *(reale Kosten-Handlungen wie Truppenverlegungen oder Sanktionen)*.
+5. **Gleichgewicht & Bindung:** Identifikation von **Nash-Gleichgewichten** und Offenlegung des **Commitment-Problems** (warum Parteien trotz gegenseitigen Schadens nicht deeskalieren können).
+6. **Falsifikations-Gegenmodell:** Pflichtmäßige Konstruktion einer alternativen Lesart zur aktiven Vermeidung von Confirmation Bias.
 
+---
+
+## ⚡ Weitere Kernfunktionen & Features
+
+* 🗺️ **Taktische Live-Radar-Karte:**
+  * **Pulsierende Kriegszonen:** Automatische visuelle Hervorhebung aktiver Konflikt- und Fluchtherde.
+  * **Animierte Fluchtkorridore:** Dynamische Vektoren zur Kartierung weltweiter Migration (UNHCR/IOM DTM).
+  * **Live OpenSky ADS-B Tracking:** Echtzeit-Positionsdaten und Kursausrichtung aktiver Aufklärungs- und Militärmaschinen (FORTE, NATO AWACS, Strategic Airlift).
+* 🏛️ **Innenpolitik & Regimestabilität:**
+  * Erfassung von Wahlzyklen, Parteienkämpfen und Gesetzgebungsdruck in den USA, der EU, Großbritannien, den BRICS-Staaten, Nahost und Afrika.
+* ⚖️ **No-Bias Quellenspektrum:**
+  * Ausgewogene Gegenüberstellung von **Links/Progressiv**, **Konservativ/Rechts** und **Liberal/Mitte** bei allen Großmächten.
+* 📈 **Dynamische Aktien-Rotation:**
+  * Lageabhängige Sektor-Gewichtung (Shipping, Defense, Rohstoffe, Tech, Energie).
+
+---
+
+## 🔑 Required Environment Variables (GitHub Secrets)
+
+| Secret Name | Beschreibung |
+| :--- | :--- |
+| `GROQ_API_KEY` | Fast Filtering & Summarization (Llama 3.3 70B) |
+| `ANTHROPIC_API_KEY` | Final Synthesis & JSON Generation (Claude Sonnet 5) |
+| `GEMINI_API_KEY` | Macro & Migration Intelligence (Gemini 3.6 Flash) |
+| `DEEPSEEK_API_KEY` | Game Theory Deep Dive (DeepSeek V4 Pro) |
+| `OPENSKY_USER` | *(Optional)* Account für höhere ADS-B Rate-Limits |
+| `OPENSKY_PASSWORD` | *(Optional)* OpenSky Passwort |
+
+---
+
+## ⚙️ GitHub Actions Automation (`.github/workflows/update.yml`)
+
+```yaml
 name: Update Argus Grid Dashboard
 
 on:
   schedule:
-    - cron: '0 */4 * * *'
+    - cron: '0 */4 * * *' # Alle 4 Stunden
   workflow_dispatch:
 
 jobs:
@@ -99,26 +126,27 @@ jobs:
           git add data.json
           git commit -m "auto: Sync Argus Grid Live Intelligence Data [skip ci]" || exit 0
           git push
+💻 Lokale Entwicklung & Start
+Repository klonen:
 
+Bash
+git clone [https://github.com/coolerfisch/argus-grid.git](https://github.com/coolerfisch/argus-grid.git)
+cd argus-grid
+Pip-Pakete installieren:
 
-Lokale Entwicklung & Start
+Bash
+pip install requests feedparser yfinance anthropic groq openai
+Pipeline manuell ausführen:
 
-1. Repository klonen:
-   git clone https://github.com/coolerfisch/argus-grid.git
-   cd argus-grid
+Bash
+python update_dashboard.py
+Lokalen Webserver starten (um CORS-Restriktionen im Browser zu vermeiden):
 
-2. Pip-Pakete installieren:
-   pip install requests feedparser yfinance anthropic groq openai
+Bash
+python -m http.server 8000
+Dashboard im Browser unter http://localhost:8000 öffnen.
 
-3. Pipeline manuell ausführen:
-   python update_dashboard.py
+⚠️ System- & Haftungsausschluss (Disclaimer)
+Keine Finanz- oder Anlageberatung: Sämtliche auf ARGUS GRID dargestellten Inhalte, Aktien-Rotationen, Stress-Test-Szenarien und Kennzahlen dienen ausschließlich akademischen, strategischen und Forschungszwecken im Rahmen automatisierter OSINT-Analysen (Open Source Intelligence).
 
-4. Lokalen Webserver starten:
-   python -m http.server 8000
-   Dashboard im Browser unter http://localhost:8000 öffnen.
-
-
-System- & Haftungsausschluss (Disclaimer)
-
-- Keine Finanz- oder Anlageberatung: Sämtliche auf ARGUS GRID dargestellten Inhalte, Aktien-Rotationen, Stress-Test-Szenarien und Kennzahlen dienen ausschließlich akademischen, strategischen und Forschungszwecken im Rahmen automatisierter OSINT-Analysen (Open Source Intelligence).
-- Automatisierte Verarbeitung: Die Auswertungen basieren auf Algorithmen und LLM-Synthesen. Es wird keine Haftung für die Richtigkeit, Vollständigkeit oder Aktualität der Primärdaten übernommen.
+Automatisierte Verarbeitung: Die Auswertungen basieren auf Algorithmen und LLM-Synthesen. Es wird keine Haftung für die Richtigkeit, Vollständigkeit oder Aktualität der Primärdaten übernommen.
