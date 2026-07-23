@@ -6,7 +6,7 @@
   <title>ARGUS GRID // Systemic Intelligence Engine</title>
   
   <!-- Leaflet CSS für interaktive Hotspot-Karte -->
-  <link rel="stylesheet" href="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.css](https://unpkg.com/leaflet@1.9.4/dist/leaflet.css)" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   
   <style>
     :root {
@@ -274,6 +274,7 @@
       border-radius: 8px;
       border: 1px solid var(--border-color);
       margin-top: 10px;
+      background: #090d16;
     }
 
     .map-legend {
@@ -332,7 +333,7 @@
       animation: pulse-ring 1.6s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
     }
 
-    /* FLIESSENDE FLÜCHTLINGSSTRÖME (SVG STROKE ANIMATION) */
+    /* FLIESSENDE FLÜCHTLINGSSTRÖME */
     @keyframes flow-line {
       from { stroke-dashoffset: 40; }
       to { stroke-dashoffset: 0; }
@@ -607,11 +608,11 @@
     
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 0.78rem; padding-bottom: 10px;">
       <div>🌐 <strong>ARGUS GRID</strong> Systemic Intelligence Engine &bull; Autonomous OSINT Pipeline</div>
-      <div>Version 3.0 &bull; Multi-LLM Operations (DeepSeek V4 Pro / Claude Sonnet 5 / Gemini 3.6 Flash)</div>
+      <div>Version 3.0 &bull; Multi-LLM Operations</div>
     </div>
   </footer>
 
-  <script src="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.js](https://unpkg.com/leaflet@1.9.4/dist/leaflet.js)"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
     let map = null;
@@ -630,25 +631,36 @@
     }
 
     async function loadDashboard() {
+      let data = {};
       try {
         const response = await fetch('./data.json?t=' + new Date().getTime());
         if (!response.ok) throw new Error("Konnte data.json nicht laden.");
-        const data = await response.json();
+        data = await response.json();
+      } catch (e) {
+        console.error("Fehler beim Laden von data.json:", e);
+        document.getElementById('exec-summary').innerText = "⚠️ Fehler beim Laden der data.json aus dem Repository.";
+        return;
+      }
 
+      // 1. EXECUTIVE BRIEFING & TIMESTAMP
+      try {
         document.getElementById('last-update').innerText = "Stand: " + (data.timestamp || "Unbekannt");
         document.getElementById('exec-summary').innerText = data.daily_executive_summary || "Kein Lagebericht verfügbar.";
+      } catch(e) { console.error("Error briefing:", e); }
 
+      // 2. KPIS
+      try {
         if (data.geoscore) {
           const score = data.geoscore.current_score || 0;
           document.getElementById('kpi-geoscore').innerText = score + " / 100";
-          document.getElementById('kpi-geoscore-sub').innerText = "Prior 48h: " + data.geoscore.previous_48h;
+          document.getElementById('kpi-geoscore-sub').innerText = "Prior 48h: " + (data.geoscore.previous_48h || '--');
           document.getElementById('kpi-geoscore-bar').style.width = Math.min(100, Math.max(0, score)) + "%";
         }
 
         if (data.defcon_status) {
           const defEl = document.getElementById('kpi-defcon');
           defEl.innerText = data.defcon_status.label || ("DEFCON " + data.defcon_status.level);
-          defEl.className = "kpi-value status-defcon-" + data.defcon_status.level;
+          defEl.className = "kpi-value status-defcon-" + (data.defcon_status.level || 3);
           
           const riskPct = data.defcon_status.nuclear_risk_percent || 0;
           document.getElementById('kpi-defcon-sub').innerText = "Nukleares Risiko: " + riskPct + "%";
@@ -660,18 +672,21 @@
 
         document.getElementById('kpi-regime').innerText = data.market_regime || "--";
         document.getElementById('kpi-risk').innerText = data.top_risk || "--";
+      } catch(e) { console.error("Error KPIs:", e); }
 
+      // 3. SPIELTHEORIE (DEEPSEEK)
+      try {
         if (data.game_theory_deep_dive) {
           const gt = data.game_theory_deep_dive;
           document.getElementById('gt-focal-title').innerText = gt.focal_situation || "Aktuelle Krisenlage";
 
           let actorsHTML = "";
-          if (gt["1_fractionated_actors"]) {
+          if (Array.isArray(gt["1_fractionated_actors"])) {
             gt["1_fractionated_actors"].forEach(a => {
-              actorsHTML += `<div style="margin-bottom: 8px;"><strong>${a.entity}:</strong> `;
-              if (a.factions) {
+              actorsHTML += `<div style="margin-bottom: 8px;"><strong>${a.entity || ''}:</strong> `;
+              if (Array.isArray(a.factions)) {
                 a.factions.forEach(f => {
-                  actorsHTML += `<span style="color: var(--text-muted); font-size: 0.85rem;">${f.faction_name} (${f.divergent_interest})</span> `;
+                  actorsHTML += `<span style="color: var(--text-muted); font-size: 0.85rem;">${f.faction_name || ''} (${f.divergent_interest || ''})</span> `;
                 });
               }
               actorsHTML += `</div>`;
@@ -692,7 +707,7 @@
             const po = gt["3_game_structure_and_payoffs"];
             let poHTML = `<div style="margin-bottom: 8px;"><strong>Typ:</strong> ${po.type || 'N/A'}</div>`;
             
-            if (po.payoff_assessment_scale_minus_3_to_plus_3) {
+            if (Array.isArray(po.payoff_assessment_scale_minus_3_to_plus_3)) {
               po.payoff_assessment_scale_minus_3_to_plus_3.forEach(p => {
                 const valA = parseFloat(p.payoff_actor_A) || 0;
                 let barStyle = "";
@@ -709,7 +724,7 @@
                 poHTML += `
                   <div class="bipolar-chart-row">
                     <div class="bipolar-chart-label">
-                      <span>${p.scenario_combination}</span>
+                      <span>${p.scenario_combination || ''}</span>
                       <strong style="color: ${valA > 0 ? 'var(--accent-green)' : (valA < 0 ? 'var(--accent-red)' : 'var(--text-muted)')};">
                         ${valA > 0 ? '+' + valA : valA}
                       </strong>
@@ -741,8 +756,11 @@
             `;
           }
         }
+      } catch(e) { console.error("Error Game Theory:", e); }
 
-        if (data.domestic_politics_analysis) {
+      // 4. INNENPOLITIK
+      try {
+        if (Array.isArray(data.domestic_politics_analysis)) {
           let domHTML = "";
           data.domestic_politics_analysis.forEach(item => {
             const stab = (item.regime_stability || 'STABIL').toUpperCase();
@@ -758,29 +776,32 @@
             }
 
             domHTML += `<tr>
-              <td><strong>${item.region_actor}</strong></td>
-              <td>${item.key_event_trend}</td>
+              <td><strong>${item.region_actor || ''}</strong></td>
+              <td>${item.key_event_trend || ''}</td>
               <td><span class="stability-badge" style="background: ${badgeBg}; color: ${badgeColor};">${stab}</span></td>
-              <td style="color: var(--text-muted);">${item.geopolitical_impact}</td>
+              <td style="color: var(--text-muted);">${item.geopolitical_impact || ''}</td>
             </tr>`;
           });
           document.getElementById('domestic-politics-table').innerHTML = domHTML;
         }
+      } catch(e) { console.error("Error Domestic Politics:", e); }
 
-        if (data.stress_testing_scenarios) {
+      // 5. STRESS TEST SCENARIOS
+      try {
+        if (Array.isArray(data.stress_testing_scenarios)) {
           let stressHTML = "";
           data.stress_testing_scenarios.forEach(s => {
             const prob = s.probability_pct || 0;
             stressHTML += `
               <div class="card" style="background: #0f172a; border-left: 3px solid var(--accent-gold);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                  <h3 style="font-size: 1.0rem; color: var(--accent-cyan);">${s.scenario_name}</h3>
+                  <h3 style="font-size: 1.0rem; color: var(--accent-cyan);">${s.scenario_name || ''}</h3>
                   <span class="ticker-badge" style="color: var(--accent-gold);">${prob}% Wahrscheinlichkeit</span>
                 </div>
                 <div class="progress-bar-bg" style="margin-bottom: 12px; height: 5px;">
                   <div class="progress-bar-fill" style="width: ${prob}%; background: var(--accent-gold);"></div>
                 </div>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">Zeithorizont: ${s.timeframe}</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">Zeithorizont: ${s.timeframe || ''}</p>
                 <div style="font-size: 0.88rem; margin-bottom: 8px;"><strong>Kaskade:</strong> ${(s.cascade_chain || []).join(' ➔ ')}</div>
                 <div style="font-size: 0.85rem; color: var(--accent-green);"><strong>Gewinner:</strong> ${(s.winners_long || []).map(w => w.asset).join(', ')}</div>
                 <div style="font-size: 0.85rem; color: var(--accent-red);"><strong>Verlierer:</strong> ${(s.losers_short || []).map(l => l.asset).join(', ')}</div>
@@ -789,59 +810,75 @@
           });
           document.getElementById('stress-scenarios-container').innerHTML = stressHTML;
         }
+      } catch(e) { console.error("Error Stress Scenarios:", e); }
 
+      // 6. STOCK PICKS
+      try {
         if (data.stock_picks) {
           let buysHTML = "";
           (data.stock_picks.top_5_buys || []).forEach(b => {
-            buysHTML += `<tr><td><span class="ticker-badge">${b.ticker}</span></td><td>${b.name}</td><td>${b.reason}</td></tr>`;
+            buysHTML += `<tr><td><span class="ticker-badge">${b.ticker || ''}</span></td><td>${b.name || ''}</td><td>${b.reason || ''}</td></tr>`;
           });
           document.getElementById('stocks-buys').innerHTML = buysHTML;
 
           let sellsHTML = "";
           (data.stock_picks.flop_5_sells || []).forEach(s => {
-            sellsHTML += `<tr><td><span class="ticker-badge" style="color: var(--accent-red);">${s.ticker}</span></td><td>${s.name}</td><td>${s.reason}</td></tr>`;
+            sellsHTML += `<tr><td><span class="ticker-badge" style="color: var(--accent-red);">${s.ticker || ''}</span></td><td>${s.name || ''}</td><td>${s.reason || ''}</td></tr>`;
           });
           document.getElementById('stocks-sells').innerHTML = sellsHTML;
         }
+      } catch(e) { console.error("Error Stocks:", e); }
 
-        if (data.digital_and_monetary_sovereignty) {
+      // 7. MONETARY SOVEREIGNTY
+      try {
+        if (Array.isArray(data.digital_and_monetary_sovereignty)) {
           let sovHTML = "";
           data.digital_and_monetary_sovereignty.forEach(item => {
             sovHTML += `<tr>
-              <td><strong>${item.topic}</strong></td>
-              <td>${item.actor}</td>
-              <td><span style="color: var(--accent-cyan);">${item.trend}</span></td>
-              <td>${item.systemic_impact}</td>
-              <td style="color: var(--text-muted);">${item.market_implication}</td>
+              <td><strong>${item.topic || ''}</strong></td>
+              <td>${item.actor || ''}</td>
+              <td><span style="color: var(--accent-cyan);">${item.trend || ''}</span></td>
+              <td>${item.systemic_impact || ''}</td>
+              <td style="color: var(--text-muted);">${item.market_implication || ''}</td>
             </tr>`;
           });
           document.getElementById('sovereignty-table').innerHTML = sovHTML;
         }
+      } catch(e) { console.error("Error Sovereignty:", e); }
 
-        const hotspots = data.conflict_hotspots || [];
-        const flights = data.live_recon_flights || [];
+      // 8. MAP & HOTSPOTS
+      try {
+        const hotspots = Array.isArray(data.conflict_hotspots) ? data.conflict_hotspots : [];
+        const flights = Array.isArray(data.live_recon_flights) ? data.live_recon_flights : [];
         initMap(hotspots, flights);
         renderHotspotsList(hotspots);
-
-      } catch (e) {
-        console.error("Fehler beim Laden des Dashboards:", e);
-        document.getElementById('exec-summary').innerText = "⚠️ Fehler beim Laden der Daten. Bitte prüfen, ob data.json existiert.";
-      }
+      } catch(e) { console.error("Error Map/Hotspots:", e); }
     }
 
     function initMap(hotspots, flights) {
-      if (map) map.remove();
+      if (typeof L === 'undefined') {
+        console.error("Leaflet Bibliothek nicht geladen.");
+        return;
+      }
+
+      if (map) {
+        map.remove();
+        map = null;
+      }
       
+      const mapContainer = document.getElementById('hotspot-map');
+      if (!mapContainer) return;
+
       map = L.map('hotspot-map').setView([35, 25], 3);
       
-      L.tileLayer('https://{s}[.basemaps.cartocdn.com/dark_all/](https://.basemaps.cartocdn.com/dark_all/){z}/{x}/{y}{r}.png', {
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; OpenStreetMap &copy; CARTO',
         maxZoom: 18
       }).addTo(map);
 
       // 1. KRIEGSZONEN & HOTSPOTS RENDERN
       hotspots.forEach(spot => {
-        if (spot.lat && spot.lng) {
+        if (spot && spot.lat != null && spot.lng != null) {
           const isAktiv = (spot.status_type === 'AKTIV' || spot.escalation_level === 'HOCH');
           
           if (isAktiv) {
@@ -856,8 +893,8 @@
             marker.bindPopup(`
               <div style="color: #000; font-family: sans-serif;">
                 <strong style="color: #ef4444;">🔥 AKTIVES KRIEGS- & FLUCHTFELD</strong><br>
-                <strong>${spot.region}</strong><br>
-                <span style="font-size: 0.8rem; color: #555;">Akteure: ${spot.actors}</span><br>
+                <strong>${spot.region || ''}</strong><br>
+                <span style="font-size: 0.8rem; color: #555;">Akteure: ${spot.actors || ''}</span><br>
                 <p style="font-size: 0.85rem; margin-top: 5px;">${spot.impact || spot.catalyst || ''}</p>
               </div>
             `);
@@ -874,8 +911,8 @@
             marker.bindPopup(`
               <div style="color: #000; font-family: sans-serif;">
                 <strong>⚠️ POTENZIELLER BRENNPUNKT</strong><br>
-                <strong>${spot.region}</strong><br>
-                <span style="font-size: 0.8rem; color: #555;">Akteure: ${spot.actors}</span><br>
+                <strong>${spot.region || ''}</strong><br>
+                <span style="font-size: 0.8rem; color: #555;">Akteure: ${spot.actors || ''}</span><br>
                 <p style="font-size: 0.85rem; margin-top: 5px;">${spot.impact || spot.catalyst || ''}</p>
               </div>
             `);
@@ -883,7 +920,7 @@
         }
       });
 
-      // 2. FLIESSENDE FLÜCHTLINGSSTRÖME (ANIMIERTE SVG-LINIEN)
+      // 2. ANIMIERTE FLÜCHTLINGSSTRÖME
       const refugeeRoutes = [
         { name: "Fluchtkorridor Ukraine -> EU", coords: [[50.45, 30.52], [52.22, 21.01], [52.52, 13.40]], color: "#ef4444" },
         { name: "Fluchtroute Ost-Mittelmeer", coords: [[31.50, 34.46], [33.89, 35.50], [35.12, 33.42], [37.98, 23.72]], color: "#f97316" },
@@ -901,9 +938,9 @@
         polyline.bindPopup(`<strong>🌊 ${route.name}</strong><br><span style="font-size:0.8rem;">OSINT/UNHCR Migration Tracking</span>`);
       });
 
-      // 3. ECHTE OPENSKY ADS-B FLUGZEUG-MARKER RENDERN
+      // 3. FLUGZEUG-MARKER (ADS-B)
       flights.forEach(f => {
-        if (f.lat && f.lng) {
+        if (f && f.lat != null && f.lng != null) {
           const liveBadge = f.is_live ? '<span style="color: #22c55e; font-weight: bold;">📡 LIVE ADS-B</span>' : '<span style="color: #eab308;">🔄 OSINT PATROUILLE</span>';
           const headingDeg = f.heading || 0;
           
@@ -917,11 +954,11 @@
           const planeMarker = L.marker([f.lat, f.lng], { icon: planeIcon }).addTo(map);
           planeMarker.bindPopup(`
             <div style="color: #000; font-family: sans-serif;">
-              <strong>✈️ ${f.callsign}</strong> (${liveBadge})<br>
-              <span style="font-size: 0.8rem; color: #555;">Land/Regierung: ${f.country}</span><br>
+              <strong>✈️ ${f.callsign || 'Unbekannt'}</strong> (${liveBadge})<br>
+              <span style="font-size: 0.8rem; color: #555;">Land/Regierung: ${f.country || 'N/A'}</span><br>
               <div style="font-size: 0.82rem; margin-top: 4px;">
-                📐 Kurs: ${headingDeg}° | ⚡ Speed: ${f.speed_kmh} km/h<br>
-                🏔️ Flughöhe: ${f.altitude_m} m
+                📐 Kurs: ${headingDeg}° | ⚡ Speed: ${f.speed_kmh || 0} km/h<br>
+                🏔️ Flughöhe: ${f.altitude_m || 0} m
               </div>
             </div>
           `);
@@ -930,13 +967,13 @@
     }
 
     function renderHotspotsList(hotspots) {
-      if (!hotspots || hotspots.length === 0) return;
+      if (!Array.isArray(hotspots) || hotspots.length === 0) return;
       
-      const aktiveList = hotspots.filter(s => s.status_type === 'AKTIV' || s.escalation_level === 'HOCH');
-      const potenzielleList = hotspots.filter(s => s.status_type === 'POTENZIELL' || (s.status_type !== 'AKTIV' && s.escalation_level !== 'HOCH'));
+      const aktiveList = hotspots.filter(s => s && (s.status_type === 'AKTIV' || s.escalation_level === 'HOCH'));
+      const potenzielleList = hotspots.filter(s => s && (s.status_type === 'POTENZIELL' || (s.status_type !== 'AKTIV' && s.escalation_level !== 'HOCH')));
 
       function buildCards(list, isAktiv) {
-        if (list.length === 0) return '<div style="font-size: 0.8rem; color: var(--text-muted);">Keine Akuten Eintragsdaten.</div>';
+        if (list.length === 0) return '<div style="font-size: 0.8rem; color: var(--text-muted);">Keine akuten Eintragsdaten.</div>';
         let html = '';
         list.forEach(spot => {
           const classType = isAktiv ? 'aktiv' : 'potenziell';
@@ -946,11 +983,11 @@
           html += `
             <div class="hotspot-item ${classType}">
               <div class="hotspot-header">
-                <strong style="font-size: 0.95rem; color: var(--accent-cyan);">${spot.region}</strong>
+                <strong style="font-size: 0.95rem; color: var(--accent-cyan);">${spot.region || ''}</strong>
                 <span style="color: ${badgeColor}; font-size: 0.7rem; font-weight: bold; border: 1px solid ${badgeColor}; padding: 1px 6px; border-radius: 4px;">${badgeText}</span>
               </div>
               <div style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 4px;">
-                <strong>Akteure:</strong> ${spot.actors}
+                <strong>Akteure:</strong> ${spot.actors || ''}
               </div>
               <div style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.4;">
                 ${spot.impact || spot.catalyst || ''}
@@ -974,7 +1011,8 @@
         </div>
       `;
       
-      document.getElementById('hotspots-list-container').innerHTML = hsHTML;
+      const container = document.getElementById('hotspots-list-container');
+      if (container) container.innerHTML = hsHTML;
     }
 
     document.addEventListener("DOMContentLoaded", loadDashboard);
