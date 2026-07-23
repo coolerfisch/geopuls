@@ -63,8 +63,8 @@
         .stock-item.sell { border-left-color: var(--accent-red); }
 
         /* Narrative Grid */
-        .narrative-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 10px; }
-        .narrative-card { background: #020617; padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.9rem; }
+        .narrative-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 8px; }
+        .narrative-card { background: #0f172a; padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.88rem; }
 
         .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 18px; }
@@ -137,17 +137,13 @@
     <div id="map"></div>
 
     <!-- Executive Summary & Narrativ-Matrix -->
-    <h2 class="section-title">📌 Executive Summary & Narrativ-Divergenz</h2>
+    <h2 class="section-title">📌 Executive Summary & Multipolarer Medienvergleich</h2>
     <div class="summary-box">
-        <div id="exec-summary" style="margin-bottom: 15px;">Lade Lagebild...</div>
+        <div id="exec-summary" style="margin-bottom: 20px;">Lade Lagebild...</div>
         
-        <div style="border-top: 1px solid var(--border-color); padding-top: 12px; margin-top: 12px;">
-            <strong style="color: var(--accent-amber);">⚖️ Narrativ-Matrix (Wer lügt wie?): </strong><span id="narrative-topic">-</span>
-            <div class="narrative-grid">
-                <div class="narrative-card"><strong style="color: var(--accent-blue);">🏛️ Mainstream (Westen):</strong><br><span id="nav-mainstream">-</span></div>
-                <div class="narrative-card"><strong style="color: var(--accent-green);">🌍 BRICS / Global South:</strong><br><span id="nav-brics">-</span></div>
-                <div class="narrative-card"><strong style="color: var(--accent-purple);">🔓 Unabhängig / Alternativ:</strong><br><span id="nav-alt">-</span></div>
-            </div>
+        <div style="border-top: 1px solid var(--border-color); padding-top: 15px;">
+            <h3 style="color: var(--accent-amber); font-size: 1.05rem; margin-bottom: 12px;">⚖️ Narrativ-Matrix (Wer lügt wie zu welchen Themen?):</h3>
+            <div id="narrative-container" style="display: flex; flex-direction: column; gap: 15px;">Lade Medienvergleich...</div>
         </div>
     </div>
 
@@ -232,7 +228,7 @@
                     badge.className = 'defcon-badge defcon-' + lvl;
 
                     document.getElementById('defcon-label').innerText = ds.label || 'DEFCON Status';
-                    document.getElementById('defcon-driver').innerText = 'Treiber: ' + (ds.primary_driver || '-');
+                    document.getElementById('defcon-driver').innerText = 'Treiber: ' + (ds.primary_driver || ds.driver || '-');
                     document.getElementById('defcon-percent').innerText = (ds.nuclear_risk_percent || 10) + ' %';
                 }
 
@@ -241,41 +237,72 @@
                 document.getElementById('market-regime').innerText = data.market_regime || '-';
                 document.getElementById('top-overweight').innerText = data.top_overweight || '-';
                 document.getElementById('top-risk').innerText = data.top_risk || '-';
-                document.getElementById('exec-summary').innerText = data.daily_executive_summary || 'Keine Zusammenfassung verfügbar.';
+                
+                // Executive Summary (Tolerant für alle Feldnamen)
+                const execText = data.daily_executive_summary || data.executive_summary || data.summary || data.daily_summary || 'Keine Zusammenfassung verfügbar.';
+                document.getElementById('exec-summary').innerHTML = execText;
 
-                // Narrativ-Divergenz
-                if (data.narrative_divergence) {
-                    const nd = data.narrative_divergence;
-                    document.getElementById('narrative-topic').innerText = nd.topic || 'Allgemeine Weltlage';
-                    document.getElementById('nav-mainstream').innerText = nd.mainstream_view || '-';
-                    document.getElementById('nav-brics').innerText = nd.brics_view || '-';
-                    document.getElementById('nav-alt').innerText = nd.alternative_view || '-';
+                // Narrativ-Divergenz (Tolerant für Liste UND Einzelobjekte mit allen Feldnamen)
+                const navContainer = document.getElementById('narrative-container');
+                if (navContainer) {
+                    let ndArray = [];
+                    if (Array.isArray(data.narrative_divergence)) {
+                        ndArray = data.narrative_divergence;
+                    } else if (data.narrative_divergence && typeof data.narrative_divergence === 'object') {
+                        ndArray = [data.narrative_divergence];
+                    }
+
+                    if (ndArray.length > 0) {
+                        navContainer.innerHTML = ndArray.map(nd => {
+                            const topic = nd.topic || nd.title || nd.region || 'Geopolitischer Schauplatz';
+                            const main = nd.mainstream_view || nd.mainstream || nd.western_view || nd.western || '-';
+                            const brics = nd.brics_view || nd.brics || nd.global_south || nd.eastern || '-';
+                            const alt = nd.alternative_view || nd.alternative || nd.alt || nd.independent || '-';
+
+                            return `
+                                <div style="background: #020617; padding: 14px; border-radius: 8px; border: 1px solid var(--border-color);">
+                                    <strong style="color: var(--accent-amber); font-size: 1rem; display: block; margin-bottom: 8px;">🔹 ${topic}</strong>
+                                    <div class="narrative-grid">
+                                        <div class="narrative-card"><strong style="color: var(--accent-blue);">🏛️ Mainstream (Westen):</strong><br>${main}</div>
+                                        <div class="narrative-card"><strong style="color: var(--accent-green);">🌍 BRICS / Global South:</strong><br>${brics}</div>
+                                        <div class="narrative-card"><strong style="color: var(--accent-purple);">🔓 Unabhängig / Alternativ:</strong><br>${alt}</div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                    } else {
+                        navContainer.innerHTML = 'Keine Narrativ-Daten verfügbar.';
+                    }
                 }
 
                 // Top 5 Buys & Flop 5 Sells
                 if (data.stock_picks) {
-                    const buys = data.stock_picks.top_5_buys || [];
-                    const sells = data.stock_picks.flop_5_sells || [];
+                    const buys = data.stock_picks.top_5_buys || data.stock_picks.buys || [];
+                    const sells = data.stock_picks.flop_5_sells || data.stock_picks.sells || [];
 
-                    document.getElementById('buys-container').innerHTML = buys.map(b => `
-                        <div class="stock-item">
-                            <div style="display: flex; justify-content: space-between; font-weight: bold;">
-                                <span>${b.name} (${b.ticker})</span>
-                                <span style="font-size: 0.8rem; color: var(--accent-green);">${b.sector}</span>
+                    if (buys.length > 0) {
+                        document.getElementById('buys-container').innerHTML = buys.map(b => `
+                            <div class="stock-item">
+                                <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                                    <span>${b.name || 'Aktie'} (${b.ticker || '-'})</span>
+                                    <span style="font-size: 0.8rem; color: var(--accent-green);">${b.sector || ''}</span>
+                                </div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">${b.reason || ''}</div>
                             </div>
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">${b.reason}</div>
-                        </div>
-                    `).join('');
+                        `).join('');
+                    }
 
-                    document.getElementById('sells-container').innerHTML = sells.map(s => `
-                        <div class="stock-item sell">
-                            <div style="display: flex; justify-content: space-between; font-weight: bold;">
-                                <span>${s.name} (${s.ticker})</span>
-                                <span style="font-size: 0.8rem; color: var(--accent-red);">${s.sector}</span>
+                    if (sells.length > 0) {
+                        document.getElementById('sells-container').innerHTML = sells.map(s => `
+                            <div class="stock-item sell">
+                                <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                                    <span>${s.name || 'Aktie'} (${s.ticker || '-'})</span>
+                                    <span style="font-size: 0.8rem; color: var(--accent-red);">${s.sector || ''}</span>
+                                </div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">${s.reason || ''}</div>
                             </div>
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">${s.reason}</div>
-                        </div>
-                    `).join('');
+                        `).join('');
+                    }
                 }
 
                 // Innenpolitik
@@ -283,12 +310,12 @@
                     document.getElementById('domestic-container').innerHTML = data.domestic_politics.map(d => `
                         <div class="card" style="border-left: 4px solid var(--accent-blue);">
                             <div class="card-header">
-                                <span class="card-title">${d.country_region}</span>
+                                <span class="card-title">${d.country_region || d.country || 'Region'}</span>
                                 <span class="badge" style="background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid #3b82f6;">Innenpolitik</span>
                             </div>
-                            <div class="card-detail"><strong>Thema:</strong> ${d.topic}</div>
-                            <div class="card-detail"><strong>Status:</strong> ${d.status}</div>
-                            <div class="card-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>Geopolitische Folgen:</strong> ${d.impact}</div>
+                            <div class="card-detail"><strong>Thema:</strong> ${d.topic || '-'}</div>
+                            <div class="card-detail"><strong>Status:</strong> ${d.status || '-'}</div>
+                            <div class="card-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>Geopolitische Folgen:</strong> ${d.impact || '-'}</div>
                         </div>
                     `).join('');
                 }
@@ -299,12 +326,12 @@
                     hotspotsContainer.innerHTML = data.conflict_hotspots.map(h => `
                         <div class="card">
                             <div class="card-header">
-                                <span class="card-title">${h.region}</span>
+                                <span class="card-title">${h.region || h.name || 'Krisenherd'}</span>
                                 <span class="badge ${h.escalation_level && h.escalation_level.includes('KRITISCH') ? 'badge-kritisch' : 'badge-mittel'}">${h.escalation_level || 'AKTIV'}</span>
                             </div>
-                            <div class="card-detail"><strong>Akteure:</strong> ${h.actors}</div>
-                            <div class="card-detail"><strong>Auslöser:</strong> ${h.catalyst}</div>
-                            <div class="card-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>Märkte:</strong> ${h.impact}</div>
+                            <div class="card-detail"><strong>Akteure:</strong> ${h.actors || '-'}</div>
+                            <div class="card-detail"><strong>Auslöser:</strong> ${h.catalyst || '-'}</div>
+                            <div class="card-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>Märkte:</strong> ${h.impact || '-'}</div>
                         </div>
                     `).join('');
 
@@ -312,7 +339,7 @@
                         const lat = parseFloat(h.lat);
                         const lng = parseFloat(h.lng);
 
-                        if (!isNaN(lat) && !isNaN(lng)) {
+                        if (!isNaN(lat) && !isNaN(lng) && (lat !== 0 || lng !== 0)) {
                             const color = (h.escalation_level && h.escalation_level.includes('KRITISCH')) ? '#ef4444' : '#f59e0b';
                             const circle = L.circleMarker([lat, lng], {
                                 color: color,
@@ -320,7 +347,7 @@
                                 fillOpacity: 0.7,
                                 radius: 8
                             }).addTo(map);
-                            circle.bindPopup(`<b>${h.region}</b><br>${h.catalyst}`);
+                            circle.bindPopup(`<b>${h.region || 'Hotspot'}</b><br>${h.catalyst || ''}`);
                         }
                     });
 
@@ -332,11 +359,11 @@
                     document.getElementById('systemic-container').innerHTML = data.systemic_risks.map(s => `
                         <div class="card" style="border-left: 4px solid var(--accent-purple);">
                             <div class="card-header">
-                                <span class="card-title">${s.topic}</span>
+                                <span class="card-title">${s.topic || s.name || 'Risiko'}</span>
                                 <span class="badge badge-systemic">${s.category || 'Systemisch'}</span>
                             </div>
-                            <div class="card-detail"><strong>Status:</strong> ${s.status}</div>
-                            <div class="card-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>Auswirkungen:</strong> ${s.impact}</div>
+                            <div class="card-detail"><strong>Status:</strong> ${s.status || '-'}</div>
+                            <div class="card-detail" style="margin-top: 6px; color: #cbd5e1;"><strong>Auswirkungen:</strong> ${s.impact || '-'}</div>
                         </div>
                     `).join('');
                 }
@@ -346,9 +373,9 @@
                     document.getElementById('assets-table').innerHTML = data.assets.map(a => `
                         <tr>
                             <td><strong>${a.name}</strong></td>
-                            <td>${a.signal_text || a.signal}</td>
-                            <td>${a.trend}</td>
-                            <td style="color: var(--text-secondary);">${a.driver}</td>
+                            <td>${a.signal_text || a.signal || '-'}</td>
+                            <td>${a.trend || '-'}</td>
+                            <td style="color: var(--text-secondary);">${a.driver || '-'}</td>
                         </tr>
                     `).join('');
                 }
@@ -357,8 +384,8 @@
                 if (data.scenarios) {
                     document.getElementById('scenarios-container').innerHTML = data.scenarios.map(s => `
                         <div class="scenario-card">
-                            <div class="scenario-prob">${s.prob}%</div>
-                            <div style="font-weight: 500; margin-top: 4px;">${s.title}</div>
+                            <div class="scenario-prob">${s.prob || s.probability || 0}%</div>
+                            <div style="font-weight: 500; margin-top: 4px;">${s.title || s.name || '-'}</div>
                         </div>
                     `).join('');
                 }
