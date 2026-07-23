@@ -242,7 +242,6 @@
             </h2>
             <div id="probability-container" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
         </section>
-
         <!-- EVENT GRAPH & KAUSALITÄTSKETTEN -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <section class="glass-card rounded-xl p-5 space-y-4">
@@ -316,6 +315,7 @@
             <span>Hosted via GitHub Pages</span>
         </p>
     </footer>
+
     <!-- JAVASCRIPT FOR RENDERING -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -341,7 +341,7 @@
                 document.getElementById('market-regime-tag').innerText = "Regime: " + (data.market_regime || "Stabil");
 
                 const geoscore = data.geoscore || {};
-                const scoreVal = geoscore.current_score || 75;
+                const scoreVal = geoscore.current_score || data.global_risk_score || 75;
                 document.getElementById('geoscore-val').innerText = scoreVal;
                 document.getElementById('geoscore-status').innerText = geoscore.status_label || "STABIL";
                 
@@ -364,20 +364,20 @@
                 patternContainer.innerHTML = '';
                 if (data.pattern_recognition && data.pattern_recognition.length > 0) {
                     data.pattern_recognition.forEach(pat => {
-                        const pastEvents = (pat.matched_past_events || []).map(e => `<li>• ${e}</li>`).join('');
+                        const pastEvents = (pat.matched_past_events || pat.matched_past_years || []).map(e => `<li>• ${e}</li>`).join('');
                         patternContainer.innerHTML += `
                             <div class="p-4 rounded-lg bg-gray-800/60 border border-purple-500/30 text-xs space-y-2">
                                 <div class="flex justify-between items-start">
-                                    <span class="font-bold text-purple-300 text-sm">${pat.trigger_event}</span>
+                                    <span class="font-bold text-purple-300 text-sm">${pat.trigger_event || pat.event || 'Muster-Trigger'}</span>
                                     <span class="px-2 py-0.5 rounded bg-purple-900/50 text-purple-200 border border-purple-700/50 font-mono text-[10px]">MUSTER ERKANNT</span>
                                 </div>
                                 <div class="text-gray-300">
                                     <strong class="text-gray-400">Historische Parallelen:</strong>
                                     <ul class="mt-1 space-y-0.5 text-gray-300">${pastEvents}</ul>
                                 </div>
-                                <div class="pt-2 border-t border-gray-700/50 flex justify-between items-center">
-                                    <span class="text-gray-400">Folgen damals: <span class="text-amber-300">${pat.historical_consequences}</span></span>
-                                    <span class="text-emerald-400 font-semibold">Insight: ${pat.actionable_insight}</span>
+                                <div class="pt-2 border-t border-gray-700/50 flex justify-between items-center flex-wrap gap-2">
+                                    <span class="text-gray-400">Folgen damals: <span class="text-amber-300">${pat.historical_consequences || pat.impact || 'k.A.'}</span></span>
+                                    <span class="text-emerald-400 font-semibold">Insight: ${pat.actionable_insight || pat.insight || 'k.A.'}</span>
                                 </div>
                             </div>`;
                     });
@@ -389,8 +389,9 @@
                 if (data.conflict_hotspots) {
                     data.conflict_hotspots.forEach(h => {
                         let color = '#3b82f6';
-                        if (h.escalation_level === 'KRITISCH') color = '#ef4444';
-                        else if (h.escalation_level === 'HOCH') color = '#f59e0b';
+                        const level = (h.escalation_level || h.level || '').toUpperCase();
+                        if (level === 'KRITISCH' || level === 'HOCH') color = '#ef4444';
+                        else if (level === 'MITTEL' || level === 'ERHÖHT') color = '#f59e0b';
 
                         const circle = L.circleMarker([h.lat, h.lng], {
                             color: color,
@@ -401,40 +402,47 @@
 
                         circle.bindPopup(`
                             <div class="text-xs font-sans">
-                                <strong class="text-sm font-bold block mb-1 text-gray-900">${h.region}</strong>
-                                <div><strong>Akteure:</strong> ${h.actors}</div>
-                                <div><strong>Katalysator:</strong> ${h.catalyst}</div>
-                                <div><strong>Impact:</strong> ${h.impact}</div>
+                                <strong class="text-sm font-bold block mb-1 text-gray-900">${h.region || h.name || 'Hotspot'}</strong>
+                                <div><strong>Akteure:</strong> ${h.actors || 'k.A.'}</div>
+                                <div><strong>Katalysator:</strong> ${h.catalyst || 'k.A.'}</div>
+                                <div><strong>Impact:</strong> ${h.impact || 'k.A.'}</div>
                             </div>
                         `);
                     });
                 }
 
-                // SYSTEMIC RISKS
+                // SYSTEMIC RISKS (ROBUST MIT FALLBACKS)
                 const sysContainer = document.getElementById('systemic-risks-container');
                 sysContainer.innerHTML = '';
                 (data.systemic_risks || []).forEach(r => {
+                    const title = r.title || r.name || r.topic || r.risk || 'Systemisches Risiko';
+                    const desc = r.description || r.details || r.summary || r.impact || '';
+                    const level = r.risk_level || r.level || r.status || 'MITTEL';
                     sysContainer.innerHTML += `
-                        <div class="p-3 rounded-lg bg-gray-800/40 border border-gray-700/50 text-xs flex justify-between items-center">
+                        <div class="p-3 rounded-lg bg-gray-800/40 border border-gray-700/50 text-xs flex justify-between items-center gap-3">
                             <div>
-                                <div class="font-bold text-white">${r.title}</div>
-                                <div class="text-gray-400 mt-1">${r.description}</div>
+                                <div class="font-bold text-white">${title}</div>
+                                <div class="text-gray-400 mt-1">${desc}</div>
                             </div>
-                            <span class="px-2 py-1 rounded text-[10px] font-bold ${r.risk_level === 'HOCH' ? 'bg-red-900/60 text-red-300 border border-red-700' : 'bg-amber-900/60 text-amber-300 border border-amber-700'}">${r.risk_level}</span>
+                            <span class="shrink-0 px-2 py-1 rounded text-[10px] font-bold ${level === 'HOCH' || level === 'KRITISCH' ? 'bg-red-900/60 text-red-300 border border-red-700' : 'bg-amber-900/60 text-amber-300 border border-amber-700'}">${level}</span>
                         </div>`;
                 });
 
-                // DOMESTIC POLITICS
+                // DOMESTIC POLITICS (ROBUST MIT FALLBACKS)
                 const domContainer = document.getElementById('domestic-politics-container');
                 domContainer.innerHTML = '';
                 (data.domestic_politics || []).forEach(d => {
+                    const country = d.country || d.region || d.location || 'Global';
+                    const topic = d.topic || d.title || d.name || 'Politische Lage';
+                    const score = d.stability_score || d.status || d.stability || 'NEUTRAL';
+                    const details = d.details || d.description || d.summary || '';
                     domContainer.innerHTML += `
                         <div class="p-3 rounded-lg bg-gray-800/40 border border-gray-700/50 text-xs space-y-1">
                             <div class="flex justify-between font-bold text-blue-300">
-                                <span>${d.country} — ${d.topic}</span>
-                                <span class="text-[10px] text-gray-400">${d.stability_score}</span>
+                                <span>${country} — ${topic}</span>
+                                <span class="text-[10px] text-gray-400 font-mono">${score}</span>
                             </div>
-                            <p class="text-gray-400">${d.details}</p>
+                            <p class="text-gray-400">${details}</p>
                         </div>`;
                 });
 
@@ -445,11 +453,11 @@
                     probContainer.innerHTML += `
                         <div class="p-4 rounded-xl bg-gray-800/50 border border-gray-700 text-xs space-y-2">
                             <div class="flex justify-between items-center">
-                                <span class="font-bold text-white">${s.title}</span>
-                                <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">${s.probability_pct}%</span>
+                                <span class="font-bold text-white">${s.title || s.name || 'Szenario'}</span>
+                                <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">${s.probability_pct || s.probability || 50}%</span>
                             </div>
-                            <p class="text-gray-400">Trigger: ${s.trigger}</p>
-                            <div class="text-emerald-400 font-semibold border-t border-gray-700/50 pt-1">Folge: ${s.market_consequence}</div>
+                            <p class="text-gray-400">Trigger: ${s.trigger || 'k.A.'}</p>
+                            <div class="text-emerald-400 font-semibold border-t border-gray-700/50 pt-1">Folge: ${s.market_consequence || s.consequence || 'k.A.'}</div>
                         </div>`;
                 });
 
@@ -457,12 +465,12 @@
                 const egContainer = document.getElementById('event-graph-container');
                 egContainer.innerHTML = '';
                 (data.event_graph || []).forEach(eg => {
-                    const sources = (eg.sources || []).join(', ');
+                    const sources = Array.isArray(eg.sources) ? eg.sources.join(', ') : (eg.sources || 'OSINT');
                     egContainer.innerHTML += `
                         <div class="p-3 rounded-lg bg-gray-800/40 border border-gray-700/50 text-xs space-y-1">
                             <div class="flex justify-between font-bold text-cyan-300">
-                                <span>${eg.event_id}: ${eg.title}</span>
-                                <span class="text-emerald-400 font-mono">${eg.confidence}% Conf</span>
+                                <span>${eg.event_id || 'EVT'}: ${eg.title || eg.name || 'Ereignis'}</span>
+                                <span class="text-emerald-400 font-mono">${eg.confidence || eg.confidence_pct || 90}% Conf</span>
                             </div>
                             <div class="text-gray-400">Quellen: ${sources}</div>
                         </div>`;
@@ -472,10 +480,11 @@
                 const icContainer = document.getElementById('impact-chains-container');
                 icContainer.innerHTML = '';
                 (data.impact_chains || []).forEach(ic => {
-                    const chainSteps = (ic.chain || []).join(' ➔ ');
+                    const steps = ic.chain || ic.steps || [];
+                    const chainSteps = Array.isArray(steps) ? steps.join(' ➔ ') : steps;
                     icContainer.innerHTML += `
                         <div class="p-3 rounded-lg bg-gray-800/40 border border-gray-700/50 text-xs space-y-2">
-                            <div class="font-bold text-amber-300">Trigger: ${ic.trigger}</div>
+                            <div class="font-bold text-amber-300">Trigger: ${ic.trigger || 'Schock'}</div>
                             <div class="text-gray-300 font-mono text-[11px] bg-gray-900/60 p-2 rounded">${chainSteps}</div>
                         </div>`;
                 });
@@ -486,10 +495,10 @@
                 (data.narrative_matrix || []).forEach(nm => {
                     nmTbody.innerHTML += `
                         <tr class="hover:bg-gray-800/30">
-                            <td class="p-3 font-bold text-white">${nm.topic}</td>
-                            <td class="p-3 text-blue-200">${nm.mainstream}</td>
-                            <td class="p-3 text-amber-200">${nm.brics}</td>
-                            <td class="p-3 text-emerald-200">${nm.alternative}</td>
+                            <td class="p-3 font-bold text-white">${nm.topic || nm.title || 'Thema'}</td>
+                            <td class="p-3 text-blue-200">${nm.mainstream || 'k.A.'}</td>
+                            <td class="p-3 text-amber-200">${nm.brics || 'k.A.'}</td>
+                            <td class="p-3 text-emerald-200">${nm.alternative || 'k.A.'}</td>
                         </tr>`;
                 });
 
@@ -501,9 +510,9 @@
                         <div class="p-3 rounded-lg bg-gray-800/40 border border-gray-700/50 text-xs flex justify-between items-center">
                             <div>
                                 <span class="font-bold text-white">${a.name}</span>
-                                <span class="text-gray-400 block text-[11px]">${a.driver}</span>
+                                <span class="text-gray-400 block text-[11px]">${a.driver || ''}</span>
                             </div>
-                            <span class="px-2.5 py-1 rounded text-[11px] font-bold bg-emerald-900/50 text-emerald-300 border border-emerald-700">${a.signal_text}</span>
+                            <span class="px-2.5 py-1 rounded text-[11px] font-bold bg-emerald-900/50 text-emerald-300 border border-emerald-700">${a.signal_text || a.signal || 'ATTRAKTIV'}</span>
                         </div>`;
                 });
 
@@ -517,16 +526,16 @@
                 (stocks.top_5_buys || []).forEach(b => {
                     buysContainer.innerHTML += `
                         <div class="p-2.5 rounded bg-emerald-950/20 border border-emerald-800/40 text-xs">
-                            <strong class="text-emerald-300">${b.ticker}</strong> (${b.name})
-                            <p class="text-gray-400 text-[11px] mt-0.5">${b.reason}</p>
+                            <strong class="text-emerald-300">${b.ticker}</strong> (${b.name || ''})
+                            <p class="text-gray-400 text-[11px] mt-0.5">${b.reason || ''}</p>
                         </div>`;
                 });
 
                 (stocks.flop_5_sells || []).forEach(s => {
                     sellsContainer.innerHTML += `
                         <div class="p-2.5 rounded bg-red-950/20 border border-red-800/40 text-xs">
-                            <strong class="text-red-300">${s.ticker}</strong> (${s.name})
-                            <p class="text-gray-400 text-[11px] mt-0.5">${s.reason}</p>
+                            <strong class="text-red-300">${s.ticker}</strong> (${s.name || ''})
+                            <p class="text-gray-400 text-[11px] mt-0.5">${s.reason || ''}</p>
                         </div>`;
                 });
             }
