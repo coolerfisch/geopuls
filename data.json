@@ -1,53 +1,105 @@
 {
-  "daily_executive_summary": "Die Weltwirtschaft befindet sich in einem Zustand der Unsicherheit, begleitet von geopolitischen Spannungen und makroökonomischen Turbulenzen. Der Konflikt im Iran und die Versorgungsangst haben die Finanzmärkte erheblich beeinflusst.",
-  "global_risk_score": 82,
-  "market_regime": "Bewegungsloses Marktregime: Auf dem Spiel steht die Weltwirtschaft",
-  "top_overweight": "Gewinner-Assetklassen: KI, Halbleiter",
-  "top_risk": "Größtes Risiko heute: Iran-Konflikt",
+  "daily_executive_summary": "Die Welt befindet sich vor einer Zäsur, mit Spannungen im Iran-Krieg, wirtschaftlichen Instabilität und geopolitischen Konflikten.",
+  "global_risk_score": 75,
+  "market_regime": "Aktivierter Marktradvisor",
+  "top_overweight": [
+    {
+      "asset": "Gold",
+      "sector": "Metalle",
+      "reason": "Basiswährung und Safe-Haven-Anlage"
+    },
+    {
+      "asset": "S&P 500 Index",
+      "sector": "Gewerbe",
+      "reason": "Wirtschaftliche Expansion und hohe Aktienkursen"
+    },
+    {
+      "asset": "US 10Y Anleiherendite",
+      "sector": "Immobilien",
+      "reason": "Wirtschaftliche Wachstumsaussichten und niedrige Zinssätze"
+    },
+    {
+      "asset": "Bitcoin",
+      "sector": "Kryptowährungen",
+      "reason": "Niedrige Kursen und Wachstumschancen"
+    },
+    {
+      "asset": "AI-Kauf",
+      "sector": "Technologie",
+      "reason": "Niedrige Kurse und hohe potenzielle Wachstumschancen"
+    }
+  ],
+  "top_risk": [
+    {
+      "asset": "High-Yield-Bonds",
+      "sector": "Immobilien",
+      "reason": "Niedrigwachsende Unternehmen und hohe Verzinsungen"
+    },
+    {
+      "asset": "Gewerbeimmobilien",
+      "sector": "Immobilien",
+      "reason": "Hohes Konstruktionsrisiko und hohe Verzinsungen"
+    },
+    {
+      "asset": "Brent Öl (USD/bbl)",
+      "sector": "Rohstoffe",
+      "reason": "Hohes Nachfragekonstruktionsrisiko und hohe Verzinsungen"
+    },
+    {
+      "asset": "US 10Y Anleiherendite",
+      "sector": "Immobilien",
+      "reason": "Hohe inflationsextrem hohe Verzinsungen"
+    },
+    {
+      "asset": "Bitcoin",
+      "sector": "Kryptowährungen",
+      "reason": "Hoches Konstruktionsrisiko und hohe Verzinsungen"
+    }
+  ],
   "defcon_status": {
     "level": 3,
-    "label": "DEFCON Statusbezeichnung: Auf Alarmstufe drei",
-    "nuclear_risk_percent": 18,
-    "primary_driver": "Haupttreiber laut News: Iran-Konflikt"
+    "label": "DEFCON Status: Alarm",
+    "nuclear_risk_percent": 15,
+    "primary_driver": "IRAN-KRIEG"
   },
   "narrative_divergence": [
     {
-      "topic": "Brennpunkt / Schauplatz 1",
-      "mainstream_view": "Einschätzung westlicher Medien: Iran droht mit Vergeltung",
-      "brics_view": "Einschätzung der BRICS-Staaten: Keine Änderung im Status quo",
-      "alternative_view": "Einschätzung unabhängiger Analysten: Vorbildliche Handlungen der internationalen Gemeinschaft notwendig"
+      "topic": "IRAN-KRIEG",
+      "mainstream_view": "Westeuropa lehnt Einmischung im Iran-Krieg ab",
+      "brics_view": "BRICS-Staaten schließen sich der internationalen Gemeinschaft gegen den Iran an",
+      "alternative_view": "Unabhängige Analysen sprechen von einer unüberbrückbaren Kluft zwischen den beiden politischen Konflikten."
     },
     {
-      "topic": "Brennpunkt / Schauplatz 2",
-      "mainstream_view": "Einschätzung westlicher Medien: US-Russland-Spannungen eskalieren",
-      "brics_view": "Einschätzung der BRICS-Staaten: Die USA setzen einen Vertrauensbruch fort",
-      "alternative_view": "Einschätzung unabhängiger Analysten: Die internationale Gemeinschaft sollte handeln, um die Spannungen zu lösen"
+      "topic": "G20-Gipfel",
+      "mainstream_view": "Westeuropa hält an den Gipfeln fest",
+      "brics_view": "BRICS-Staaten fordern mehr politische Einmischung in den G20",
+      "alternative_view": "Alternative Medien sprechen von einem zentralen Ziel: Die Unterstützung der Regierung in Indien."
     },
     {
-      "topic": "Brennpunkt / Schauplatz 3",
-      "mainstream_view": "Einschätzung westlicher Medien: China expandiert wirtschaftlich in Afrika",
-      "brics_view": "Einschätzung der BRICS-Staaten: Die chinesische Initiative hat große Chancen nach sich gezogen",
-      "alternative_view": "Einschätzung unabhängiger Analysten: Afrika muss sich auf die möglichen Folgen der chinesischen Expansion vorbereiten"
+      "topic": "Krise in Syrien",
+      "mainstream_view": "Westeuropa befürchtet den Aufstieg der Islamisten",
+      "brics_view": "BRICS-Staaten sehen Syrien als Chance zur Stärkung des internationalen Fehdvorteils",
+      "alternative_view": "Unabhängige Analysen sprechen von einer unüberbrückbaren Kluft zwischen den beiden politischen Konflikten."
     }
   ],
   "domestic_politics": [
     {
-      "country_region": "Land / Region 1",
-      "topic": "Innenpolitisches Thema: Neuwahl in den USA",
-      "status": "Aktueller Stand: Eingeleitet, umgesetzt wird nächste Woche",
-      "impact": "Geopolitische Folge: Verteidigungsfähigkeit der USA beeinflusst"
+      "country_region": "USA",
+      "topic": "Krise im Iran-Krieg",
+      "status": "Aktiv ist der Krieg",
+      "impact": "Basiswährung und Safe-Haven-Anlage"
     },
     {
-      "country_region": "Land / Region 2",
-      "topic": "Innenpolitisches Thema: Wahlen in Indien",
-      "status": "Aktueller Stand: Wahlen abgeschlossen",
-      "impact": "Geopolitische Folge: Wirtschafts- und Handelspartnerschaft zwischen Indien und China beeinflusst"
+      "country_region": "China",
+      "topic": "Politik im Iran-Krieg",
+      "status": "Aktiv im Krieg",
+      "impact": "Hohe politische Spannungen mit dem Westen"
     },
     {
-      "country_region": "Land / Region 3",
-      "topic": "Innenpolitisches Thema: Wahlen in Russland",
-      "status": "Aktueller Stand: Eingeleitet, Ergebnis ist noch offen",
-      "impact": "Geopolitische Folge: Wirtschafts- und Handelspartnerschaft zwischen Russland und China beeinflusst"
+      "country_region": "EU",
+      "topic": "Finanzpolitik",
+      "status": "Aktiv in Europa",
+      "impact": "Basiswährung und Safe-Haven-Anlage"
     }
   ],
   "stock_picks": {
@@ -55,127 +107,127 @@
       {
         "ticker": "TSLA",
         "name": "Tesla",
-        "sector": "Autoindustrie",
-        "reason": "Begründung laut News: Fortschritt in der Technologie und Marktführer"
+        "sector": "Gewerbe",
+        "reason": "Basiswährung und Safe-Haven-Anlage"
       },
       {
-        "ticker": "NVDA",
-        "name": "NVIDIA",
+        "ticker": "AAPL",
+        "name": "Apple",
+        "sector": "Gewerbe",
+        "reason": "Niedrige Kurse und hohe potenzielle Wachstumschancen"
+      },
+      {
+        "ticker": "GOOGL",
+        "name": "Alphabet",
         "sector": "Technologie",
-        "reason": "Begründung laut News: Starke Leistung im Bereich der halbleiterten Technologie"
-      },
-      {
-        "ticker": "VISA",
-        "name": "Visa",
-        "sector": "Finanzdienstleistungen",
-        "reason": "Begründung laut News: Starke Leistung aufgrund der zunehmenden digitalen Bezahlungsmethoden"
+        "reason": "Basiswährung und Safe-Haven-Anlage"
       },
       {
         "ticker": "MSFT",
         "name": "Microsoft",
         "sector": "Technologie",
-        "reason": "Begründung laut News: Fortschritt in der Technologie und starkes Potenzial an der Börse"
+        "reason": "Niedrige Kurse und hohe potenzielle Wachstumschancen"
       },
       {
-        "ticker": "AAPL",
-        "name": "Apple",
+        "ticker": "NVDA",
+        "name": "NVIDIA",
         "sector": "Technologie",
-        "reason": "Begründung laut News: Starke Leistung aufgrund der zunehmenden Nachfrage nach mobilen Geräten und Digitalprodukten"
+        "reason": "Hohe politische Spannungen mit dem Westen"
       }
     ],
     "flop_5_sells": [
       {
-        "ticker": "F",
-        "name": "Ford",
-        "sector": "Autoindustrie",
-        "reason": "Gegenwind laut News: Verluste in der Automobilindustrie"
+        "ticker": "FB",
+        "name": "Facebook",
+        "sector": "Soziale Medien",
+        "reason": "Basiswährung und Safe-Haven-Anlage"
       },
       {
-        "ticker": "GE",
-        "name": "General Electric",
+        "ticker": "TWTR",
+        "name": "Twitter",
+        "sector": "Soziale Medien",
+        "reason": "Niedrige Kurse und hohe potenzielle Wachstumschancen"
+      },
+      {
+        "ticker": "AMZN",
+        "name": "Amazon",
+        "sector": "Gewerbe",
+        "reason": "Hohes Konstruktionsrisiko und hohe Verzinsungen"
+      },
+      {
+        "ticker": "GOOG",
+        "name": "Alphabet",
         "sector": "Technologie",
-        "reason": "Gegenwind laut News: schwaches Ergebnis aufgrund der anhaltenden Krise"
+        "reason": "Hohe politische Spannungen mit dem Westen"
       },
       {
-        "ticker": "GM",
-        "name": "General Motors",
-        "sector": "Autoindustrie",
-        "reason": "Gegenwind laut News: negative Auswirkungen auf die Automobilindustrie"
-      },
-      {
-        "ticker": "X",
-        "name": "United Airlines",
-        "sector": "Luftfahrt",
-        "reason": "Gegenwind laut News: schwache Leistung aufgrund der anhaltenden Krise in der Luftfahrtbranche"
-      },
-      {
-        "ticker": "AIG",
-        "name": "American International Group",
-        "sector": "Versicherungswesen",
-        "reason": "Gegenwind laut News: schwache Leistung aufgrund der anhaltenden Krise in der Finanzbranche"
+        "ticker": "SQ",
+        "name": "Square",
+        "sector": "Gewerbe",
+        "reason": "Basiswährung und Safe-Haven-Anlage"
       }
     ]
   },
   "conflict_hotspots": [
     {
-      "region": "Krisenherd 1",
-      "actors": "US, Iran",
-      "escalation_level": "KRITIK",
-      "catalyst": "Auslöser laut News: der Konflikt im Iran",
-      "impact": "Märkte: geopolitische Spannungen und Risiko für eine neue Konflikt Eskalation",
+      "region": "Mittlerer Osten",
+      "actors": "Iran, USA, BRICS-Staaten",
+      "escalation_level": "ALARM",
+      "catalyst": "IRAN-KRIEG",
+      "impact": "Basiswährung und Safe-Haven-Anlage",
       "lat": 0.0,
       "lng": 0.0
     },
     {
-      "region": "Krisenherd 2",
-      "actors": "US, Russland",
-      "escalation_level": "KRITIK",
-      "catalyst": "Auslöser laut News: US-Russland-Spannungen",
-      "impact": "Märkte: geopolitische Spannungen und Risiko für eine neue Konflikt Eskalation",
+      "region": "Europa",
+      "actors": "BRICS-Staaten, Westeuropa",
+      "escalation_level": "HOCH",
+      "catalyst": "IRAN-KRIEG",
+      "impact": "Basiswährung und Safe-Haven-Anlage",
       "lat": 0.0,
       "lng": 0.0
     },
     {
-      "region": "Krisenherd 3",
-      "actors": "China, Indien",
-      "escalation_level": "KRITIK",
-      "catalyst": "Auslöser laut News: chinesische Expansion in Afrika",
-      "impact": "Märkte: geopolitische Spannungen und Risiko für eine neue Konflikt Eskalation",
+      "region": "USA",
+      "actors": "USA, BRICS-Staaten, Westeuropa",
+      "escalation_level": "HOCH",
+      "catalyst": "IRAN-KRIEG",
+      "impact": "Basiswährung und Safe-Haven-Anlage",
+      "lat": 0.0,
+      "lng": 0.0
+    },
+    {
+      "region": "China",
+      "actors": "China, BRICS-Staaten",
+      "escalation_level": "MITTEL-HOCH",
+      "catalyst": "IRAN-KRIEG",
+      "impact": "Hohe politische Spannungen mit dem Westen",
       "lat": 0.0,
       "lng": 0.0
     }
   ],
   "systemic_risks": [
     {
-      "topic": "Systemisches Risiko 1",
-      "category": "Politische Spannungen",
-      "risk_level": "KRITIK",
-      "status": "Status",
-      "impact": "Folge: Risiko für eine neue Konflikt Eskalation"
+      "topic": "Finanzielle Instabilität",
+      "category": "Finanzen",
+      "risk_level": "HOCH",
+      "status": "Aktiv in den Märkten",
+      "impact": "Basiswährung und Safe-Haven-Anlage"
     },
     {
-      "topic": "Systemisches Risiko 2",
-      "category": "Wirtschaftskrise",
-      "risk_level": "KRITIK",
-      "status": "Status",
-      "impact": "Folge: schwache Wirtschaftsleistung und Risiko für eine weitere Verschlechterung"
+      "topic": "Politische Instabilität",
+      "category": "Politik",
+      "risk_level": "HOCH",
+      "status": "Aktiv in den Märkten",
+      "impact": "Basiswährung und Safe-Haven-Anlage"
     },
     {
-      "topic": "Systemisches Risiko 3",
-      "category": "Klimawandel",
+      "topic": "Militärische Konsequenzen",
+      "category": "Kriegsführung",
       "risk_level": "MITTEL",
-      "status": "Status",
-      "impact": "Folge: Risiko für Umweltzerstörung und negative Folgen für die Menschheit"
+      "status": "Akut in den Märkten",
+      "impact": "Basiswährung und Safe-Haven-Anlage"
     }
   ],
-  "assets": [
-    {
-      "name": "Gold & Silber",
-      "signal": "GREEN",
-      "signal_text": " 🟢 Attraktiv",
-      "trend": "Bullischem Trend, positiv",
-      "driver": "Fiskalisierung des Wertes des Goldes"
-    }
-  ],
-  "timestamp": "23.07.2026 - 00:05 UTC"
+  "timestamp": "23.07.2026 - 00:14 UTC"
 }
