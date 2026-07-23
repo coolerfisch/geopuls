@@ -1,39 +1,10 @@
-name: GeoPuls 48h Update
-
-on:
-  schedule:
-    - cron: '0 4 */2 * *' # Alle 48 Stunden um 04:00 UTC
-  workflow_dispatch: # Manuelles Ausführen per Klick
-
-jobs:
-  update-dashboard:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Repository auschecken
-        uses: actions/checkout@v4
-
-      - name: Python einrichten
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Abhängigkeiten installieren
-        run: |
-          python -m pip install --upgrade pip
-          pip install anthropic feedparser requests yfinance
-
-      - name: Dashboard Skript ausführen
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          python update_dashboard.py
-
       - name: Änderungen committen und pushen
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data.json history.json || true
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatisches GeoPuls Update [Claude 3.5 Sonnet]" && git push)
+          if ! git diff --quiet || ! git diff --staged --quiet; then
+            git commit -m "Automatisches GeoPuls Update [Claude 3.5 Sonnet]"
+            git pull --rebase origin main
+            git push
+          fi
