@@ -14,6 +14,13 @@ from groq import Groq
 from openai import OpenAI
 
 # ============================================================
+# DYNAMISCHER ZEITANKER (ZUKUNFTSSICHER)
+# ============================================================
+NOW_UTC = datetime.utcnow()
+CURRENT_DATE_STR = NOW_UTC.strftime("%d.%m.%Y")
+CURRENT_YEAR = NOW_UTC.year
+
+# ============================================================
 # API CLIENTS INITIALISIERUNG
 # ============================================================
 groq_key = os.environ.get("GROQ_API_KEY", "").strip().strip('"').strip("'")
@@ -119,16 +126,12 @@ def get_live_military_flights():
     mil_prefixes = ("FORTE", "NATO", "HOMER", "JAKE", "LAGR", "NCHO", "DUKE", "RCH", "BRK", "CMB", "REDYE", "MAGE", "VALK", "DRAGON", "SENTRY")
     flights = []
     
-    # OpenSky Login aus Umgebungsvariablen (Secrets) einlesen
     opensky_user = os.environ.get("OPENSKY_USER", "").strip()
     opensky_pass = os.environ.get("OPENSKY_PASSWORD", "").strip()
     auth_data = (opensky_user, opensky_pass) if opensky_user and opensky_pass else None
 
     try:
-        # Bounding Box: Europa, Schwarzes Meer, Ost-Mittelmeer, Nahost (Lat 20-70, Lng -10-50)
         params = {"lamin": 20.0, "lomin": -10.0, "lamax": 70.0, "lomax": 50.0}
-        
-        # Abfrage mit Authentifizierung für höhere Rate Limits
         res = requests.get(url, params=params, auth=auth_data, headers={"User-Agent": "Mozilla/5.0"}, timeout=6)
         
         if res.status_code == 200:
@@ -140,10 +143,10 @@ def get_live_military_flights():
                     country = s[2] or "Unknown"
                     lng = s[5]
                     lat = s[6]
-                    alt = s[7]       # in Metern
+                    alt = s[7]
                     on_ground = s[8]
-                    velocity = s[9]  # in m/s
-                    heading = s[10]  # True Track Grad
+                    velocity = s[9]
+                    heading = s[10]
 
                     if lat is not None and lng is not None and not on_ground:
                         if any(callsign.startswith(prefix) for prefix in mil_prefixes):
@@ -161,7 +164,6 @@ def get_live_military_flights():
     except Exception as e:
         print(f"OpenSky Live ADS-B Hinweis: {e}")
 
-    # Fallback-Daten, falls Transponder stummgeschaltet sind oder API-Limit greift
     if not flights:
         print("Hinweis: Transponder passiv oder API-Limit. Nutze simulierte OSINT-Patrouillen.")
         flights = [
@@ -378,9 +380,12 @@ def filter_feeds(text):
         print("Hinweis: Kein Groq Key. Überspringe Stufe-1 Pre-Filter.")
         return text[:50000]
     print("Filtere alle Feeds via Groq (Llama 3.3 70B)...")
-    prompt = """Du bist ein weltweites OSINT-Filter-Modul. 
+    prompt = f"""Du bist ein weltweites OSINT-Filter-Modul. 
 
-WICHTIGER ZEITANKER: Wir schreiben das Jahr 2026! US-Präsident ist Donald Trump (Trump-Administration). Ignoriere veraltete Vorgehensweisen oder vergangene Wahlen (wie Midterms 2024 oder Biden-Regierung).
+DYNAMISCHER ZEITANKER:
+- HEUTIGES DATUM: {CURRENT_DATE_STR} (Jahr: {CURRENT_YEAR}).
+- Verwende ausschließlich tagesaktuelle Informationen aus den Feeds und projiziere von der Gegenwart in die Zukunft.
+- Ignoriere veraltete historische Vorgehensweisen oder vergangene politische Szenarien (wie die Biden-Administration oder die US-Midterms 2024).
 
 Deine Aufgabe: Filtere die Feeds unvoreingenommen, ausgewogen und GLOBAL.
 Vergleiche die Positionen von Links (Demokraten/Progressive), Rechts (Republikaner/Konservative) und Mitte/Liberalen bei Großmächten (USA, EU, UK, BRICS).
@@ -389,7 +394,7 @@ LÖSCHE Triviales, Sport, PR, Lokalkriminalität.
 BEHALTE UNBEDINGT:
 1. INNENPOLITISCHER DRUCK & PARTEIENKÄMPFE: Wahlzyklen, Parteikongresse, Gesetzgebungsblockaden, Regierungsinstabilitäten (USA, EU, BRICS, Nahost, Afrika).
 2. ESKALATIONSSPIRALEN & SPIELTHEORIE: Truppen, NOTAMs, GPS-Jamming, Sanktionen, Manöver.
-3. HYBRIDE/NEUE BRENNPUNKTE: Pufferstaaten (Moldawien, Kaukasus), EnKLaven, Machtvakua, Cyber, maritime Nadelöhre.
+3. HYBRIDE/NEUE BRENNPUNKTE: Pufferstaaten (Moldawien, Kaukasus), Enklaven, Machtvakua, Cyber, maritime Nadelöhre.
 4. FLÜCHTLINGSSTRÖME & VERTREIBUNG: UNHCR/IOM DTM, Massenflucht als Frühwarnindikator.
 5. MONETÄRE & DIGITALE SOUVERÄNITÄT: CBDCs, EU-Chatkontrolle/Verschlüsselungsverbot, US-Verschuldung, BRICS Pay, SWIFT.
 6. MAKRO, ROHSTOFFE & LOGISTIK: Zinsen, Anleihestress, Rig Count, Gas-Storage, Frachtraten.
@@ -418,10 +423,10 @@ def run_deepseek_game_theory(context):
         print("Hinweis: DeepSeek Key (DEEPSEEK_API_KEY) nicht konfiguriert.")
         return "DeepSeek Spieltheorie-Analyse nicht verfügbar."
     print("Starte DeepSeek-R1 Spieltheorie-Analyse (deepseek-reasoner)...")
-    gt_prompt = """WICHTIGER ZEITANKER & REALITÄTS-CHECK:
-- Wir schreiben das Jahr 2026.
-- US-Präsident ist Donald Trump (Trump-Administration).
-- Erwähne NIEMALS veraltete Akteure oder Ereignisse wie 'Biden-Administration' oder 'Midterms 2024'!
+    gt_prompt = f"""DYNAMISCHER ZEITANKER & REALITÄTS-CHECK:
+- HEUTIGES DATUM IS DER {CURRENT_DATE_STR} (Jahr: {CURRENT_YEAR} und folgende).
+- Beziehe alle Analysen strikt auf die HEUTIGE politische Realität und tagesaktuelle Führungsebenen.
+- Erwähne NIEMALS veraltete historische Akteure oder Ereignisse (z. B. Biden-Administration, Midterms 2024)!
 
 Analysiere das akuteste globale Krisenereignis aus den Feeds streng spieltheoretisch.
 Setze folgende 6 Prinzipien um:
@@ -455,7 +460,9 @@ def run_gemini_macro(context, markets):
         print("Hinweis: Gemini Key nicht konfiguriert.")
         return "Gemini Makro-Analyse nicht verfügbar."
     print("Starte Gemini 2.0 Flash Makro- & Migrations-Scan...")
-    macro_prompt = """WICHTIGER ZEITANKER: Wir schreiben das Jahr 2026. US-Präsident ist Donald Trump.
+    macro_prompt = f"""DYNAMISCHER ZEITANKER:
+- HEUTIGES DATUM: {CURRENT_DATE_STR} (Jahr: {CURRENT_YEAR}).
+- Beziehe deine Analysen strikt auf die Gegenwart und nahe Zukunft.
 
 Analysiere die Feeds und Live-Finanzdaten auf:
 1. Makroökonomische Schocks (Zinsen, Inflation, Rohstoff-Nadelöhre, Seewege).
@@ -478,12 +485,13 @@ gemini_analysis = run_gemini_macro(filtered_context, live_market_context)
 # ============================================================
 # STUFE 3: CLAUDE 3.5 SONNET (CHEF-SYNTHESIZER ➔ DATA.JSON)
 # ============================================================
-orchestrator_prompt = """Du bist die 'Argus Grid Systemic Intelligence Engine' (Chef-Analyst).
+orchestrator_prompt = f"""Du bist die 'Argus Grid Systemic Intelligence Engine' (Chef-Analyst).
 Synthetisiere die Berichte der Spezial-Analysten (DeepSeek Spieltheorie + Gemini Makro/Migration) und die Live-Feeds zu einer unvoreingenommenen Gesamtlage.
 
-WICHTIGER ZEITANKER & FAKTEN-GUARDRAIL:
-- Es ist das Jahr 2026. US-Präsident ist Donald Trump (Trump-Administration).
-- Korrigiere und eliminiere jegliche Halluzinationen oder veraltete Referenzen aus Vorgängermodellen (z. B. Biden, Midterms 2024 etc.).
+DYNAMISCHER ZEITANKER & FAKTEN-GUARDRAIL:
+- HEUTIGES DATUM: {CURRENT_DATE_STR} (Jahr: {CURRENT_YEAR} und folgende).
+- Korrigiere und eliminiere jegliche Halluzinationen oder veraltete Referenzen aus den Speichermodellen (z. B. Biden, Midterms 2024 etc.).
+- Richte alle Lageberichte strikt an den heutigen Regierungen und Machtverhältnissen aus.
 
 DEINE AUFGABE:
 - Integriere die spieltheoretischen Payoffs (-3 bis +3) und das Gegenmodell.
@@ -493,52 +501,52 @@ DEINE AUFGABE:
 - DYNAMISCHE AKTIEN-ROTIERUNG: Wähle NIEMALS starr dieselben Aktien! Nutze betroffene Branchen (Shipping: FRO, ZIM; Rüstung: RHM.DE, LMT; Rohstoffe: CCJ, MP, ALB; Tech/Cyber: PLTR, CRWD).
 
 ANTWORTE AUSSCHLIESSLICH IM REIN VALIDEN JSON-FORMAT:
-{
+{{
   "daily_executive_summary": "3 prägnante Sätze zur Lage.",
   "market_regime": "Stagflationär / Geopolitische Fragmentierung / Regulierungsdruck",
-  "geoscore": {"current_score": 78, "status_label": "ERHÖHT", "previous_48h": 74},
-  "defcon_status": {"level": 3, "label": "DEFCON 3", "nuclear_risk_percent": 15, "primary_driver": "Hauptursache"},
+  "geoscore": {{"current_score": 78, "status_label": "ERHÖHT", "previous_48h": 74}},
+  "defcon_status": {{"level": 3, "label": "DEFCON 3", "nuclear_risk_percent": 15, "primary_driver": "Hauptursache"}},
   "top_overweight": "Gold, Rohstoffe & Defense",
   "top_risk": "Systemisches Hauptrisiko",
 
-  "game_theory_deep_dive": {
+  "game_theory_deep_dive": {{
     "focal_situation": "Titel des analysierten Ereignisses",
     "1_fractionated_actors": [
-      {"entity": "Akteur", "factions": [{"faction_name": "Fraktion", "divergent_interest": "Interessensabweichung", "payoff_matrix_short_term": {"action_escalate": -1, "action_cooperate": 2, "action_delay": 0}, "confidence": 85}]}
+      {{"entity": "Akteur", "factions": [{"faction_name": "Fraktion", "divergent_interest": "Interessensabweichung", "payoff_matrix_short_term": {{"action_escalate": -1, "action_cooperate": 2, "action_delay": 0}}, "confidence": 85}]}}
     ],
-    "2_time_horizon_conflict": {"short_term_one_shot_4_to_8_weeks": "Kurzfristig", "long_term_repeated_game": "Langfristig", "horizon_contradiction": "Widerspruch"},
-    "3_game_structure_and_payoffs": {
+    "2_time_horizon_conflict": {{"short_term_one_shot_4_to_8_weeks": "Kurzfristig", "long_term_repeated_game": "Langfristig", "horizon_contradiction": "Widerspruch"}},
+    "3_game_structure_and_payoffs": {{
       "type": "Chicken Game / Gefangenendilemma",
       "justification": "Begründung",
       "payoff_assessment_scale_minus_3_to_plus_3": [{"scenario_combination": "Akteur A vs B", "payoff_actor_A": 2, "payoff_actor_B": -2, "confidence": 80}]
-    },
-    "4_signaling_and_information": {"information_asymmetry": "Unvollständig", "cheap_talk": ["Bluffs"], "costly_signals": ["Reale Kosten-Handlungen"]},
-    "5_equilibria_and_commitment": {"plausible_nash_equilibria": "Nash-Gleichgewicht", "commitment_problem": "Bindungsproblem", "confidence": 85},
-    "6_falsification_counter_model": {"alternative_interpretation": "Stärkste Gegenlesart", "necessary_conditions": "Bedingungen für Gegenlesart"},
+    }},
+    "4_signaling_and_information": {{"information_asymmetry": "Unvollständig", "cheap_talk": ["Bluffs"], "costly_signals": ["Reale Kosten-Handlungen"]}},
+    "5_equilibria_and_commitment": {{"plausible_nash_equilibria": "Nash-Gleichgewicht", "commitment_problem": "Bindungsproblem", "confidence": 85}},
+    "6_falsification_counter_model": {{"alternative_interpretation": "Stärkste Gegenlesart", "necessary_conditions": "Bedingungen für Gegenlesart"}},
     "behavioral_framing_check": "Verhalten ist konsistent mit Nutzenfunktion"
-  },
+  }},
 
   "domestic_politics_analysis": [
-    {
+    {{
       "region_actor": "USA / EU / UK / BRICS / Naher Osten / Afrika",
       "key_event_trend": "Innenpolitisches Ereignis / Parteiendynamik (Dem/GOP/Left/Right)",
       "regime_stability": "STABIL / FRAGIL / ESKALATIV",
       "geopolitical_impact": "Konkrete Auswirkung auf Außenpolitik & Märkte"
-    }
+    }}
   ],
 
   "stress_testing_scenarios": [
-    {
+    {{
       "scenario_name": "Szenario Name", "probability_pct": 40, "timeframe": "1-3 Monate",
       "trigger_events": ["Auslöser 1"], "cascade_chain": ["Kaskade 1", "Kaskade 2"],
       "winners_long": [{"asset": "Asset", "reason": "Grund"}],
       "losers_short": [{"asset": "Asset", "reason": "Grund"}],
       "hedging_strategy": "Absicherung"
-    }
+    }}
   ],
 
   "conflict_hotspots": [
-    {
+    {{
       "region": "Region",
       "actors": "Akteure",
       "status_type": "AKTIV",
@@ -547,18 +555,18 @@ ANTWORTE AUSSCHLIESSLICH IM REIN VALIDEN JSON-FORMAT:
       "impact": "Folge / Risiko",
       "lat": 47.01,
       "lng": 28.86
-    }
+    }}
   ],
 
   "digital_and_monetary_sovereignty": [
-    {"topic": "CBDC / Chatkontrolle / Schulden", "actor": "Institution", "trend": "Beschleunigt", "systemic_impact": "Bürgerrechte/Geld", "market_implication": "Kapitalreaktion"}
+    {{"topic": "CBDC / Chatkontrolle / Schulden", "actor": "Institution", "trend": "Beschleunigt", "systemic_impact": "Bürgerrechte/Geld", "market_implication": "Kapitalreaktion"}}
   ],
 
-  "stock_picks": {
+  "stock_picks": {{
     "top_5_buys": [{"ticker": "TICKER", "name": "Name", "sector": "Sektor", "reason": "Tagesaktueller Grund"}],
     "flop_5_sells": [{"ticker": "TICKER", "name": "Name", "sector": "Sektor", "reason": "Tagesaktueller Grund"}]
-  }
-}
+  }}
+}}
 """
 
 user_payload = f"""
@@ -610,7 +618,7 @@ if not final_json_text:
     raise RuntimeError("Kritischer Fehler: Keine API konnte das finale JSON erzeugen.")
 
 data = repair_and_parse_json(final_json_text)
-data["timestamp"] = datetime.utcnow().strftime("%d.%m.%Y - %H:%M UTC")
+data["timestamp"] = NOW_UTC.strftime("%d.%m.%Y - %H:%M UTC")
 
 # DIREKT-INJEKTION DER LIVE ADS-B FLUGDATEN IN DIE DATA.JSON
 data["live_recon_flights"] = live_recon_flights
