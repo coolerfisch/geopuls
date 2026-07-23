@@ -1,201 +1,95 @@
 {
-  "daily_executive_summary": "Die globale politische und wirtschaftliche Lage ist angespannt. Der Iran-Konflikt eskaliert, und die USA haben einen Atom-Deal mit Saudi-Arabien unterzeichnet. Die globalen Märkte zeigen Mixed-Signale, mit Gewinnen im Bereich von Gold, Öl und bestimmten Technologie-Aktien, aber Verlusten im Bereich von Tesla und anderen. Der Defcon-Status ist auf 3 erhöht worden, was auf eine erhöhte militärische Bereitschaft hinweist.",
-  "global_risk_score": 80,
-  "market_regime": "Volatil",
-  "top_overweight": "Verteidigungs- und Technologie-Aktien",
-  "top_risk": "Iran-Konflikt und geopolitische Spannungen",
+  "daily_executive_summary": "Marktregime stabil, Gold und Silber attraktiv. Quellen: Marktdaten und Wirtschaftsindikatoren (Gewicht: 0.8). Beachte: Unbestätigte Behauptungen aus Reddit/Blogs wurden berücksichtigt, aber mit geringerem Gewicht (0.2) bewertet.",
+  "global_risk_score": 70,
+  "market_regime": "Bullenmarkt",
+  "top_overweight": [
+    "Gold",
+    "Silber"
+  ],
+  "top_risk": [
+    "S&P 500"
+  ],
   "defcon_status": {
-    "level": 3,
-    "label": "Erhöhte Bereitschaft",
-    "nuclear_risk_percent": 20,
-    "primary_driver": "Iran-Konflikt"
+    "level": 2,
+    "label": "Stabil",
+    "nuclear_risk_percent": 5,
+    "primary_driver": "Marktregime"
   },
   "narrative_divergence": [
     {
-      "topic": "Iran-Konflikt",
-      "mainstream_view": "USA und ihre Verbündeten gegen den Iran",
-      "brics_view": "Iran hat das Recht, seine Interessen zu verteidigen",
-      "alternative_view": "Der Konflikt wird von externen Kräften angeheizt"
-    },
-    {
-      "topic": "Atom-Deal mit Saudi-Arabien",
-      "mainstream_view": "USA sichern ihre Interessen in der Region",
-      "brics_view": "Der Deal gefährdet die regionale Stabilität",
-      "alternative_view": "Der Deal dient der Bekämpfung des Terrorismus"
+      "topic": "GEO-STRATEGISCHE Situation",
+      "mainstream_view": "Agenturen",
+      "brics_view": "Diplomatie",
+      "alternative_view": "Alternativ"
     }
   ],
   "domestic_politics": [
     {
-      "country_region": "USA",
-      "topic": "Präsidentschaftswahlen",
-      "status": "Unentschieden",
-      "impact": "Hoher Einfluss auf die globale Politik"
-    },
-    {
-      "country_region": "Deutschland",
-      "topic": "Regierungskrise",
-      "status": "Akut",
-      "impact": "Einfluss auf die europäische Wirtschaft"
+      "country_region": "Saudi-Arabien",
+      "topic": "Uran-Bereich",
+      "status": "Hohe Risikolage",
+      "impact": "Schwere Auswirkungen auf Globalwirtschaft",
+      "source_reliability": 0.8
     }
   ],
   "stock_picks": {
     "top_5_buys": [
       {
-        "ticker": "RTX",
-        "name": "Raytheon Technologies",
-        "sector": "Verteidigung",
-        "reason": "Erhöhte Nachfrage nach Verteidigungsgütern"
+        "ticker": "GC=F",
+        "name": "Gold",
+        "sector": "Edelmetalle",
+        "reason": "Stabile Marktlage"
       },
       {
-        "ticker": "LMT",
-        "name": "Lockheed Martin",
-        "sector": "Verteidigung",
-        "reason": "Erhöhte Nachfrage nach Verteidigungsgütern"
-      },
-      {
-        "ticker": "GOOGL",
-        "name": "Alphabet",
-        "sector": "Technologie",
-        "reason": "Starker Wachstumstrend"
-      },
-      {
-        "ticker": "MSFT",
-        "name": "Microsoft",
-        "sector": "Technologie",
-        "reason": "Starker Wachstumstrend"
-      },
-      {
-        "ticker": "AMZN",
-        "name": "Amazon",
-        "sector": "E-Commerce",
-        "reason": "Starker Wachstumstrend"
+        "ticker": "SI=F",
+        "name": "Silber",
+        "sector": "Edelmetalle",
+        "reason": "Stabile Marktlage"
       }
     ],
     "flop_5_sells": [
       {
-        "ticker": "TSLA",
-        "name": "Tesla",
-        "sector": "Automobil",
-        "reason": "Überbewertung und sinkende Nachfrage"
-      },
-      {
-        "ticker": "AAPL",
-        "name": "Apple",
-        "sector": "Technologie",
-        "reason": "Sinkende Nachfrage nach Smartphones"
-      },
-      {
-        "ticker": "FB",
-        "name": "Facebook",
-        "sector": "Soziale Medien",
-        "reason": "Sinkende Nutzerzahlen und regulatorischer Druck"
-      },
-      {
-        "ticker": "BABA",
-        "name": "Alibaba",
-        "sector": "E-Commerce",
-        "reason": "Wachsende Konkurrenz und regulatorischer Druck"
-      },
-      {
-        "ticker": "GM",
-        "name": "General Motors",
-        "sector": "Automobil",
-        "reason": "Sinkende Nachfrage und hohe Fixkosten"
+        "ticker": "SPY",
+        "name": "S&P 500",
+        "sector": "Index/ETF",
+        "reason": "Niedrige Zinssätze"
       }
     ]
   },
   "conflict_hotspots": [
     {
-      "region": "Naher Osten",
-      "actors": "USA, Iran, Saudi-Arabien",
+      "region": "Vorderer Orient",
+      "actors": "Saudi-Arabien, Iran",
       "escalation_level": "KRITISCH",
-      "catalyst": "Iran-Konflikt",
-      "impact": "Hoher Einfluss auf die globale Energieversorgung",
-      "lat": 30.0,
-      "lng": 45.0
-    },
-    {
-      "region": "Ukraine",
-      "actors": "Ukraine, Russland",
-      "escalation_level": "HOCH",
-      "catalyst": "Territorialkonflikt",
-      "impact": "Einfluss auf die europäische Sicherheit",
-      "lat": 50.0,
-      "lng": 30.0
-    },
-    {
-      "region": "Südchina",
-      "actors": "China, USA",
-      "escalation_level": "HOCH",
-      "catalyst": "Handelskonflikt",
-      "impact": "Einfluss auf die globale Wirtschaft",
-      "lat": 20.0,
-      "lng": 110.0
+      "catalyst": "Uran-Bereich",
+      "impact": "Schwere Auswirkungen auf Globalwirtschaft",
+      "lat": 24.5,
+      "lng": 39.5
     }
   ],
   "systemic_risks": [
     {
-      "topic": "Klimawandel",
-      "category": "Umwelt",
-      "risk_level": "HOCH",
-      "status": "Akut",
-      "impact": "Hoher Einfluss auf die globale Wirtschaft und Gesellschaft"
-    },
-    {
-      "topic": "Pandemien",
-      "category": "Gesundheit",
-      "risk_level": "HOCH",
-      "status": "Akut",
-      "impact": "Hoher Einfluss auf die globale Wirtschaft und Gesellschaft"
-    },
-    {
-      "topic": "Cyber-Angriffe",
-      "category": "Sicherheit",
+      "topic": "Niedrige Zinssätze",
+      "category": "Monetäre Politik",
       "risk_level": "MITTEL",
-      "status": "Akut",
-      "impact": "Einfluss auf die globale Wirtschaft und Gesellschaft"
+      "status": "Steigerung der geldpolitischen Risikolage",
+      "impact": "Schwere Auswirkungen auf Globalwirtschaft"
     }
   ],
   "assets": [
     {
-      "name": "Gold",
+      "name": "Gold und Silber",
       "signal": "GREEN",
-      "signal_text": "Safe-Haven-Anlage",
-      "trend": "Aufwärts",
-      "driver": "Kriegsangst und Inflation"
-    },
-    {
-      "name": "Öl",
-      "signal": "GREEN",
-      "signal_text": "Erhöhte Nachfrage",
-      "trend": "Aufwärts",
-      "driver": "Iran-Konflikt und Wachstum in Asien"
-    },
-    {
-      "name": "Technologie-Aktien",
-      "signal": "GREEN",
-      "signal_text": "Starker Wachstumstrend",
-      "trend": "Aufwärts",
-      "driver": "Innovation und Nachfrage"
+      "signal_text": " Attraktiv",
+      "trend": "Steigender Trend",
+      "driver": "Marktregime"
     }
   ],
   "scenarios": [
     {
-      "title": "S1: Iran-Konflikt eskaliert",
-      "prob": 40
-    },
-    {
-      "title": "S2: Atom-Deal mit Saudi-Arabien führt zu regionaler Stabilität",
-      "prob": 30
-    },
-    {
-      "title": "S3: Globale Wirtschaft erlebt eine Rezession",
-      "prob": 15
-    },
-    {
-      "title": "S4: Klimawandel führt zu globalen Unruhen",
-      "prob": 15
+      "title": "Mittelalterliche Marktphase",
+      "prob": 0.45
     }
   ],
-  "timestamp": "23.07.2026 - 00:27 UTC"
+  "timestamp": "23.07.2026 - 01:04 UTC"
 }
