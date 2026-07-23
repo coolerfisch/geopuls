@@ -1,51 +1,41 @@
-name: GeoPuls 48h Update
+name: Argus Grid Multi-LLM Update
 
 on:
   schedule:
-    - cron: '0 4 */2 * *' # Alle 48 Stunden um 04:00 UTC
-  workflow_dispatch: # Manuelles Ausführen per Klick
+    # Laufen alle 48 Stunden um 04:00 Uhr UTC
+    - cron: '0 4 */2 * *'
+  workflow_dispatch: # Erlaubt das manuelle Auslösen per Button in GitHub
 
 jobs:
-  update-dashboard:
+  update-data:
     runs-on: ubuntu-latest
-    timeout-minutes: 5 # Verhindert unendliches Hängen
 
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Holt die komplette Historie für sauberes Rebasing
 
-      - name: Python einrichten
+      - name: Python 3.11 einrichten
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Abhängigkeiten installieren
+      - name: Benötigte Python-Bibliotheken installieren
         run: |
           python -m pip install --upgrade pip
-          pip install anthropic feedparser requests yfinance openai
+          pip install anthropic feedparser requests yfinance groq openai
 
-      - name: Dashboard Skript ausführen
+      - name: Multi-LLM Dashboard Skript ausführen
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: |
           python update_dashboard.py
 
-      - name: Änderungen committen und pushen
-        env:
-          GIT_TERMINAL_PROMPT: '0' # Verhindert interaktives Warten im Terminal
+      - name: Geänderte data.json zurück ins Repository committen
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          git fetch origin main
-          git add data.json history.json knowledge_graph.json || true
-          
-          if ! git diff --quiet || ! git diff --staged --quiet; then
-            git commit -m "Automatisches GeoPuls Update [Claude 3.5 Sonnet]" || true
-            git pull origin main --rebase -X theirs || true
-            git push origin main
-          fi
+          git add data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-Update Argus Grid Data [skip ci]" && git push)
