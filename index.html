@@ -223,13 +223,39 @@
       font-size: 0.9rem;
     }
 
-    /* MAP CONTAINER */
+    /* MAP CONTAINER & HOTSPOT LIST */
     #hotspot-map {
       height: 350px;
       width: 100%;
       border-radius: 8px;
       border: 1px solid var(--border-color);
       margin-top: 10px;
+    }
+
+    .hotspots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .hotspot-item {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-left: 3px solid var(--accent-gold);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .hotspot-item.hoch {
+      border-left-color: var(--accent-red);
+    }
+
+    .hotspot-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
     }
 
     /* TABELLEN STYLES (STOCKS & SOUVERÄNITÄT) */
@@ -262,6 +288,12 @@
     }
 
     /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+      .card[style*="span 2"] {
+        grid-column: span 1 !important;
+      }
+    }
+
     @media (max-width: 768px) {
       header { flex-direction: column; align-items: flex-start; gap: 15px; }
       .kpi-grid { grid-template-columns: 1fr 1fr; }
@@ -319,7 +351,7 @@
   <!-- MAIN DASHBOARD CONTENT GRID -->
   <div class="dashboard-grid">
 
-    <!-- 1. SPIELTHEORETISCHES GUTACHTEN (DEEPSEEK R1 ENGINE - NURFÜR DETAILED) -->
+    <!-- 1. SPIELTHEORETISCHES GUTACHTEN (DEEPSEEK R1 ENGINE - NUR FÜR DETAILED) -->
     <div class="card detailed-section game-theory-card">
       <h2>♟️ Spieltheoretisches Gutachten (DeepSeek-R1 Engine)</h2>
       <div id="gt-focal-title" class="focal-title">Analyse wird geladen...</div>
@@ -358,10 +390,13 @@
       <div id="stress-scenarios-container" class="dashboard-grid" style="margin-bottom: 0;"></div>
     </div>
 
-    <!-- 3. HOTSPOTS & MIGRATION CARD (BEIDE MODI) -->
+    <!-- 3. HOTSPOTS & MIGRATION CARD (MIT NUTZUNG DER FREIEN FLÄCHE DARUNTER) -->
     <div class="card" style="grid-column: span 2;">
       <h2>🗺️ Konfliktherde & Migrationsbewegungen</h2>
       <div id="hotspot-map"></div>
+      
+      <!-- NEU: Detaillierte Hotspot-Kacheln füllen den Freiraum -->
+      <div id="hotspots-list-container"></div>
     </div>
 
     <!-- 4. AKTIEN ALLOKATION (STOCK PICKS) -->
@@ -562,8 +597,10 @@
           document.getElementById('sovereignty-table').innerHTML = sovHTML;
         }
 
-        // 7. Karte mit Hotspots
-        initMap(data.conflict_hotspots || []);
+        // 7. Karte & Untere Hotspot-Liste initialisieren
+        const hotspots = data.conflict_hotspots || [];
+        initMap(hotspots);
+        renderHotspotsList(hotspots);
 
       } catch (e) {
         console.error("Fehler beim Laden des Dashboards:", e);
@@ -603,6 +640,36 @@
           `);
         }
       });
+    }
+
+    // HOTSPOT DETAILS UNTER DER KARTE RENDERN
+    function renderHotspotsList(hotspots) {
+      if (!hotspots || hotspots.length === 0) return;
+      
+      let hsHTML = '<div class="hotspots-grid">';
+      hotspots.forEach(spot => {
+        const isHigh = spot.escalation_level === 'HOCH';
+        const levelClass = isHigh ? 'hoch' : '';
+        const badgeColor = isHigh ? 'var(--accent-red)' : 'var(--accent-gold)';
+        
+        hsHTML += `
+          <div class="hotspot-item ${levelClass}">
+            <div class="hotspot-header">
+              <strong style="font-size: 0.95rem; color: var(--accent-cyan);">${spot.region}</strong>
+              <span style="color: ${badgeColor}; font-size: 0.75rem; font-weight: bold; border: 1px solid ${badgeColor}; padding: 1px 6px; border-radius: 4px;">${spot.escalation_level || 'AKTIV'}</span>
+            </div>
+            <div style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 4px;">
+              <strong>Akteure:</strong> ${spot.actors}
+            </div>
+            <div style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.4;">
+              ${spot.impact || spot.catalyst || ''}
+            </div>
+          </div>
+        `;
+      });
+      hsHTML += '</div>';
+      
+      document.getElementById('hotspots-list-container').innerHTML = hsHTML;
     }
 
     // STARTE DASHBOARD BEIM LADEN DER SEITE
