@@ -1,6 +1,66 @@
 {
-  "daily_executive_summary": "Der Ukraine-Konflikt bleibt in einem strategischen Patt verankert, wobei beide Seiten auf Abnutzung setzen, während innenpolitische Zwänge in den USA und der EU die langfristige Unterstützung für Kiew belasten. Ein starker Anstieg der Ölpreise (+7%) und ein Anstieg des VIX (+12%) signalisieren eine zunehmende Risikoaversion, die durch geopolitische Spannungen und Inflationssorgen verstärkt wird. Die Märkte bewegen sich in einem Regime der geopolitischen Fragmentierung, wobei defensive Sektoren und Rohstoffe gegenüber zyklischen Werten bevorzugt werden.",
-  "market_regime": "Geopolitische Fragmentierung / Stagflationär",
+  "ampel_status": "GELB",
+  "ampel_reason_simple": "Begrenzte militärische Provokation Russlands im Baltikum mit hohem Eskalationsrisiko und unklarer NATO-Reaktionsschwelle.",
+  "daily_executive_summary_simple": "Russland testet mit einer militärischen Übung im Baltikum die NATO-Entschlossenheit, während die Allianz intern über die Art der Reaktion debattiert. Die Märkte reagieren nervös mit Flucht in sichere Anlagen wie Gold, während die geopolitische Spannung die Energiepreise volatil hält.",
+  "simple_key_takeaways": [
+    "Russland führt eine begrenzte militärische Aktion im Baltikum durch, die als Test für die NATO-Glaubwürdigkeit gilt.",
+    "Die NATO steht vor der Entscheidung, Artikel 5 zu aktivieren, was zu einer Eskalation oder Deeskalation führen könnte.",
+    "Märkte zeigen erhöhte Volatilität, insbesondere bei Rohstoffen und sicheren Anlagen wie Gold und Defense-Aktien."
+  ],
+  "predictive_horizon": {
+    "base_case_summary": "Innerhalb von 30-90 Tagen wird die NATO wahrscheinlich eine begrenzte militärische und wirtschaftliche Antwort geben, um eine direkte Konfrontation zu vermeiden, während Russland seine Position im Baltikum konsolidiert oder zurückzieht.",
+    "base_case_probability_pct": 65,
+    "time_horizons": {
+      "30_days_tactic": "NATO aktiviert Artikel 5 mit begrenzter militärischer Verstärkung im Baltikum, wirtschaftliche Sanktionen gegen Russland, und diplomatische Verhandlungen zur Deeskalation.",
+      "90_days_macro": "Stabilisierung der Frontlinien, mögliche Teilmobilisierung der NATO, anhaltende wirtschaftliche Sanktionen und Energiepreisschocks in Europa.",
+      "360_days_structural": "Langfristige NATO-Russland-Konfrontation mit möglicher Neuordnung der europäischen Sicherheitsarchitektur, verstärkte Aufrüstung und wirtschaftliche Fragmentierung."
+    },
+    "black_swan_tail_risk": {
+      "risk_event": "NATO reagiert nicht auf den russischen Vorstoß, was zu einem Zusammenbruch der Bündnisglaubwürdigkeit und weiteren russischen Aggressionen führt.",
+      "probability_pct": 8,
+      "market_impact": "Massiver Vertrauensverlust in westliche Institutionen, Zusammenbruch der Aktienmärkte, extreme Flucht in sichere Anlagen wie Gold und Bitcoin."
+    },
+    "leading_indicators_to_watch": [
+      {
+        "indicator": "NATO-Artikel-5-Aktivierung",
+        "current_status": "Unklar, interne Debatten",
+        "critical_threshold": "Aktivierung innerhalb von 7 Tagen"
+      },
+      {
+        "indicator": "US-Dollar-Index (DXY)",
+        "current_status": "101.48 (stabil)",
+        "critical_threshold": "Anstieg über 105 (Flucht in Sicherheit)"
+      },
+      {
+        "indicator": "Goldpreis (USD/oz)",
+        "current_status": "4049.20 (leicht steigend)",
+        "critical_threshold": "Anstieg über 4200 (extreme Risikoaversion)"
+      },
+      {
+        "indicator": "VIX (Volatilitätsindex)",
+        "current_status": "18.90 (erhöht)",
+        "critical_threshold": "Anstieg über 30 (Marktpanik)"
+      }
+    ]
+  },
+  "historical_precedents": [
+    {
+      "current_event": "Russischer Vorstoß im Baltikum mit NATO-Artikel-5-Test",
+      "historical_analog": "Annexion der Krim 2014 (begrenzte Aggression, westliche Reaktion mit Sanktionen)",
+      "similarity_degree": "HOCH",
+      "historical_outcome": "Russland erreichte Teilziele (Krim-Annexion), NATO reagierte mit begrenzten Sanktionen, aber keine militärische Konfrontation.",
+      "key_divergence": "Baltikum ist NATO-Mitglied, was die Eskalationsdynamik deutlich erhöht."
+    },
+    {
+      "current_event": "NATO-Interne Debatten über Artikel-5-Reaktion",
+      "historical_analog": "NATO-Reaktion auf den Angriff auf die Türkei 2015 (Artikel 4, aber keine Artikel-5-Aktivierung)",
+      "similarity_degree": "MITTEL",
+      "historical_outcome": "Begrenzte militärische Unterstützung, aber keine kollektive Verteidigung.",
+      "key_divergence": "Baltikum ist direkter NATO-Bündnisfall, was die Reaktion zwingender macht."
+    }
+  ],
+  "daily_executive_summary": "Am 24.07.2026 eskaliert die geopolitische Lage durch einen begrenzten russischen Vorstoß im Baltikum, der als militärische Übung getarnt ist. Die NATO steht vor der Herausforderung, auf diese Provokation zu reagieren, ohne eine direkte militärische Konfrontation mit Russland zu riskieren. Die spieltheoretische Analyse zeigt, dass Russland mit einer begrenzten Aktion die NATO-Reaktionsschwelle testet, während die NATO intern über das Ausmaß der Antwort debattiert. Die Märkte reagieren mit erhöhter Volatilität, insbesondere bei Rohstoffen und sicheren Anlagen wie Gold. Die Wahrscheinlichkeit einer Fehlkalkulation und Eskalation bleibt hoch, insbesondere wenn die NATO-Signale uneinheitlich sind. Die historische Präzedenzfallanalyse deutet auf eine mögliche Wiederholung des Krim-Szenarios hin, allerdings mit höherem Eskalationsrisiko aufgrund der NATO-Mitgliedschaft des Baltikums.",
+  "market_regime": "Stagflationär / Geopolitische Fragmentierung",
   "geoscore": {
     "current_score": 78,
     "status_label": "ERHÖHT",
@@ -10,423 +70,252 @@
     "level": 3,
     "label": "DEFCON 3",
     "nuclear_risk_percent": 15,
-    "primary_driver": "Ukraine-Konflikt: Abnutzungskrieg mit Risiko einer unbeabsichtigten Eskalation"
+    "primary_driver": "Begrenzte russische Aggression im Baltikum mit NATO-Bündnisfall-Risiko"
   },
-  "top_overweight": "Gold, Rohstoffe & Defense",
-  "top_risk": "Systemisches Hauptrisiko: Anhaltender Inflationsdruck durch Energiepreisschock und geopolitische Risikoprämie",
+  "top_overweight": "Gold & Defense",
+  "top_risk": "NATO-Interne Uneinigkeit über Artikel-5-Reaktion mit Eskalationsrisiko",
   "game_theory_deep_dive": {
-    "focal_situation": "Ukraine-Konflikt: Strategisches Patt und Abnutzungskrieg",
+    "focal_situation": "Russischer Vorstoß im Baltikum und NATO-Reaktion",
     "1_fractionated_actors": [
       {
         "entity": "Russland",
         "factions": [
           {
-            "faction_name": "Exekutive (Putin/Sicherheitsrat)",
-            "divergent_interest": "Langfristige Sicherheitsgarantien vs. kurzfristige territoriale Gewinne",
-            "payoff_matrix_short_term": {
-              "action_escalate": 1,
-              "action_cooperate": -2,
-              "action_delay": 0
-            },
+            "faction_name": "Militärische Hardliner",
+            "divergent_interest": "Territoriale Expansion und NATO-Demütigung",
             "confidence": 85
           },
           {
-            "faction_name": "Militär (Generalstab)",
-            "divergent_interest": "Operative Erfolge vs. Ressourcenverschleiß",
-            "payoff_matrix_short_term": {
-              "action_escalate": 2,
-              "action_cooperate": -3,
-              "action_delay": -1
-            },
-            "confidence": 80
+            "faction_name": "Diplomatische Fraktion",
+            "divergent_interest": "Begrenzte Provokation ohne direkte Konfrontation",
+            "confidence": 70
           }
         ]
       },
       {
-        "entity": "Ukraine",
+        "entity": "NATO",
         "factions": [
           {
-            "faction_name": "Exekutive (Selenskyj/Regierung)",
-            "divergent_interest": "Westliche Hilfe vs. Kriegsmüdigkeit",
-            "payoff_matrix_short_term": {
-              "action_escalate": -1,
-              "action_cooperate": 1,
-              "action_delay": 0
-            },
-            "confidence": 80
-          },
-          {
-            "faction_name": "Militär (Oberkommando)",
-            "divergent_interest": "Nachschub vs. Gegenoffensive",
-            "payoff_matrix_short_term": {
-              "action_escalate": 1,
-              "action_cooperate": -2,
-              "action_delay": -1
-            },
-            "confidence": 85
-          }
-        ]
-      },
-      {
-        "entity": "USA (Präsident [Republikaner], Kongress gespalten)",
-        "factions": [
-          {
-            "faction_name": "Exekutive (Präsident/Kabinett)",
-            "divergent_interest": "Russland schwächen vs. innenpolitische Kosten minimieren",
-            "payoff_matrix_short_term": {
-              "action_escalate": 0,
-              "action_cooperate": 1,
-              "action_delay": -1
-            },
+            "faction_name": "Ostflanke (Polen, Baltikum)",
+            "divergent_interest": "Sofortige militärische Reaktion und Artikel-5-Aktivierung",
             "confidence": 90
           },
           {
-            "faction_name": "Kongress (Republikaner vs. Demokraten)",
-            "divergent_interest": "Kontrolle der Hilfen vs. weitere Waffenlieferungen",
-            "payoff_matrix_short_term": {
-              "action_escalate": -1,
-              "action_cooperate": 2,
-              "action_delay": 0
-            },
-            "confidence": 85
-          }
-        ]
-      },
-      {
-        "entity": "EU/NATO",
-        "factions": [
-          {
-            "faction_name": "Deutschland/Frankreich (zögerliche Fraktion)",
-            "divergent_interest": "Eskalation vermeiden vs. Bündnissolidarität",
-            "payoff_matrix_short_term": {
-              "action_escalate": -2,
-              "action_cooperate": 1,
-              "action_delay": 0
-            },
-            "confidence": 90
-          },
-          {
-            "faction_name": "Polen/Baltikum (Hardliner)",
-            "divergent_interest": "Maximale Unterstützung für Ukraine vs. eigene Sicherheit",
-            "payoff_matrix_short_term": {
-              "action_escalate": 2,
-              "action_cooperate": 3,
-              "action_delay": -1
-            },
-            "confidence": 85
+            "faction_name": "Westflanke (Deutschland, Frankreich)",
+            "divergent_interest": "Diplomatische Deeskalation und begrenzte Sanktionen",
+            "confidence": 80
           }
         ]
       }
     ],
     "2_time_horizon_conflict": {
-      "short_term_one_shot_4_to_8_weeks": "Russland versucht Geländegewinne vor dem Winter, Ukraine erwartet neue Waffenlieferungen. USA/EU entscheiden über Militärhilfe-Paket.",
-      "long_term_repeated_game": "Russland will ukrainische Infrastruktur zerstören, Ukraine setzt auf Zermürbung. Westen sorgt sich vor Kriegsmüdigkeit und US-Wahl 2028.",
-      "horizon_contradiction": "Kurzfristige militärische Erfolge (Russland) stehen im Widerspruch zu langfristigen wirtschaftlichen und politischen Kosten. Die Ukraine muss kurzfristige Verluste gegen langfristige westliche Integration abwägen."
+      "short_term_one_shot_4_to_8_weeks": "NATO entscheidet über Artikel-5-Aktivierung, Russland konsolidiert oder zieht sich zurück.",
+      "long_term_repeated_game": "Langfristige NATO-Russland-Konfrontation mit Aufrüstung und wirtschaftlicher Fragmentierung.",
+      "horizon_contradiction": "Kurzfristig will die NATO eine Eskalation vermeiden, langfristig muss sie ihre Glaubwürdigkeit verteidigen."
     },
     "3_game_structure_and_payoffs": {
-      "type": "Chicken Game / Gefangenendilemma",
-      "justification": "Beide Seiten haben Anreize zu eskalieren, um nicht als schwach zu gelten, aber die Kosten einer vollständigen Eskalation sind für beide Seiten prohibitiv. Das Nash-Gleichgewicht ist ein instabiles Patt.",
+      "type": "Chicken Game",
       "payoff_assessment_scale_minus_3_to_plus_3": [
         {
-          "scenario_combination": "Russland eskaliert vs. Ukraine eskaliert",
-          "payoff_actor_A": -2,
-          "payoff_actor_B": -2,
-          "confidence": 90
-        },
-        {
-          "scenario_combination": "Russland eskaliert vs. Ukraine kooperiert",
-          "payoff_actor_A": 2,
-          "payoff_actor_B": -3,
-          "confidence": 85
-        },
-        {
-          "scenario_combination": "Russland kooperiert vs. Ukraine eskaliert",
-          "payoff_actor_A": -3,
+          "scenario_combination": "Russland: Begrenzter Vorstoß / NATO: Begrenzte Vergeltung",
+          "payoff_actor_A": -1,
           "payoff_actor_B": 2,
-          "confidence": 85
+          "confidence": 80
         },
         {
-          "scenario_combination": "Russland kooperiert vs. Ukraine kooperiert",
-          "payoff_actor_A": 1,
-          "payoff_actor_B": 1,
-          "confidence": 80
+          "scenario_combination": "Russland: Begrenzter Vorstoß / NATO: Keine Reaktion",
+          "payoff_actor_A": 3,
+          "payoff_actor_B": -3,
+          "confidence": 70
+        },
+        {
+          "scenario_combination": "Russland: Kein Vorstoß / NATO: Defensiv",
+          "payoff_actor_A": 0,
+          "payoff_actor_B": 0,
+          "confidence": 60
         }
       ]
     },
     "4_signaling_and_information": {
-      "information_asymmetry": "Unvollständig: Westen hat bessere Aufklärung, Russland nutzt Desinformation.",
       "cheap_talk": [
-        "Russische Drohungen mit nuklearer Eskalation",
-        "Ukrainische Ankündigungen von Gegenoffensiven",
-        "Westliche Rhetorik 'solange es nötig ist'"
+        "Russische Desinformationskampagnen zur NATO-Spaltung",
+        "NATO-interne Debatten über Artikel-5-Reaktion"
       ],
       "costly_signals": [
-        "USA: Lieferung von ATACMS, F-16-Pilotenausbildung",
-        "Russland: Stationierung taktischer Nuklearwaffen in Belarus",
-        "EU: Neues Sanktionspaket (Ölpreisdeckel)"
+        "Verlegung eines US-Flugzeugträgers in die Ostsee",
+        "Russische NOTAMs und Cyberangriffe auf baltische Infrastruktur"
       ]
     },
-    "5_equilibria_and_commitment": {
-      "plausible_nash_equilibria": "Eingefrorener Konflikt entlang der aktuellen Frontlinie, da keine Seite durch einseitige Handlung kurzfristig besser dasteht.",
-      "commitment_problem": "Westen kann nicht glaubhaft versprechen, Ukraine unbegrenzt zu unterstützen (Wahlzyklen, Haushalt). Russland kann nicht glaubhaft auf weiteren Vormarsch verzichten (innenpolitischer Druck).",
-      "confidence": 85
-    },
     "6_falsification_counter_model": {
-      "alternative_interpretation": "Der Konflikt eskaliert zu einem direkten NATO-Russland-Konflikt aufgrund eines 'Unfalls' (Abschuss, Grenzverletzung).",
-      "necessary_conditions": "Radikale Fraktionen im russischen Militär oder in US-Hardliner-Kreisen provozieren eine Eskalation. Payoff: Kurzfristig +3 für Russland, wenn westliche Unterstützung zusammenbricht."
-    },
-    "behavioral_framing_check": "Verhalten ist konsistent mit Nutzenfunktion: Alle Akteure handeln rational im Rahmen ihrer Anreize und Zwänge."
+      "alternative_interpretation": "Russland führt mit chinesischer Unterstützung einen Generalangriff auf das Baltikum durch, die NATO reagiert nicht.",
+      "necessary_conditions": "Chinesische Unterstützung für Russland, NATO-interne Spaltung, US-Innenpolitik blockiert Reaktion."
+    }
   },
   "domestic_politics_analysis": [
     {
       "region_actor": "USA",
-      "key_event_trend": "Republikaner und Demokraten ringen um die Kontrolle des Repräsentantenhauses und des Senats. Präsidentschaftswahlen 2028: Frühkandidaten aus beiden Parteien treten auf.",
-      "regime_stability": "FRAGIL",
-      "geopolitical_impact": "Innenpolitische Polarisierung gefährdet langfristige Ukraine-Hilfe und schwächt die außenpolitische Handlungsfähigkeit der USA."
+      "key_event_trend": "Innenpolitische Debatten über NATO-Verpflichtungen vor der Präsidentschaftswahl 2026.",
+      "regime_stability": "STABIL",
+      "geopolitical_impact": "Mögliche Verzögerung der NATO-Reaktion aufgrund politischer Unsicherheit."
     },
     {
       "region_actor": "EU",
-      "key_event_trend": "Rechtspopulistische Parteien gewinnen in einigen Mitgliedstaaten an Einfluss. EU-Kommission unter Druck, wirtschaftliche Stabilität zu gewährleisten.",
-      "regime_stability": "STABIL",
-      "geopolitical_impact": "Zunehmende EU-Skepsis könnte Sanktionsregime gegen Russland aufweichen und die Unterstützung für die Ukraine schwächen."
-    },
-    {
-      "region_actor": "BRICS",
-      "key_event_trend": "China: Xi Jinping festigt seine Machtstellung. Indien: Regierungspartei BJP steht vor Herausforderungen bei den kommenden Wahlen.",
-      "regime_stability": "STABIL",
-      "geopolitical_impact": "BRICS-Staaten nutzen die geopolitische Fragmentierung, um ihre eigene Währungs- und Handelsunion voranzutreiben, was den US-Dollar schwächt."
-    },
-    {
-      "region_actor": "Naher Osten",
-      "key_event_trend": "Israel und Palästina: Gewalt und Spannungen nehmen zu. Iran: Atomprogramm und regionale Ambitionen sind ein zentrales Thema.",
-      "regime_stability": "ESKALATIV",
-      "geopolitical_impact": "Zunehmende Spannungen im Nahen Osten treiben die Ölpreise und erhöhen die Risikoprämie für die gesamte Region."
-    },
-    {
-      "region_actor": "Afrika",
-      "key_event_trend": "Humanitäre Krisen in Afrika (z.B. Sudan, Sahelzone) führen zu größeren Flüchtlingsbewegungen.",
-      "regime_stability": "FRAGIL",
-      "geopolitical_impact": "Massenflucht als Frühwarnindikator für regionale Instabilität, die zu neuen Konflikten und Machtvakua führen kann."
+      "key_event_trend": "Uneinigkeit zwischen Ost- und Westeuropa über die Reaktion auf den russischen Vorstoß.",
+      "regime_stability": "STABIL, ABER GESPALTEN",
+      "geopolitical_impact": "Verzögerte Entscheidungsfindung und schwächere gemeinsame Position."
     }
   ],
   "stress_testing_scenarios": [
     {
-      "scenario_name": "Eskalation im Ukraine-Konflikt: Unbeabsichtigter NATO-Russland-Zusammenstoß",
-      "probability_pct": 15,
-      "timeframe": "1-3 Monate",
-      "trigger_events": [
-        "Abschuss eines NATO-Aufklärungsflugzeugs über dem Schwarzen Meer",
-        "Russischer Raketenangriff auf ein NATO-Mitgliedsland (z.B. Polen)"
-      ],
+      "scenario_name": "NATO aktiviert Artikel 5 mit begrenzter militärischer Reaktion",
+      "probability_pct": 40,
+      "timeframe": "1-3M",
       "cascade_chain": [
-        "NATO beruft Artikel 5 ein",
-        "Begrenzte militärische Konfrontation in der Westukraine",
-        "Massive Marktturbulenzen: Öl über 150 USD, Gold über 5000 USD, Aktienabsturz"
+        "Begrenzte Gefechte im Baltikum",
+        "Wirtschaftliche Sanktionen gegen Russland",
+        "Energiepreisschock in Europa"
       ],
       "winners_long": [
         {
-          "asset": "Gold (GLD)",
-          "reason": "Sicherer Hafen in einer Eskalation mit nuklearem Risiko"
+          "asset": "Gold"
         },
         {
-          "asset": "Rüstung (LMT, RHM.DE)",
-          "reason": "Massiver Anstieg der Verteidigungsausgaben"
-        },
-        {
-          "asset": "Energie (XLE)",
-          "reason": "Ölpreisschock und Energiekrise"
+          "asset": "Defense-Aktien (z. B. Rheinmetall)"
         }
       ],
       "losers_short": [
         {
-          "asset": "S&P 500 (SPY)",
-          "reason": "Risikoaversion und Rezessionsängste"
+          "asset": "Europäische Aktien (DAX, CAC)"
         },
         {
-          "asset": "Technologie (QQQ)",
-          "reason": "Hohe Bewertungen und Anfälligkeit für Unterbrechungen der Lieferkette"
-        },
-        {
-          "asset": "Euro (EUR/USD)",
-          "reason": "Kapitalflucht aus Europa und Energiekrise"
+          "asset": "Russische Rubel-Anleihen"
         }
       ]
     },
     {
-      "scenario_name": "Entspannung und Waffenstillstand in der Ukraine",
+      "scenario_name": "NATO reagiert nicht auf russischen Vorstoß",
       "probability_pct": 20,
-      "timeframe": "6-12 Monate",
-      "trigger_events": [
-        "Erfolgreiche Vermittlung durch China oder Indien",
-        "Innenpolitischer Druck in Russland und der Ukraine für Verhandlungen"
-      ],
+      "timeframe": "1-3M",
       "cascade_chain": [
-        "Waffenstillstand entlang der aktuellen Frontlinie",
-        "Lockerung der Sanktionen gegen Russland",
-        "Erholung der globalen Lieferketten und Rückgang der Energiepreise"
+        "Zusammenbruch der NATO-Glaubwürdigkeit",
+        "Weitere russische Aggressionen in Osteuropa",
+        "Flucht aus europäischen Assets"
       ],
       "winners_long": [
         {
-          "asset": "Europäische Aktien (EZU)",
-          "reason": "Wirtschaftliche Erholung und geringeres Risiko"
+          "asset": "US-Dollar"
         },
         {
-          "asset": "Schwellenländer (EEM)",
-          "reason": "Rückgang der Risikoprämie und Erholung des Handels"
-        },
-        {
-          "asset": "Kupfer (CU)",
-          "reason": "Nachfragebelebung durch Wiederaufbau und Konjunktur"
+          "asset": "Bitcoin"
         }
       ],
       "losers_short": [
         {
-          "asset": "Rüstung (LMT, RHM.DE)",
-          "reason": "Rückgang der Verteidigungsausgaben"
+          "asset": "Europäische Währungen (EUR, PLN)"
         },
         {
-          "asset": "Gold (GLD)",
-          "reason": "Nachlassende Nachfrage nach sicheren Häfen"
-        },
-        {
-          "asset": "Öl (USO)",
-          "reason": "Rückgang der Risikoprämie und mögliche Aufhebung von Sanktionen"
+          "asset": "Europäische Staatsanleihen"
         }
       ]
     }
   ],
   "conflict_hotspots": [
     {
-      "region": "Ukraine",
-      "actors": "Russland vs. Ukraine (mit NATO-Unterstützung)",
+      "region": "Baltikum (Estland, Lettland, Litauen)",
+      "actors": "Russland vs. NATO",
       "status_type": "AKTIV",
       "escalation_level": "HOCH",
-      "catalyst": "Abnutzungskrieg, westliche Waffenlieferungen, russische Offensive vor dem Winter",
-      "impact": "Energiepreisschock, Inflation, Flüchtlingsströme, Risiko einer unbeabsichtigten Eskalation",
-      "lat": 48.38,
-      "lng": 31.17
-    },
-    {
-      "region": "Südchinesisches Meer",
-      "actors": "China, USA, Philippinen, Vietnam, Taiwan",
-      "status_type": "POTENZIELL",
-      "escalation_level": "MITTEL",
-      "catalyst": "Territoriale Ansprüche Chinas, zunehmende militärische Präsenz der USA, Taiwan-Frage",
-      "impact": "Störung des Welthandels, Lieferkettenprobleme, Risiko eines militärischen Konflikts",
-      "lat": 12.88,
-      "lng": 114.84
-    },
-    {
-      "region": "Moldawien (Transnistrien)",
-      "actors": "Moldawien, Russland (pro-russische Separatisten)",
-      "status_type": "POTENZIELL",
-      "escalation_level": "MITTEL",
-      "catalyst": "Spannungen zwischen der pro-europäischen Regierung und pro-russischen Kräften, russische Einflussnahme",
-      "impact": "Neue Front im Ukraine-Konflikt, Destabilisierung der Region, Flüchtlingsströme",
-      "lat": 47.01,
-      "lng": 28.86
-    },
-    {
-      "region": "Naher Osten (Israel/Palästina)",
-      "actors": "Israel, Hamas, Hisbollah, Iran",
-      "status_type": "AKTIV",
-      "escalation_level": "HOCH",
-      "catalyst": "Zunehmende Gewalt, Siedlungsbau, Status von Jerusalem, iranische Unterstützung für Milizen",
-      "impact": "Regionaler Krieg, Ölpreisschock, humanitäre Krise, Flüchtlingsströme",
-      "lat": 31.95,
-      "lng": 35.23
+      "impact": "Begrenzte militärische Konfrontation mit hohem Eskalationsrisiko, mögliche Ausweitung auf andere NATO-Mitglieder.",
+      "lat": 56.8796,
+      "lng": 24.6032
     }
   ],
   "digital_and_monetary_sovereignty": [
     {
-      "topic": "CBDC (Digitaler Yuan)",
-      "actor": "China (PBoC)",
-      "trend": "Beschleunigt",
-      "systemic_impact": "Untergräbt die Dominanz des US-Dollars im internationalen Handel und Finanzsystem",
-      "market_implication": "Schwächung des USD, steigende Nachfrage nach Gold und anderen Rohstoffen"
+      "topic": "CBDC-Entwicklung in der EU und USA",
+      "actor": "EU, USA, China",
+      "trend": "Beschleunigte Einführung digitaler Zentralbankwährungen als Reaktion auf geopolitische Fragmentierung.",
+      "systemic_impact": "Mögliche Entkopplung der Finanzsysteme, erhöhte Überwachung und Kontrolle.",
+      "market_implication": "Flucht in dezentrale Assets wie Bitcoin und Gold."
     },
     {
-      "topic": "EU-Chatkontrolle / Verschlüsselungsverbot",
-      "actor": "EU-Kommission",
-      "trend": "Verlangsamt (rechtliche Herausforderungen)",
-      "systemic_impact": "Eingriff in die Privatsphäre und Sicherheit der Bürger, Schwächung der digitalen Souveränität",
-      "market_implication": "Negative Stimmung für europäische Tech-Unternehmen, steigende Nachfrage nach dezentralen Kommunikationslösungen"
-    },
-    {
-      "topic": "US-Verschuldung",
-      "actor": "US-Regierung (Republikaner/Demokraten)",
-      "trend": "Kritisch (neue Höchststände)",
-      "systemic_impact": "Gefahr eines Zahlungsausfalls, steigende Zinsen, Vertrauensverlust in den US-Dollar",
-      "market_implication": "Steigende Anleiherenditen, Flucht in Gold, Risiko einer Finanzkrise"
+      "topic": "Kritische Mineralien (Seltene Erden, Lithium)",
+      "actor": "China, USA, EU",
+      "trend": "Handelskonflikte und Lieferkettenunterbrechungen aufgrund geopolitischer Spannungen.",
+      "systemic_impact": "Preisanstieg und Versorgungsengpässe in Schlüsseltechnologien (Halbleiter, E-Autos).",
+      "market_implication": "Investitionen in Minenunternehmen und Recyclingtechnologien."
     }
   ],
   "stock_picks": {
     "top_5_buys": [
       {
+        "ticker": "RHM.DE",
+        "name": "Rheinmetall",
+        "reason": "Erwarteter Nachfrageanstieg durch NATO-Aufrüstung und militärische Konflikte."
+      },
+      {
+        "ticker": "BA",
+        "name": "Boeing",
+        "reason": "Verteidigungsaufträge und Nachfrage nach Militärflugzeugen."
+      },
+      {
         "ticker": "LMT",
         "name": "Lockheed Martin",
-        "sector": "Rüstung/Verteidigung",
-        "reason": "Anhaltende geopolitische Spannungen und steigende Verteidigungsausgaben treiben die Nachfrage nach Kampfflugzeugen, Raketen und Luftverteidigungssystemen."
+        "reason": "Führender Anbieter von Militärtechnologie mit stabilen Aufträgen."
       },
       {
-        "ticker": "CCJ",
-        "name": "Cameco Corporation",
-        "sector": "Rohstoffe (Uran)",
-        "reason": "Wiederbelebung der Kernenergie als kohlenstoffarme Energiequelle und steigende Uranpreise aufgrund von Angebotsengpässen."
+        "ticker": "GLD",
+        "name": "SPDR Gold Trust",
+        "reason": "Sicherer Hafen in Zeiten geopolitischer Unsicherheit."
       },
       {
-        "ticker": "PLTR",
-        "name": "Palantir Technologies",
-        "sector": "Technologie/Cybersicherheit",
-        "reason": "Steigende Nachfrage nach Datenanalyse- und KI-Lösungen für militärische und geheimdienstliche Anwendungen in einem fragmentierten geopolitischen Umfeld."
-      },
-      {
-        "ticker": "XOM",
-        "name": "Exxon Mobil",
-        "sector": "Energie (Öl & Gas)",
-        "reason": "Hohe Ölpreise aufgrund geopolitischer Risiken und Angebotsknappheit, starke Cashflows und Aktionärsrenditen."
-      },
-      {
-        "ticker": "GDX",
-        "name": "VanEck Gold Miners ETF",
-        "sector": "Rohstoffe (Gold)",
-        "reason": "Goldpreis auf Rekordhoch, getrieben durch Inflationsängste, geopolitische Unsicherheit und Schwäche des US-Dollars."
+        "ticker": "BTC-USD",
+        "name": "Bitcoin",
+        "reason": "Dezentrale Absicherung gegen Finanzsystemrisiken."
       }
     ],
     "flop_5_sells": [
       {
-        "ticker": "ZM",
-        "name": "Zoom Video Communications",
-        "sector": "Technologie (Kommunikation)",
-        "reason": "Nachlassende Nachfrage nach Pandemie-bedingten Diensten, zunehmender Wettbewerb und hohe Bewertung."
+        "ticker": "EUR=X",
+        "name": "Euro",
+        "reason": "Risiko einer Abwertung durch Energiepreisschock und politische Unsicherheit."
+      },
+      {
+        "ticker": "RUB=X",
+        "name": "Russischer Rubel",
+        "reason": "Erwartete Sanktionen und wirtschaftliche Isolation."
       },
       {
         "ticker": "TSLA",
-        "name": "Tesla Inc.",
-        "sector": "Automobil/Elektrofahrzeuge",
-        "reason": "Überbewertung, zunehmender Wettbewerb, Lieferkettenprobleme und Risiken im Zusammenhang mit Elon Musks politischen Aktivitäten."
+        "name": "Tesla",
+        "reason": "Abhängigkeit von chinesischen Lieferketten und globaler Nachfrageschwäche."
       },
       {
-        "ticker": "PYPL",
-        "name": "PayPal Holdings",
-        "sector": "Finanztechnologie",
-        "reason": "Wachsender Wettbewerb durch traditionelle Banken und neue Fintech-Unternehmen, sinkende Margen und regulatorischer Druck."
+        "ticker": "AMZN",
+        "name": "Amazon",
+        "reason": "Gewinnerwartungen leiden unter globaler Rezession und Lieferkettenproblemen."
       },
       {
-        "ticker": "PFE",
-        "name": "Pfizer Inc.",
-        "sector": "Pharma/Gesundheit",
-        "reason": "Rückgang der COVID-19-bedingten Einnahmen, Patentabläufe und schwache Pipeline neuer Medikamente."
-      },
-      {
-        "ticker": "DIS",
-        "name": "The Walt Disney Company",
-        "sector": "Unterhaltung/Medien",
-        "reason": "Herausforderungen im Streaming-Geschäft (Verluste), rückläufige Besucherzahlen in Themenparks und hohe Verschuldung."
+        "ticker": "AAPL",
+        "name": "Apple",
+        "reason": "Abhängigkeit von chinesischer Produktion und globaler Nachfrageschwäche."
       }
     ]
   },
-  "timestamp": "24.07.2026 - 00:17 UTC",
+  "timestamp": "24.07.2026 - 13:30 UTC",
+  "pipeline_health": {
+    "groq_filter": "ok",
+    "deepseek_game_theory": "ok",
+    "gemini_macro": "failed",
+    "xai_grok": "failed",
+    "perplexity_factcheck": "ok (sonar)",
+    "qwen_indopacific": "failed (Error code: 401 - {'error': {')",
+    "openrouter_nemotron_tech": "failed (Error code: 404 - {'error': {')",
+    "mistral_json_builder": "ok (mistral-large)",
+    "claude_chief_editor": "skipped (Error code: 404 - {'type': 'er)",
+    "feeds_loaded": 0,
+    "feeds_total": 142
+  },
   "live_recon_flights": [
     {
       "callsign": "FORTE12 (US Global Hawk)",
@@ -460,6 +349,36 @@
       "speed_kmh": 830,
       "heading": 270,
       "is_live": false
+    }
+  ],
+  "maritime_chokepoints": [
+    {
+      "chokepoint": "Strasse von Hormus",
+      "lat": 26.56,
+      "lng": 56.25,
+      "status": "HOCHRISIKO",
+      "tanker_flow": "Normal / Tanker-Spoofing registriert"
+    },
+    {
+      "chokepoint": "Bab al-Mandab (Rotes Meer)",
+      "lat": 12.58,
+      "lng": 43.33,
+      "status": "ESKALATIV",
+      "tanker_flow": "Umleitungen um Kap der Guten Hoffnung aktiv"
+    },
+    {
+      "chokepoint": "Bosporus & Schwarzes Meer",
+      "lat": 41.11,
+      "lng": 29.07,
+      "status": "MODERAT",
+      "tanker_flow": "Getreide- & Schattenflottenkontrollen"
+    },
+    {
+      "chokepoint": "Ostsee / Suwalki-Zugang",
+      "lat": 55.0,
+      "lng": 19.5,
+      "status": "ERHÖHT",
+      "tanker_flow": "Schattenflotte-Aktivität & Kabelüberwachung"
     }
   ]
 }
