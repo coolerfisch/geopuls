@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARGUS GRID // Systemic Intelligence Engine</title>
+  <title>ARGUS GRID // World Intelligence</title>
   
-  <!-- Leaflet CSS für interaktive Hotspot-Karte -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   
   <style>
@@ -23,11 +22,7 @@
       --accent-purple: #a855f7;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg-main);
@@ -37,7 +32,6 @@
       padding: 20px;
     }
 
-    /* HEADER & TOGGLE */
     header {
       display: flex;
       flex-wrap: wrap;
@@ -58,11 +52,7 @@
       gap: 10px;
     }
 
-    .timestamp {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
+    .timestamp { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
 
     .header-actions {
       display: flex;
@@ -109,12 +99,79 @@
       border-color: var(--accent-cyan);
     }
 
-    /* STEUERUNG SCHNELL- VS. TIEFENANALYSE */
-    body.simple-mode .detailed-section {
-      display: none !important;
+    .health-badge {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    /* GRID LAYOUT */
+    /* VISIBILITY CONTROL FÜR VIEW-MODI */
+    body.simple-mode .detailed-section { display: none !important; }
+    body:not(.simple-mode) .simple-only-section { display: none !important; }
+
+    /* AMPEL WIDGET STYLES */
+    .ampel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .ampel-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #070a12;
+      padding: 16px 14px;
+      border-radius: 40px;
+      border: 2px solid #1e293b;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+    }
+
+    .ampel-light {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      opacity: 0.15;
+      transition: all 0.4s ease;
+    }
+
+    .ampel-light.green.active { background: #22c55e; opacity: 1; box-shadow: 0 0 20px #22c55e; }
+    .ampel-light.yellow.active { background: #eab308; opacity: 1; box-shadow: 0 0 20px #eab308; }
+    .ampel-light.red.active { background: #ef4444; opacity: 1; box-shadow: 0 0 20px #ef4444; }
+
+    .ampel-details h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
+    .ampel-details p { font-size: 1.05rem; color: #cbd5e1; line-height: 1.5; }
+
+    /* CARDS & GRIDS */
+    .takeaways-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .takeaway-card {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-cyan);
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
     .dashboard-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -132,10 +189,6 @@
       overflow: hidden;
     }
 
-    .card:hover {
-      border-color: #334155;
-    }
-
     .card h2 {
       font-size: 1.1rem;
       color: var(--text-main);
@@ -147,7 +200,6 @@
       padding-bottom: 8px;
     }
 
-    /* KPI METRIKEN */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -164,387 +216,77 @@
       min-width: 0;
     }
 
-    .kpi-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-    }
+    .kpi-label { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
+    .kpi-value { font-size: 1.6rem; font-weight: 800; margin: 6px 0; }
+    .kpi-sub { font-size: 0.8rem; color: var(--text-muted); }
 
-    .kpi-value {
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin: 6px 0;
-    }
+    .progress-bar-bg { width: 100%; height: 6px; background: #0f172a; border-radius: 3px; overflow: hidden; margin-top: 8px; }
+    .progress-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
 
-    .kpi-sub {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .progress-bar-bg {
-      width: 100%;
-      height: 6px;
-      background: #0f172a;
-      border-radius: 3px;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 3px;
-      transition: width 0.5s ease;
-    }
-
-    /* DEFCON FARBEN */
     .status-defcon-1 { color: var(--accent-red); }
     .status-defcon-2 { color: #f97316; }
     .status-defcon-3 { color: var(--accent-gold); }
     .status-defcon-4 { color: var(--accent-green); }
 
-    /* SPIELTHEORIE GUTACHTEN STYLES */
-    .game-theory-card {
-      grid-column: 1 / -1;
-      border-left: 4px solid var(--accent-purple);
-    }
+    .game-theory-card { grid-column: 1 / -1; border-left: 4px solid var(--accent-purple); }
+    .focal-title { font-size: 1.2rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 15px; background: rgba(56, 189, 248, 0.05); padding: 10px 15px; border-radius: 6px; }
 
-    .focal-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--accent-cyan);
-      margin-bottom: 15px;
-      background: rgba(56, 189, 248, 0.05);
-      padding: 10px 15px;
-      border-radius: 6px;
-    }
+    .gt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+    .gt-box { background: #0f172a; padding: 14px; border-radius: 8px; border: 1px solid #1e293b; min-width: 0; }
+    .gt-box h4 { font-size: 0.9rem; color: var(--accent-purple); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    .gt-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 15px;
-    }
+    .bipolar-chart-row { margin-top: 10px; font-size: 0.85rem; }
+    .bipolar-chart-label { display: flex; justify-content: space-between; margin-bottom: 3px; color: var(--text-main); }
+    .bipolar-track { position: relative; height: 14px; background: #1e293b; border-radius: 7px; overflow: hidden; border: 1px solid #334155; }
+    .bipolar-center-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: #64748b; z-index: 2; }
+    .bipolar-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 2px; transition: all 0.4s ease; }
 
-    .gt-box {
-      background: #0f172a;
-      padding: 14px;
-      border-radius: 8px;
-      border: 1px solid #1e293b;
-      min-width: 0;
-    }
+    .highlight-box { background: rgba(234, 179, 8, 0.08); border-left: 3px solid var(--accent-gold); padding: 12px; border-radius: 4px; font-size: 0.9rem; }
 
-    .gt-box h4 {
-      font-size: 0.9rem;
-      color: var(--accent-purple);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
+    #hotspot-map { height: 400px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 10px; background: #090d16; }
+    .map-legend { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 12px; font-size: 0.82rem; color: var(--text-muted); }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
 
-    /* BIPOLARES PAYOFF BALKENDIAGRAMM */
-    .bipolar-chart-row {
-      margin-top: 10px;
-      font-size: 0.85rem;
-    }
+    @keyframes pulse-ring { 0% { transform: scale(0.33); opacity: 0.9; } 80%, 100% { transform: scale(2.2); opacity: 0; } }
+    .pulse-marker-container { position: relative; width: 20px; height: 20px; }
+    .pulse-dot-red { background-color: #ef4444; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #ffffff; position: absolute; top: 4px; left: 4px; box-shadow: 0 0 10px #ef4444; }
+    .pulse-ring-red { border: 3px solid #ef4444; border-radius: 50%; height: 32px; width: 32px; position: absolute; left: -6px; top: -6px; animation: pulse-ring 1.6s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
 
-    .bipolar-chart-label {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 3px;
-      color: var(--text-main);
-    }
+    .plane-icon-div, .ship-icon-div { font-size: 18px; filter: drop-shadow(0 0 6px #38bdf8); display: inline-block; }
 
-    .bipolar-track {
-      position: relative;
-      height: 14px;
-      background: #1e293b;
-      border-radius: 7px;
-      overflow: hidden;
-      border: 1px solid #334155;
-    }
+    .hotspot-sections { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 18px; }
+    .hotspot-group-title { font-size: 0.88rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .hotspot-item { background: #0f172a; border: 1px solid #1e293b; border-left: 3px solid var(--accent-gold); padding: 12px; border-radius: 8px; margin-bottom: 10px; }
+    .hotspot-item.aktiv { border-left-color: var(--accent-red); }
+    .hotspot-item.potenziell { border-left-color: var(--accent-purple); }
+    .hotspot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 
-    .bipolar-center-line {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: #64748b;
-      z-index: 2;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; table-layout: fixed; }
+    th, td { padding: 8px 6px; text-align: left; border-bottom: 1px solid #1e293b; word-wrap: break-word; overflow-wrap: break-word; vertical-align: top; }
+    th { color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.5px; }
 
-    .bipolar-bar-fill {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      border-radius: 2px;
-      transition: all 0.4s ease;
-    }
+    .ticker-badge { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-weight: 700; color: var(--accent-cyan); display: inline-block; font-size: 0.8rem; }
+    .stability-badge { padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.75rem; display: inline-block; }
 
-    .highlight-box {
-      background: rgba(234, 179, 8, 0.08);
-      border-left: 3px solid var(--accent-gold);
-      padding: 12px;
-      border-radius: 4px;
-      font-size: 0.9rem;
-    }
-
-    /* MAP CONTAINER */
-    #hotspot-map {
-      height: 400px;
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      margin-top: 10px;
-      background: #090d16;
-    }
-
-    .map-legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 12px;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-
-    @keyframes pulse-ring {
-      0% { transform: scale(0.33); opacity: 0.9; }
-      80%, 100% { transform: scale(2.2); opacity: 0; }
-    }
-
-    .pulse-marker-container {
-      position: relative;
-      width: 20px;
-      height: 20px;
-    }
-
-    .pulse-dot-red {
-      background-color: #ef4444;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: 2px solid #ffffff;
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      box-shadow: 0 0 10px #ef4444;
-    }
-
-    .pulse-ring-red {
-      border: 3px solid #ef4444;
-      border-radius: 50%;
-      height: 32px;
-      width: 32px;
-      position: absolute;
-      left: -6px;
-      top: -6px;
-      animation: pulse-ring 1.6s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-    }
-
-    @keyframes flow-line {
-      from { stroke-dashoffset: 40; }
-      to { stroke-dashoffset: 0; }
-    }
-
-    .animated-refugee-stream {
-      stroke-dasharray: 8, 8;
-      animation: flow-line 1.2s linear infinite;
-    }
-
-    .plane-icon-div {
-      font-size: 18px;
-      filter: drop-shadow(0 0 6px #38bdf8);
-      text-shadow: 0 0 8px #38bdf8;
-      display: inline-block;
-    }
-
-    .hotspot-sections {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 15px;
-      margin-top: 18px;
-    }
-
-    .hotspot-group-title {
-      font-size: 0.88rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .hotspot-item {
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      border-left: 3px solid var(--accent-gold);
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-
-    .hotspot-item.aktiv {
-      border-left-color: var(--accent-red);
-    }
-
-    .hotspot-item.potenziell {
-      border-left-color: var(--accent-purple);
-    }
-
-    .hotspot-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    /* OPTIMIERTE TABELLEN STYLES */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-      table-layout: fixed;
-    }
-
-    th, td {
-      padding: 8px 6px;
-      text-align: left;
-      border-bottom: 1px solid #1e293b;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      vertical-align: top;
-    }
-
-    th {
-      color: var(--text-muted);
-      font-weight: 600;
-      text-transform: uppercase;
-      font-size: 0.72rem;
-      letter-spacing: 0.5px;
-    }
-
-    .ticker-badge {
-      background: #0f172a;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: monospace;
-      font-weight: 700;
-      color: var(--accent-cyan);
-      display: inline-block;
-      font-size: 0.8rem;
-    }
-
-    .stability-badge {
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-weight: 700;
-      font-size: 0.75rem;
-      display: inline-block;
-    }
-
-    /* MODAL POPUP FOR SOURCES */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(11, 15, 25, 0.85);
-      backdrop-filter: blur(6px);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      max-width: 850px;
-      width: 100%;
-      max-height: 85vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    }
-
-    .modal-header {
-      padding: 18px 24px;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-header h2 {
-      font-size: 1.2rem;
-      color: var(--accent-cyan);
-    }
-
-    .modal-close {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
+    /* MODAL POPUP */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(6px); z-index: 9999; justify-content: center; align-items: center; padding: 20px; }
+    .modal-overlay.active { display: flex; }
+    .modal-content { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; max-width: 900px; width: 100%; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+    .modal-header { padding: 18px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+    .modal-header h2 { font-size: 1.2rem; color: var(--accent-cyan); }
+    .modal-close { background: transparent; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
     .modal-close:hover { color: #ffffff; }
+    .modal-body { padding: 24px; overflow-y: auto; font-size: 0.9rem; line-height: 1.6; }
 
-    .modal-body {
-      padding: 24px;
-      overflow-y: auto;
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .sources-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 15px;
-    }
-
-    .source-cat-card {
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      border-radius: 8px;
-      padding: 14px;
-    }
-
-    .source-cat-card h4 {
-      color: var(--accent-gold);
-      font-size: 0.88rem;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    @media (max-width: 1024px) {
-      .card[style*="span 2"] {
-        grid-column: span 1 !important;
-      }
-    }
+    .sources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+    .source-cat-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 14px; }
+    .source-cat-card h4 { color: var(--accent-gold); font-size: 0.88rem; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
 
     @media (max-width: 768px) {
       header { flex-direction: column; align-items: flex-start; gap: 15px; }
+      .ampel-card { flex-direction: column; text-align: center; }
+      .ampel-box { flex-direction: row; }
       .kpi-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
@@ -558,21 +300,78 @@
     </div>
     
     <div class="header-actions">
+      <div id="health-badge" class="health-badge">
+        <span>🔄 Lade Health Status...</span>
+      </div>
+
       <button class="action-btn" onclick="openSourcesModal()">📡 Quellen (140+ Feeds)</button>
 
       <div class="view-toggle">
-        <button id="btn-simple" class="toggle-btn active" onclick="setMode('simple')">⚡ Schnellansicht</button>
+        <button id="btn-simple" class="toggle-btn active" onclick="setMode('simple')">⚡ Standard (Einfach)</button>
         <button id="btn-detailed" class="toggle-btn" onclick="setMode('detailed')">🔬 Tiefenanalyse</button>
       </div>
     </div>
   </header>
 
-  <div class="card" style="margin-bottom: 20px; border-left: 4px solid var(--accent-cyan);">
-    <h2>📋 Lageüberblick (Executive Briefing)</h2>
+  <!-- ============================================================ -->
+  <!-- 🚦 AMPEL WIDGET (IN BEIDEN MODI SICHTBAR) -->
+  <!-- ============================================================ -->
+  <div class="ampel-card">
+    <div class="ampel-box">
+      <div id="ampel-red" class="ampel-light red"></div>
+      <div id="ampel-yellow" class="ampel-light yellow"></div>
+      <div id="ampel-green" class="ampel-light green"></div>
+    </div>
+    <div class="ampel-details">
+      <h3 id="ampel-title" style="color: var(--accent-gold);">Weltlage: Wird geladen...</h3>
+      <p id="ampel-reason">Lade vereinfachte Lagebeurteilung...</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ⚡ EINFACHE SCHNELLANSICHT (NUR IM STANDARD MODUS SICHTBAR) -->
+  <!-- ============================================================ -->
+
+  <!-- DAS WICHTIGSTE AUF EINEN BLICK -->
+  <div class="card simple-only-section" style="margin-bottom: 25px; border-left: 4px solid var(--accent-cyan);">
+    <h2 style="font-size: 1.2rem;">💬 Das Wichtigste auf einen Blick (Einfache Sprache)</h2>
+    <p id="simple-summary-text" style="font-size: 1.05rem; line-height: 1.6; color: #f1f5f9; margin-bottom: 20px;">Lade einfache Übersicht...</p>
+    
+    <h4 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">Die 3 zentralen Punkte heute:</h4>
+    <div id="takeaways-container" class="takeaways-grid"></div>
+  </div>
+
+  <!-- 🔮 GLASKUGEL: ZUKUNFTS-PROGNOSE (EINFACHE SPRACHE) -->
+  <div class="card simple-only-section" style="margin-bottom: 25px; border-left: 4px solid var(--accent-purple);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <h2>🔮 Glaskugel // Zukunfts-Prognose (Nächste 30–90 Tage)</h2>
+      <span id="forecast-prob-badge" class="ticker-badge" style="color: var(--accent-purple); font-size: 0.9rem;">Wahrscheinlichkeit: --%</span>
+    </div>
+    <p id="forecast-simple-text" style="font-size: 1.05rem; line-height: 1.6; color: #f1f5f9; margin-bottom: 15px;">Lade Prognose-Daten...</p>
+    
+    <div style="background: #0f172a; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 0.88rem;">
+      <strong style="color: var(--accent-gold);">⚠️ Zu beobachtendes Frühwarn-Signal (Leading Indicator):</strong>
+      <span id="forecast-indicator-text" style="color: #cbd5e1; margin-left: 5px;">--</span>
+    </div>
+  </div>
+
+  <!-- 📜 HISTORISCHE PARALLELEN ("DAS GAB ES ÄHNLICH SCHONMAL...") -->
+  <div class="card simple-only-section" style="margin-bottom: 25px; border-left: 4px solid var(--accent-gold);">
+    <h2>📜 Historische Parallelen („Das gab es ähnlich schonmal...“)</h2>
+    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 15px;">Mustererkennung im Vergleich zu früheren Weltkrisen und deren damalige Folgen:</p>
+    <div id="simple-historical-container" class="gt-grid"></div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- 🔬 TIEFENANALYSE SEKTIONEN (NUR IM DETAILLIERTEN MODUS SICHTBAR) -->
+  <!-- ============================================================ -->
+
+  <div class="card detailed-section" style="margin-bottom: 20px; border-left: 4px solid var(--accent-cyan);">
+    <h2>📋 Ausführliches Executive Briefing</h2>
     <p id="exec-summary" style="font-size: 1.05rem; line-height: 1.6; color: #e2e8f0;">Lade Lagebericht...</p>
   </div>
 
-  <div class="kpi-grid">
+  <div class="kpi-grid detailed-section">
     <div class="kpi-card">
       <div class="kpi-label">Geopolitischer Score</div>
       <div id="kpi-geoscore" class="kpi-value">--</div>
@@ -606,8 +405,31 @@
 
   <div class="dashboard-grid">
 
+    <!-- PROGNOSTIK & ZEITACHSEN MATRIX -->
+    <div class="card detailed-section" style="grid-column: 1 / -1; border-left: 4px solid var(--accent-purple);">
+      <h2>🔮 Wissenschaftliche Prognostik & Superforecasting Matrix</h2>
+      
+      <div class="gt-grid" style="margin-bottom: 15px;">
+        <div class="gt-box">
+          <h4>⏱️ 30-Tage Horizont (Taktisch)</h4>
+          <p id="pred-30d" style="font-size: 0.9rem; color: #cbd5e1;"></p>
+        </div>
+        <div class="gt-box">
+          <h4>📅 90-Tage Horizont (Quartal & Makro)</h4>
+          <p id="pred-90d" style="font-size: 0.9rem; color: #cbd5e1;"></p>
+        </div>
+        <div class="gt-box">
+          <h4>🌐 360-Tage Horizont (Strukturell)</h4>
+          <p id="pred-360d" style="font-size: 0.9rem; color: #cbd5e1;"></p>
+        </div>
+      </div>
+
+      <div id="black-swan-box" class="highlight-box" style="background: rgba(239, 68, 68, 0.08); border-left-color: var(--accent-red);"></div>
+    </div>
+
+    <!-- DEEPSEEK SPIELTHEORIE -->
     <div class="card detailed-section game-theory-card">
-      <h2>♟️ Spieltheoretisches Gutachten (DeepSeek V4 Pro Engine)</h2>
+      <h2>♟️ Spieltheoretisches Gutachten (DeepSeek-R1 Engine)</h2>
       <div id="gt-focal-title" class="focal-title">Analyse wird geladen...</div>
       
       <div class="gt-grid">
@@ -639,7 +461,7 @@
     </div>
 
     <div class="card detailed-section" style="grid-column: 1 / -1;">
-      <h2>🏛️ Innenpolitik & Regimestabilität (USA, EU, UK, BRICS, Nahost, Afrika)</h2>
+      <h2>🏛️ Innenpolitik & Regimestabilität (USA, EU, UK, AUKUS, BRICS)</h2>
       <table>
         <thead>
           <tr>
@@ -658,21 +480,22 @@
       <div id="stress-scenarios-container" class="dashboard-grid" style="margin-bottom: 0;"></div>
     </div>
 
-    <div class="card" style="grid-column: span 2;">
-      <h2>🗺️ Live Tactical Radar & ADS-B Recon tracking</h2>
+    <!-- KARTE UND HOTSPOTS (NUR IN TIEFENANALYSE) -->
+    <div class="card detailed-section" style="grid-column: span 2;">
+      <h2>🗺️ Live Tactical Radar, ADS-B Recon & Maritime AIS Chokepoints</h2>
       <div id="hotspot-map"></div>
       
       <div class="map-legend">
         <div class="legend-item"><div class="legend-dot" style="background: var(--accent-red); box-shadow: 0 0 6px var(--accent-red);"></div> Pulsierend: Aktive Kriegszonen</div>
         <div class="legend-item"><div class="legend-dot" style="background: var(--accent-purple);"></div> Potenzielle Konfliktfelder</div>
-        <div class="legend-item"><span style="color: var(--accent-cyan); font-weight: bold;">➔ ➔ ➔</span> Animierte Flüchtlingsströme</div>
-        <div class="legend-item"><span style="color: var(--accent-cyan);">✈️</span> Live OpenSky ADS-B Transponder Tracks</div>
+        <div class="legend-item"><span style="color: var(--accent-cyan);">✈️</span> ADS-B Aufklärer</div>
+        <div class="legend-item"><span style="color: var(--accent-gold);">⚓</span> Maritime Chokepoints (AIS)</div>
       </div>
 
       <div id="hotspots-list-container"></div>
     </div>
 
-    <div class="card">
+    <div class="card detailed-section">
       <h2>📈 Dynamische Aktien-Rotation</h2>
       
       <h3 style="font-size: 0.85rem; color: var(--accent-green); margin: 10px 0 5px 0;">TOP 5 BUYS (ÜBERGEWICHTEN)</h3>
@@ -722,10 +545,7 @@
     <div style="background: #0f172a; border: 1px solid var(--border-color); border-left: 3px solid var(--accent-gold); padding: 16px; border-radius: 8px; margin-bottom: 20px;">
       <strong style="color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">⚠️ System- & Haftungsausschluss (Disclaimer)</strong>
       <p style="margin-bottom: 8px;">
-        <strong>Keine Finanz- oder Anlageberatung:</strong> Die auf diesem Dashboard dargestellten Lageberichte, spieltheoretischen Gutachten, Stress-Test-Szenarien und dynamischen Aktien-Rotationen dienen ausschließlich akademischen, strategischen und Forschungszwecken im Rahmen automatisierter OSINT-Analysen (Open Source Intelligence). Sie stellen zu keinem Zeitpunkt eine Aufforderung, Empfehlung oder Anlageberatung zum Kauf oder Verkauf von Finanzinstrumenten, Wertpapieren oder Rohstoffen dar.
-      </p>
-      <p>
-        <strong>Automatisierte Datenverarbeitung & Multi-LLM Architecture:</strong> Sämtliche Analysen werden vollautomatisch über eine Pipeline aus über 140 weltweiten Primärquellen, OpenSky ADS-B Live-Radardaten und einem Multi-LLM-Komitee (unter anderem <strong>DeepSeek V4 Pro</strong>, <strong>Claude Sonnet 5</strong>, <strong>Gemini 3.6 Flash</strong> sowie <strong>Llama 3.3 70B via Groq</strong>) generiert. Es wird keine Garantie für die Richtigkeit, Vollständigkeit oder Aktualität der abgerufenen Daten übernommen.
+        <strong>Keine Finanz- oder Anlageberatung:</strong> Die auf diesem Dashboard dargestellten Lageberichte, spieltheoretischen Gutachten, Stress-Test-Szenarien und dynamischen Aktien-Rotationen dienen ausschließlich akademischen, strategischen und Forschungszwecken im Rahmen automatisierter OSINT-Analysen (Open Source Intelligence).
       </p>
     </div>
     
@@ -739,53 +559,30 @@
   <div id="sources-modal" class="modal-overlay" onclick="closeSourcesModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
       <div class="modal-header">
-        <h2>📡 Transparenz & Quellenpool (140+ Feeds)</h2>
+        <h2>📡 Transparenz & Quellenpool (140+ Feeds & Multi-LLM Engine)</h2>
         <button class="modal-close" onclick="closeSourcesModal()">&times;</button>
       </div>
       <div class="modal-body">
-        <p style="margin-bottom: 15px; color: var(--text-muted); font-size: 0.85rem;">
-          ARGUS GRID verwendet eine unvoreingenommene No-Bias-Policy. Die Pipeline kombiniert offizielle Regierungs- und Zentralbankdaten mit dem gesamten politischen Spektrum (Demokraten/Republikaner, Links/Rechts/Mitte), unabhängiger Presse, Live-X/Twitter OSINT-Strömen sowie Satelliten- und Militärmeldungen.
-        </p>
         <div class="sources-grid">
           <div class="source-cat-card">
-            <h4>𝕏 / Twitter OSINT & Signals</h4>
-            <span style="color: #cbd5e1; font-size: 0.82rem;">X Breaking OSINT, X Geopolitics & Conflict, X Military & Frontline, X Cyber & EW Alerts</span>
+            <h4>🤖 Multi-LLM Komitee</h4>
+            <span style="color: #cbd5e1; font-size: 0.82rem;">Groq Llama 3.3 (Filter), DeepSeek-R1 (Spieltheorie), Gemini 2.0 Flash (Makro), xAI Grok (Social OSINT), Perplexity Sonar (Fact-Checking), Qwen 2.5 72B (BRICS/Asien), Nemotron (Chips), Mistral Large (JSON-Builder), Claude 3.5 Haiku (Redaktion)</span>
           </div>
           <div class="source-cat-card">
-            <h4>🇺🇸 USA Polit-Spektrum</h4>
-            <span style="color: #cbd5e1; font-size: 0.82rem;">CNN, MSNBC, Fox News, Wall Street Journal, National Review, The Washington Times, Reason Magazine, Bloomberg</span>
+            <h4>🎯 Prediction Markets & Reddit</h4>
+            <span style="color: #cbd5e1; font-size: 0.82rem;">Polymarket, Kalshi, Manifold Markets, Reddit r/geopolitics, r/OSINT, r/CredibleDefense</span>
           </div>
           <div class="source-cat-card">
-            <h4>🇪🇺 DACH & UK Presse</h4>
-            <span style="color: #cbd5e1; font-size: 0.82rem;">taz, Der Spiegel, Süddeutsche Zeitung, FAZ, Die Welt, NZZ, Die Zeit, Handelsblatt, Guardian, Telegraph, BBC</span>
+            <h4>⚓ Maritime & AIS Nadelöhre</h4>
+            <span style="color: #cbd5e1; font-size: 0.82rem;">Hormus, Bab al-Mandab, Bosporus, Ostsee, UKMTO Operations, Lloyd's List</span>
           </div>
           <div class="source-cat-card">
-            <h4>🏛️ Zentralbanken & Institutionen</h4>
-            <span style="color: #cbd5e1; font-size: 0.82rem;">Federal Reserve, EZB, Bank of England, PBOC China, Bank of Japan, BIS, IWF, Weltbank, OECD, White House, EU-Kommission</span>
+            <h4>🇺🇸 🇩🇪 🇬🇧 🇫🇷 Geopolitisches Spektrum</h4>
+            <span style="color: #cbd5e1; font-size: 0.82rem;">CNN, Fox, WSJ, taz, Spiegel, FAZ, NZZ, Guardian, Telegraph, Le Monde, Le Figaro</span>
           </div>
           <div class="source-cat-card">
-            <h4>🚶 Migration & Vertreibung</h4>
-            <span style="color: #cbd5e1; font-size: 0.82rem;">UNHCR Press Releases, IOM Displacement Tracking Matrix (DTM), ReliefWeb UN OCHA, Frontex Border Routes</span>
-          </div>
-          <div class="source-cat-card">
-            <h4>📊 Energie, Rohstoffe & Logistik</h4>
-            <span style="color: #cbd5e1; font-size: 0.82rem;">EIA Petroleum Status, IEA Oil Reports, OPEC, Baker Hughes Rig Count, AGSI+ Gas Storage, Freightos Index, Baltic Dry Index, FAO Food Price</span>
-          </div>
-          <div class="source-cat-card">
-            <h4>🛡️ OSINT, Satellit & Cyber</h4>
-            <span style="color: #cbd5e1; font-size: 0.82rem;">ISW War Studies, Oryx losses, Bellingcat, NASA FIRMS Fire, USGS Earthquakes, CISA Cyber, CERT-EU, UKMTO Maritime Trade, OpenSky ADS-B</span>
-          </div>
-          <div class="source-cat-card">
-            <h4>💬 Reddit OSINT & Community</h4>
-            <span style="color: #cbd5e1; font-size: 0.82rem;">r/geopolitics, r/OSINT, r/CredibleDefense, r/LessCredibleDefence, r/Economics, r/Macroeconomics, r/Commodities</span>
-          </div>
-          <div class="source-cat-card">
-            <h4>🌍 BRICS & Nicht-NATO Medien</h4>
-            <span style="color: #cbd5e1; font-size: 0.82rem;">Xinhua, Global Times, TASS, Kremlin, IRNA, Anadolu, South China Morning Post, Al Jazeera, CGTN, Economic Times India</span>
-          </div>
-          <div class="source-cat-card">
-            <h4>🔍 Investigativ & Alternativ</h4>
-            <span style="color: #cbd5e1; font-size: 0.82rem;">The Intercept, Scheerpost, Naked Capitalism, UnHerd, Telepolis, ZeroHedge, Glenn Greenwald, Aaron Maté, Moon of Alabama</span>
+            <h4>🐉 🌐 BRICS, Cyber & Diplomatie</h4>
+            <span style="color: #cbd5e1; font-size: 0.82rem;">Xinhua, TASS, SCMP, Al Jazeera, CISA, Shadowserver, EUvsDisinfo</span>
           </div>
         </div>
       </div>
@@ -797,10 +594,7 @@
   <script>
     let map = null;
 
-    function openSourcesModal() {
-      document.getElementById('sources-modal').classList.add('active');
-    }
-
+    function openSourcesModal() { document.getElementById('sources-modal').classList.add('active'); }
     function closeSourcesModal(event) {
       if (!event || event.target === document.getElementById('sources-modal') || event.target.className === 'modal-close') {
         document.getElementById('sources-modal').classList.remove('active');
@@ -817,7 +611,7 @@
         document.getElementById('btn-detailed').classList.add('active');
         document.getElementById('btn-simple').classList.remove('active');
       }
-      if (map) setTimeout(() => map.invalidateSize(), 200);
+      if (map && mode === 'detailed') setTimeout(() => map.invalidateSize(), 200);
     }
 
     async function loadDashboard() {
@@ -828,17 +622,131 @@
         data = await response.json();
       } catch (e) {
         console.error("Fehler beim Laden von data.json:", e);
-        document.getElementById('exec-summary').innerText = "⚠️ Fehler beim Laden der data.json aus dem Repository.";
+        document.getElementById('ampel-title').innerText = "⚠️ Fehler beim Laden der Daten";
         return;
       }
 
-      // 1. EXECUTIVE BRIEFING & TIMESTAMP
+      // 1. RENDERING AMPEL & EINFACHE SPRACHE
+      try {
+        const status = (data.ampel_status || 'GELB').toUpperCase();
+        const redLight = document.getElementById('ampel-red');
+        const yellowLight = document.getElementById('ampel-yellow');
+        const greenLight = document.getElementById('ampel-green');
+        const titleEl = document.getElementById('ampel-title');
+
+        redLight.classList.remove('active');
+        yellowLight.classList.remove('active');
+        greenLight.classList.remove('active');
+
+        if (status === 'ROT') {
+          redLight.classList.add('active');
+          titleEl.innerText = "Weltlage: ROT (Höchste Warnstufe / Atomkriegsgefahr)";
+          titleEl.style.color = "var(--accent-red)";
+        } else if (status === 'GRÜN') {
+          greenLight.classList.add('active');
+          titleEl.innerText = "Weltlage: GRÜN (Entspannt / Stabil)";
+          titleEl.style.color = "var(--accent-green)";
+        } else {
+          yellowLight.classList.add('active');
+          titleEl.innerText = "Weltlage: GELB (Spannungen & Aktive Konflikte)";
+          titleEl.style.color = "var(--accent-gold)";
+        }
+
+        document.getElementById('ampel-reason').innerText = data.ampel_reason_simple || "Keine Begründung verfügbar.";
+        document.getElementById('simple-summary-text').innerText = data.daily_executive_summary_simple || data.daily_executive_summary || "Kein vereinfachter Text verfügbar.";
+
+        if (Array.isArray(data.simple_key_takeaways)) {
+          let takeawaysHTML = "";
+          data.simple_key_takeaways.forEach((pt, idx) => {
+            takeawaysHTML += `
+              <div class="takeaway-card">
+                <strong style="color: var(--accent-cyan);">PUNKT ${idx + 1}:</strong> ${pt}
+              </div>
+            `;
+          });
+          document.getElementById('takeaways-container').innerHTML = takeawaysHTML;
+        }
+      } catch(e) { console.error("Error Ampel Rendering:", e); }
+
+      // 2. RENDERING GLASKUGEL // ZUKUNFTS-PROGNOSE
+      try {
+        if (data.predictive_horizon) {
+          const ph = data.predictive_horizon;
+          
+          document.getElementById('forecast-prob-badge').innerText = `Wahrscheinlichkeit: ${ph.base_case_probability_pct || 65}%`;
+          document.getElementById('forecast-simple-text').innerText = ph.base_case_summary || "Keine Zukunfts-Projektion verfügbar.";
+          
+          if (Array.isArray(ph.leading_indicators_to_watch) && ph.leading_indicators_to_watch.length > 0) {
+            const ind = ph.leading_indicators_to_watch[0];
+            document.getElementById('forecast-indicator-text').innerText = `${ind.indicator || ''} (Status: ${ind.current_status || ''} | Schwelle: ${ind.critical_threshold || ''})`;
+          }
+
+          if (ph.time_horizons) {
+            document.getElementById('pred-30d').innerText = ph.time_horizons["30_days_tactic"] || "-";
+            document.getElementById('pred-90d').innerText = ph.time_horizons["90_days_macro"] || "-";
+            document.getElementById('pred-360d').innerText = ph.time_horizons["360_days_structural"] || "-";
+          }
+
+          if (ph.black_swan_tail_risk) {
+            const bs = ph.black_swan_tail_risk;
+            document.getElementById('black-swan-box').innerHTML = `
+              <strong style="color: var(--accent-red);">🚨 Tail-Risk / Black-Swan Szenario (${bs.probability_pct || 8}% Wahrscheinlichkeit):</strong><br>
+              <span>${bs.risk_event || ''}</span><br>
+              <span style="font-size: 0.82rem; color: var(--text-muted);">Marktauswirkung: ${bs.market_impact || ''}</span>
+            `;
+          }
+        }
+      } catch(e) { console.error("Error Predictive Horizon Rendering:", e); }
+
+      // 3. RENDERING HISTORISCHE PARALLELEN ("DAS GAB ES ÄHNLICH SCHONMAL...")
+      try {
+        if (Array.isArray(data.historical_precedents)) {
+          let histHTML = "";
+          data.historical_precedents.forEach(hp => {
+            histHTML += `
+              <div class="gt-box" style="border-left: 3px solid var(--accent-gold);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <strong style="color: var(--accent-cyan); font-size: 0.95rem;">${hp.current_event || ''}</strong>
+                  <span class="ticker-badge" style="color: var(--accent-gold);">${hp.similarity_degree || 'Ähnlich'}</span>
+                </div>
+                <div style="font-size: 0.88rem; color: #f1f5f9; margin-bottom: 8px;">
+                  🏛️ <strong>Historischer Vergleich:</strong> <span style="color: var(--accent-gold);">${hp.historical_analog || ''}</span>
+                </div>
+                <div style="font-size: 0.85rem; color: #cbd5e1; margin-bottom: 6px;">
+                  💥 <strong>Damalige Auswirkung:</strong> ${hp.historical_outcome || ''}
+                </div>
+                <div style="font-size: 0.82rem; color: var(--text-muted);">
+                  ⚡ <strong>Unterschied zu heute:</strong> ${hp.key_divergence || ''}
+                </div>
+              </div>
+            `;
+          });
+          document.getElementById('simple-historical-container').innerHTML = histHTML;
+        }
+      } catch(e) { console.error("Error Historical Precedents:", e); }
+
+      // 4. ENGINE HEALTH BADGE
+      try {
+        if (data.pipeline_health) {
+          const ph = data.pipeline_health;
+          const feedsStr = `Feeds: ${ph.feeds_loaded || 0}/${ph.feeds_total || 0}`;
+          const isMistralOk = (ph.mistral_json_builder || '').includes('ok');
+          const isClaudeOk = (ph.claude_chief_editor || '').includes('ok');
+
+          document.getElementById('health-badge').innerHTML = `
+            <span>🟢 <strong>Engine Health:</strong> ${feedsStr}</span>
+            <span style="color: var(--text-muted); font-size: 0.72rem;">(Builder: ${isMistralOk ? 'Mistral' : 'Fallback'} | Editor: ${isClaudeOk ? 'Haiku' : 'Off'})</span>
+          `;
+        }
+      } catch(e) { console.error("Error Health Badge:", e); }
+
+      // EXECUTIVE BRIEFING & TIMESTAMP
       try {
         document.getElementById('last-update').innerText = "Stand: " + (data.timestamp || "Unbekannt");
         document.getElementById('exec-summary').innerText = data.daily_executive_summary || "Kein Lagebericht verfügbar.";
       } catch(e) { console.error("Error briefing:", e); }
 
-      // 2. KPIS
+      // KPIS
       try {
         if (data.geoscore) {
           const score = data.geoscore.current_score || 0;
@@ -864,7 +772,7 @@
         document.getElementById('kpi-risk').innerText = data.top_risk || "--";
       } catch(e) { console.error("Error KPIs:", e); }
 
-      // 3. SPIELTHEORIE (DEEPSEEK)
+      // SPIELTHEORIE (DEEPSEEK)
       try {
         if (data.game_theory_deep_dive) {
           const gt = data.game_theory_deep_dive;
@@ -948,7 +856,7 @@
         }
       } catch(e) { console.error("Error Game Theory:", e); }
 
-      // 4. INNENPOLITIK
+      // INNENPOLITIK
       try {
         if (Array.isArray(data.domestic_politics_analysis)) {
           let domHTML = "";
@@ -957,13 +865,8 @@
             let badgeBg = "rgba(34, 197, 94, 0.2)";
             let badgeColor = "var(--accent-green)";
             
-            if (stab === 'FRAGIL') {
-              badgeBg = "rgba(234, 179, 8, 0.2)";
-              badgeColor = "var(--accent-gold)";
-            } else if (stab === 'ESKALATIV' || stab === 'KRITISCH') {
-              badgeBg = "rgba(239, 68, 68, 0.2)";
-              badgeColor = "var(--accent-red)";
-            }
+            if (stab === 'FRAGIL') { badgeBg = "rgba(234, 179, 8, 0.2)"; badgeColor = "var(--accent-gold)"; }
+            else if (stab === 'ESKALATIV' || stab === 'KRITISCH') { badgeBg = "rgba(239, 68, 68, 0.2)"; badgeColor = "var(--accent-red)"; }
 
             domHTML += `<tr>
               <td><strong>${item.region_actor || ''}</strong></td>
@@ -976,7 +879,7 @@
         }
       } catch(e) { console.error("Error Domestic Politics:", e); }
 
-      // 5. STRESS TEST SCENARIOS
+      // STRESS TEST SCENARIOS
       try {
         if (Array.isArray(data.stress_testing_scenarios)) {
           let stressHTML = "";
@@ -1002,7 +905,7 @@
         }
       } catch(e) { console.error("Error Stress Scenarios:", e); }
 
-      // 6. STOCK PICKS
+      // STOCK PICKS
       try {
         if (data.stock_picks) {
           let buysHTML = "";
@@ -1019,7 +922,7 @@
         }
       } catch(e) { console.error("Error Stocks:", e); }
 
-      // 7. MONETARY SOVEREIGNTY
+      // MONETARY SOVEREIGNTY
       try {
         if (Array.isArray(data.digital_and_monetary_sovereignty)) {
           let sovHTML = "";
@@ -1036,126 +939,71 @@
         }
       } catch(e) { console.error("Error Sovereignty:", e); }
 
-      // 8. MAP & HOTSPOTS
+      // MAP & HOTSPOTS
       try {
         const hotspots = Array.isArray(data.conflict_hotspots) ? data.conflict_hotspots : [];
         const flights = Array.isArray(data.live_recon_flights) ? data.live_recon_flights : [];
-        initMap(hotspots, flights);
+        const ships = Array.isArray(data.maritime_chokepoints) ? data.maritime_chokepoints : [];
+        initMap(hotspots, flights, ships);
         renderHotspotsList(hotspots);
       } catch(e) { console.error("Error Map/Hotspots:", e); }
     }
 
-    function initMap(hotspots, flights) {
-      if (typeof L === 'undefined') {
-        console.error("Leaflet Bibliothek nicht geladen.");
-        return;
-      }
-
-      if (map) {
-        map.remove();
-        map = null;
-      }
+    function initMap(hotspots, flights, ships) {
+      if (typeof L === 'undefined') return;
+      if (map) { map.remove(); map = null; }
       
       const mapContainer = document.getElementById('hotspot-map');
       if (!mapContainer) return;
 
       map = L.map('hotspot-map').setView([35, 25], 3);
-      
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap &copy; CARTO',
-        maxZoom: 18
-      }).addTo(map);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 18 }).addTo(map);
 
       hotspots.forEach(spot => {
         if (spot && spot.lat != null && spot.lng != null) {
           const isAktiv = (spot.status_type === 'AKTIV' || spot.escalation_level === 'HOCH');
-          
           if (isAktiv) {
             const pulseIcon = L.divIcon({
               className: 'pulse-marker-container',
               html: `<div class="pulse-ring-red"></div><div class="pulse-dot-red"></div>`,
-              iconSize: [20, 20],
-              iconAnchor: [10, 10]
+              iconSize: [20, 20], iconAnchor: [10, 10]
             });
-
             const marker = L.marker([spot.lat, spot.lng], { icon: pulseIcon }).addTo(map);
-            marker.bindPopup(`
-              <div style="color: #000; font-family: sans-serif;">
-                <strong style="color: #ef4444;">🔥 AKTIVES KRIEGS- & FLUCHTFELD</strong><br>
-                <strong>${spot.region || ''}</strong><br>
-                <span style="font-size: 0.8rem; color: #555;">Akteure: ${spot.actors || ''}</span><br>
-                <p style="font-size: 0.85rem; margin-top: 5px;">${spot.impact || spot.catalyst || ''}</p>
-              </div>
-            `);
+            marker.bindPopup(`<strong>🔥 ${spot.region || ''}</strong><br>${spot.impact || spot.catalyst || ''}`);
           } else {
-            const marker = L.circleMarker([spot.lat, spot.lng], {
-              radius: 8,
-              fillColor: '#a855f7',
-              color: '#ffffff',
-              weight: 1,
-              opacity: 1,
-              fillOpacity: 0.85
-            }).addTo(map);
-
-            marker.bindPopup(`
-              <div style="color: #000; font-family: sans-serif;">
-                <strong>⚠️ POTENZIELLER BRENNPUNKT</strong><br>
-                <strong>${spot.region || ''}</strong><br>
-                <span style="font-size: 0.8rem; color: #555;">Akteure: ${spot.actors || ''}</span><br>
-                <p style="font-size: 0.85rem; margin-top: 5px;">${spot.impact || spot.catalyst || ''}</p>
-              </div>
-            `);
+            const marker = L.circleMarker([spot.lat, spot.lng], { radius: 8, fillColor: '#a855f7', color: '#fff', opacity: 1, fillOpacity: 0.85 }).addTo(map);
+            marker.bindPopup(`<strong>⚠️ ${spot.region || ''}</strong><br>${spot.impact || spot.catalyst || ''}`);
           }
         }
       });
 
-      const refugeeRoutes = [
-        { name: "Fluchtkorridor Ukraine -> EU", coords: [[50.45, 30.52], [52.22, 21.01], [52.52, 13.40]], color: "#ef4444" },
-        { name: "Fluchtroute Ost-Mittelmeer", coords: [[31.50, 34.46], [33.89, 35.50], [35.12, 33.42], [37.98, 23.72]], color: "#f97316" },
-        { name: "Vertreibungskorridor Sudan -> Ägypten", coords: [[15.50, 32.55], [24.08, 32.89], [30.04, 31.23]], color: "#eab308" }
-      ];
-
-      refugeeRoutes.forEach(route => {
-        const polyline = L.polyline(route.coords, {
-          color: route.color,
-          weight: 3,
-          opacity: 0.8,
-          className: 'animated-refugee-stream'
-        }).addTo(map);
-
-        polyline.bindPopup(`<strong>🌊 ${route.name}</strong><br><span style="font-size:0.8rem;">OSINT/UNHCR Migration Tracking</span>`);
-      });
-
       flights.forEach(f => {
         if (f && f.lat != null && f.lng != null) {
-          const liveBadge = f.is_live ? '<span style="color: #22c55e; font-weight: bold;">📡 LIVE ADS-B</span>' : '<span style="color: #eab308;">🔄 OSINT PATROUILLE</span>';
-          const headingDeg = f.heading || 0;
-          
           const planeIcon = L.divIcon({
             className: 'plane-icon-div',
-            html: `<div style="transform: rotate(${headingDeg}deg);">✈️</div>`,
-            iconSize: [20, 20],
-            iconAnchor: [10, 10]
+            html: `<div style="transform: rotate(${f.heading || 0}deg);">✈️</div>`,
+            iconSize: [20, 20], iconAnchor: [10, 10]
           });
-
           const planeMarker = L.marker([f.lat, f.lng], { icon: planeIcon }).addTo(map);
-          planeMarker.bindPopup(`
-            <div style="color: #000; font-family: sans-serif;">
-              <strong>✈️ ${f.callsign || 'Unbekannt'}</strong> (${liveBadge})<br>
-              <span style="font-size: 0.8rem; color: #555;">Land/Regierung: ${f.country || 'N/A'}</span><br>
-              <div style="font-size: 0.82rem; margin-top: 4px;">
-                📐 Kurs: ${headingDeg}° | ⚡ Speed: ${f.speed_kmh || 0} km/h<br>
-                🏔️ Flughöhe: ${f.altitude_m || 0} m
-              </div>
-            </div>
-          `);
+          planeMarker.bindPopup(`<strong>✈️ ${f.callsign || 'Unbekannt'}</strong><br>Land: ${f.country || 'N/A'}`);
+        }
+      });
+
+      ships.forEach(s => {
+        if (s && s.lat != null && s.lng != null) {
+          const shipIcon = L.divIcon({
+            className: 'ship-icon-div',
+            html: `<div>⚓</div>`,
+            iconSize: [20, 20], iconAnchor: [10, 10]
+          });
+          const shipMarker = L.marker([s.lat, s.lng], { icon: shipIcon }).addTo(map);
+          shipMarker.bindPopup(`<strong>⚓ ${s.chokepoint || 'Nadelöhr'}</strong><br>Status: <span style="color:var(--accent-gold);">${s.status}</span><br>Logistik: ${s.tanker_flow}`);
         }
       });
     }
 
     function renderHotspotsList(hotspots) {
       if (!Array.isArray(hotspots) || hotspots.length === 0) return;
-      
       const aktiveList = hotspots.filter(s => s && (s.status_type === 'AKTIV' || s.escalation_level === 'HOCH'));
       const potenzielleList = hotspots.filter(s => s && (s.status_type === 'POTENZIELL' || (s.status_type !== 'AKTIV' && s.escalation_level !== 'HOCH')));
 
@@ -1164,7 +1012,7 @@
         let html = '';
         list.forEach(spot => {
           const classType = isAktiv ? 'aktiv' : 'potenziell';
-          const badgeText = isAktiv ? '🔥 AKTIVE KRISE / FLUCHT' : '⚠️ POTENZIELLER BRENNPUNKT';
+          const badgeText = isAktiv ? '🔥 AKTIVE KRISE' : '⚠️ POTENZIELL';
           const badgeColor = isAktiv ? 'var(--accent-red)' : 'var(--accent-purple)';
 
           html += `
@@ -1173,12 +1021,7 @@
                 <strong style="font-size: 0.95rem; color: var(--accent-cyan);">${spot.region || ''}</strong>
                 <span style="color: ${badgeColor}; font-size: 0.7rem; font-weight: bold; border: 1px solid ${badgeColor}; padding: 1px 6px; border-radius: 4px;">${badgeText}</span>
               </div>
-              <div style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 4px;">
-                <strong>Akteure:</strong> ${spot.actors || ''}
-              </div>
-              <div style="color: #cbd5e1; font-size: 0.85rem; line-height: 1.4;">
-                ${spot.impact || spot.catalyst || ''}
-              </div>
+              <div style="color: #cbd5e1; font-size: 0.85rem;">${spot.impact || spot.catalyst || ''}</div>
             </div>
           `;
         });
@@ -1187,17 +1030,10 @@
 
       const hsHTML = `
         <div class="hotspot-sections">
-          <div>
-            <div class="hotspot-group-title" style="color: var(--accent-red);">🔥 Aktive Kriege & Fluchtherde (Bestehend)</div>
-            ${buildCards(aktiveList, true)}
-          </div>
-          <div>
-            <div class="hotspot-group-title" style="color: var(--accent-purple);">⚠️ Potenzielle & Emerging Konfliktfelder (Frühwarnung)</div>
-            ${buildCards(potenzielleList, false)}
-          </div>
+          <div><div class="hotspot-group-title" style="color: var(--accent-red);">🔥 Aktive Kriege & Fluchtherde</div>${buildCards(aktiveList, true)}</div>
+          <div><div class="hotspot-group-title" style="color: var(--accent-purple);">⚠️ Potenzielle Konfliktfelder</div>${buildCards(potenzielleList, false)}</div>
         </div>
       `;
-      
       const container = document.getElementById('hotspots-list-container');
       if (container) container.innerHTML = hsHTML;
     }
