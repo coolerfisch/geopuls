@@ -10,9 +10,25 @@
 Das System kombiniert ein ausbalanciertes Netzwerk aus über 140 weltweiten Primärquellen mit Live-Finanzdaten, OpenSky ADS-B Flugtracking und einem orchestrierten **Multi-LLM-Komitee** (DeepSeek V4 Pro, Claude Sonnet 5, Gemini 3.6 Flash, Llama 3.3 70B via Groq).
 
 
-## 📡 Abgedecktes Quellenspektrum & Data Ingestion
+📡 Abgedecktes Quellenspektrum & Data Ingestion
+ARGUS GRID aggregiert über 140 weltweite Primärquellen inklusive Live-𝕏/Twitter-Gegenprüfungen. Um eine lückenlose und unvoreingenommene Lagebeurteilung (No-Bias Policy) zu gewährleisten, ist der Quellenpool ausgewogen über Geografien, politische Ausrichtungen (Dem/GOP/Left/Right/BRICS) und Fachthemen verteilt.
 
-ARGUS GRID aggregiert über 140 weltweite RSS-Feeds in Echtzeit. Um eine unvoreingenommene Lagebeurteilung (No-Bias Policy) zu gewährleisten, ist der Quellenpool ausgewogen über Geografien, politische Ausrichtungen und Fachthemen verteilt:
+📋 Hier geht es zur vollständigen Liste aller 140+ Feeds und Endpunkte (SOURCES.md)
+
+♟️ Spieltheoretisches Gutachten (DeepSeek Engine)
+Das Dashboard beinhaltet eine wissenschaftlich fundierte, spieltheoretische Deep-Dive-Analyse akuter Krisenherde über 6 methodische Säulen:
+
+Akteur-Granularität: Zerlegung von Nationalstaaten in interne Fraktionen (Exekutive, Militärführung, Parteiflügel, Lobbies).
+
+Zeithorizont-Konflikt: Getrennte Evaluierung von Kurzfrist-Anreizen (4–8 Wochen) vs. Langfrist-Anreizen (Schatten der Zukunft).
+
+Quantifizierte Payoff-Matrix: Bipolare Nutzenbewertung auf einer Skala von -3 bis +3 mit visueller Balkendiagramm-Darstellung.
+
+Signaltheorie & Information: Trennung von Cheap Talk (Rhetorik, Bluffs) und Costly Signals (reale Kosten-Handlungen).
+
+Gleichgewicht & Bindung: Identifikation von Nash-Gleichgewichten und Offenlegung des Commitment-Problems.
+
+Falsifikations-Gegenmodell: Konstruktion einer alternativen Lesart zur aktiven Vermeidung von Confirmation Bias.
 
 | Kategorie | Enthaltene Akteure / Portale | Fokus & Nutzen |
 | :--- | :--- | :--- |
